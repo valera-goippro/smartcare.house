@@ -2,7 +2,12 @@
 body {font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0a1628 0%,#1a2942 100%);color:#e0e6ed;line-height:1.6}
 .container {max-width:1200px;margin:0 auto;padding:0 20px}
 .header {position:fixed;top:0;width:100%;background:rgba(10,22,40,0.95);backdrop-filter:blur(10px);z-index:1000;padding:20px 0;border-bottom:1px solid rgba(74,222,128,0.2)}
+.header-top {display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo {font-size:24px;font-weight:700;color:#4ade80}
+.lang-switcher {display:flex;align-items:center;gap:10px;font-size:14px;color:#94a3b8}
+.lang-label {text-transform:uppercase;letter-spacing:0.8px}
+.lang-btn {background:rgba(74,222,128,0.15);border:1px solid transparent;color:#cbd5e1;border-radius:16px;padding:6px 12px;font-weight:600;cursor:pointer;transition:all 0.3s}
+.lang-btn:hover,.lang-btn.active {border-color:#4ade80;color:#4ade80;box-shadow:0 6px 20px rgba(74,222,128,0.2)}
 .nav {display:flex;gap:30px;margin-top:10px}
 .nav a {color:#94a3b8;text-decoration:none;transition:color 0.3s}
 .nav a:hover {color:#4ade80}
@@ -61,6 +66,8 @@ body {font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 @media (max-width:768px) {
 .hero-title {font-size:36px}
 .section-title {font-size:32px}
+.header-top {flex-direction:column;align-items:flex-start}
+.lang-switcher {flex-wrap:wrap}
 .nav {flex-direction:column;gap:15px}
 .hero-buttons {flex-direction:column}
 .footer-content {flex-direction:column;gap:30px}
