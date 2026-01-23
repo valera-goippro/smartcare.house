@@ -10,3 +10,4 @@ Website files are in `public_html/` directory for Hostinger deployment.
 
 ## Deployment
 Files are automatically deployed via GitHub webhook to Hostinger.
+# Hostinger deployment
