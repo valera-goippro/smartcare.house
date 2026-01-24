@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="description" content="Заботливый дом - умное пространство для заботы о близких. Система Aqara, NFC замки, локальный ИИ, реабилитационный спортзал." data-i18n="meta.description" data-i18n-attr="content">
+    <meta property="og:title" content="Заботливый дом - smartcare.house" data-i18n="meta.ogTitle" data-i18n-attr="content">
+    <meta property="og:description" content="Умное пространство для тех, кто заботится о своих близких" data-i18n="meta.ogDescription" data-i18n-attr="content">
+    <meta property="og:image" content="https://smartcare.house/og-image.jpg">
+    <title data-i18n="meta.title">Заботливый дом | smartcare.house</title>
+    <script>
+        (function () {
+            const cacheBust = Date.now();
+            const style = document.getElementById('site-style');
+            if (style) style.href = `style.css?v=${cacheBust}`;
+            const script = document.createElement('script');
+            script.src = `main.js?v=${cacheBust}`;
+            script.defer = true;
+            document.head.appendChild(script);
+        })();
+    </script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DgUGFtgy.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo" data-i18n="header.logo">🏠 Заботливый дом</div>
+                <div class="lang-switcher" aria-label="Выбор языка" data-i18n="header.langAria" data-i18n-attr="aria-label">
+                    <button class="lang-btn active" type="button" data-lang="ru">RU</button>
+                    <button class="lang-btn" type="button" data-lang="en">EN</button>
+                    <button class="lang-btn" type="button" data-lang="pt">PT</button>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="#about" data-i18n="nav.about">О проекте</a>
+                <a href="#features" data-i18n="nav.features">Возможности</a>
+                <a href="#gym" data-i18n="nav.gym">Спортзал</a>
+                <a href="#chronicle" data-i18n="nav.chronicle">Хроника</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <span class="label" data-i18n="hero.label">🌟 Живой DIY проект</span>
+            <h1 class="hero-title" data-i18n="hero.title">Заботливый дом</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
+                Умное пространство для тех, кто переживает за своих близких: детей и себя
+            </p>
+            <p class="hero-description" data-i18n="hero.description">
+                Дом, который помогает заботиться. Цель не в том, чтобы "набить квартиру гаджетами", 
+                а честно отвечать на вопрос: всё ли сейчас в порядке?
+            </p>
+            <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary" data-i18n="hero.primaryCta">Начать путешествие</a>
+                <a href="https://www.instagram.com/konvalery/" target="_blank" class="btn btn-secondary" data-i18n="hero.secondaryCta">Instagram →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <span class="section-label" data-i18n="about.label">О ПРОЕКТЕ</span>
+            <h2 class="section-title" data-i18n="about.title">Дом, который помогает заботиться</h2>
+            <p class="section-text" data-i18n="about.p1">
+                Заботливый дом — это умное пространство для людей, которые беспокоятся о своих близких: 
+                родителях, детях, партнёрах, людях с ограниченными возможностями и о себе самом. 
+                Он особенно полезен многодетным семьям и тем, кому важна удалённая забота.
+            </p>
+            <p class="section-text" data-i18n="about.p2">
+                Цель не в том, чтобы "набить квартиру гаджетами", а в том, чтобы честно отвечать на один вопрос: 
+                всё ли сейчас в порядке? Если ребёнок плачет, что‑то упало или человек с нарушениями равновесия 
+                может нуждаться в помощи — дом должен подать сигнал.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section section-dark">
+        <div class="container">
+            <span class="section-label" data-i18n="features.label">СЕЙЧАС РАБОТАЕТ</span>
+            <h2 class="section-title" data-i18n="features.title">Что уже умеет Заботливый дом</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3 data-i18n="features.nfc.title">Умный замок с NFC</h3>
+                    <p data-i18n="features.nfc.text">Входная дверь оборудована умным замком, который открывается по NFC: телефоном, картой или меткой. 
+                    Это снимает проблему с ключами и упрощает доступ людям с ограниченной моторикой.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3 data-i18n="features.aqara.title">Система Aqara</h3>
+                    <p data-i18n="features.aqara.text">Датчики, замки и устройства объединены в экосистему Aqara. Система реагирует на события — 
+                    движение, открытие дверей — и запускает сцены автоматизации для всего дома.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💪</div>
+                    <h3 data-i18n="features.gym.title">Приватный спортзал</h3>
+                    <p data-i18n="features.gym.text">Внутри дома работает приватный спортзал. Это собственное пространство, где постепенно 
+                    устанавливается реабилитационное и спортивное оборудование для поддержания формы и восстановления.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">♿</div>
+                    <h3 data-i18n="features.accessibility.title">ОВЗ‑доступность</h3>
+                    <p data-i18n="features.accessibility.text">Планировка продумана для людей с нарушениями баланса: маршруты с опорами, поручни, 
+                    безопасное размещение оборудования. Дом помогает передвигаться и тренироваться без страха упасть.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Section -->
+    <section class="section">
+        <div class="container">
+            <span class="section-label" data-i18n="dev.label">РАЗВИТИЕ</span>
+            <h2 class="section-title" data-i18n="dev.title">Планы: локальный ИИ и голосовое управление</h2>
+            
+            <div class="dev-grid">
+                <div class="dev-card">
+                    <h3 data-i18n="dev.faces.title">🎥 Локальное распознавание лиц</h3>
+                    <p data-i18n="dev.faces.text">Планируется подключить модуль локального распознавания лиц с ИИ. Камера у входа будет работать прямо в доме, 
+                    без отправки видео в облако. Система различит "своих" и посторонних, по‑разному реагируя на их появление.</p>
+                </div>
+
+                <div class="dev-card">
+                    <h3 data-i18n="dev.sounds.title">🔊 Распознавание голосов и звуков</h3>
+                    <p data-i18n="dev.sounds.text">Отдельный модуль будет обучен слышать важные события: плач ребёнка, крик, звуки падения или странную тишину. 
+                    На такие сигналы дом ответит сценарием: подсветка, уведомление, вызов помощи.</p>
+                </div>
+
+                <div class="dev-card">
+                    <h3 data-i18n="dev.speaker.title">🎤 Самодельная умная колонка</h3>
+                    <p data-i18n="dev.speaker.text">Вместо промышленной колонки — собственная станция с локальным распознаванием речи на базе моделей уровня Whisper. 
+                    Она будет слушать голосовые команды и запускать сцены Aqara: включить свет, открыть дверь, вызвать помощь.</p>
+                </div>
+            </div>
+
+            <p class="principle" data-i18n-html="dev.principle">
+                <strong>Принцип важен:</strong> максимум логики и данных остаётся у хозяина, а не у внешних сервисов. 
+                Дом должен быть умным, личным и безопасным.
+            </p>
+        </div>
+    </section>
+
+    <!-- Gym Section -->
+    <section id="gym" class="section section-dark">
+        <div class="container">
+            <span class="section-label" data-i18n="gym.label">ПРИВАТНЫЙ СПОРТЗАЛ</span>
+            <h2 class="section-title" data-i18n="gym.title">Дом как место для здоровья и реабилитации</h2>
+            <p class="section-text" data-i18n="gym.p1">
+                Приватный спортзал в Заботливом доме — это пространство, где человеку не приходится выбирать между 
+                безопасностью и возможностью тренироваться. Оборудование подбирается так, чтобы заниматься с опорой, 
+                постепенно увеличивать нагрузку и быстро перейти в безопасное положение при необходимости.
+            </p>
+            <p class="section-text" data-i18n="gym.p2">
+                Часть реабилитационного и спортивного оборудования уже установлена и работает. 
+                В ближайшее время добавятся ещё два новых аппарата.
+            </p>
+        </div>
+    </section>
+
+    <!-- Chronicle Section -->
+    <section id="chronicle" class="section">
+        <div class="container">
+            <span class="section-label" data-i18n="chronicle.label">📱 ХРОНИКА</span>
+            <h2 class="section-title" data-i18n="chronicle.title">От идеи до реализации</h2>
+            <p class="section-text" data-i18n="chronicle.subtitle">
+                Следите за развитием Заботливого дома в реальном времени. 
+                Все посты, видео и истории создания умного пространства для заботы о близких.
+            </p>
+
+            <!-- Info Banner -->
+            <div class="info-banner">
+                <div class="info-icon">✨</div>
+                <div class="info-text" data-i18n-html="chronicle.banner">
+                    <strong>Автоматическое обновление:</strong> Эта лента загружает последние публикации 
+                    с Facebook страницы "Реабилитация здоровья и жизни" и Instagram @konvalery. 
+                    Все новые посты появляются автоматически!
+                </div>
+            </div>
+
+            <!-- Platform Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="all" data-i18n="chronicle.tabs.all">🌐 Все посты</button>
+                <button class="tab-btn" data-tab="facebook" data-i18n="chronicle.tabs.facebook">📘 Facebook</button>
+                <button class="tab-btn" data-tab="instagram" data-i18n="chronicle.tabs.instagram">📸 Instagram</button>
+            </div>
+
+            <!-- All Posts Feed -->
+            <div id="all-feed" class="feed-container active">
+                <div class="posts-grid">
+                    <!-- Facebook Page Embed -->
+                    <div class="post-card large">
+                        <iframe
+                            title="Facebook Timeline"
+                            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F61582836781257&tabs=timeline&width=500&height=800&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                            width="500"
+                            height="800"
+                            style="border:none;overflow:hidden;width:100%;height:800px;min-height:800px;"
+                            scrolling="no"
+                            frameborder="0"
+                            allowfullscreen="true"
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                        </iframe>
+                    </div>
+
+                    <!-- Known Facebook Reel -->
+                    <div class="post-card">
+                        <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1348545846955296&show_text=false&width=267" 
+                                width="267" 
+                                height="476" 
+                                style="border:none;overflow:hidden;width:100%;min-height:500px;" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true" 
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                        </iframe>
+                    </div>
+
+                    <!-- Instagram Card -->
+                    <div class="post-card">
+                        <div class="instagram-placeholder">
+                            <div class="insta-icon">📸</div>
+                            <h4 data-i18n="chronicle.instaCard.title">Instagram @konvalery</h4>
+                            <p data-i18n="chronicle.instaCard.text">Посты из Instagram. Подписывайтесь, чтобы не пропустить обновления!</p>
+                            <a href="https://www.instagram.com/konvalery/" target="_blank" class="btn btn-primary" data-i18n="chronicle.instaCard.cta">Открыть Instagram →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facebook Only Feed -->
+            <div id="facebook-feed" class="feed-container">
+                <div class="fb-page-wrapper">
+                    <iframe
+                        title="Facebook Timeline"
+                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F61582836781257&tabs=timeline&width=500&height=800&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                        width="500"
+                        height="800"
+                        style="border:none;overflow:hidden;width:100%;height:800px;min-height:800px;"
+                        scrolling="no"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Instagram Only Feed -->
+            <div id="instagram-feed" class="feed-container">
+                <div class="instagram-full">
+                    <div class="insta-icon large">📸</div>
+                    <h3 data-i18n="chronicle.instaFull.title">Instagram @konvalery</h3>
+                    <p data-i18n-html="chronicle.instaFull.text">Следите за процессом создания Заботливого дома в Instagram!<br>
+                    Здесь публикуются видео установки оборудования, тесты системы Aqara, прогресс работ и многое другое.</p>
+                    <a href="https://www.instagram.com/konvalery/" target="_blank" class="btn btn-primary" data-i18n="chronicle.instaFull.cta">Подписаться на Instagram →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4 data-i18n="footer.title">🏠 Заботливый дом</h4>
+                    <p data-i18n="footer.subtitle">Умное пространство для заботы о близких</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.instagram.com/konvalery/" target="_blank" data-i18n="footer.instagram">📸 Instagram</a>
+                    <a href="https://www.facebook.com/61582836781257" target="_blank" data-i18n="footer.facebook">📘 Facebook</a>
+                    <a href="https://smartcare.house/" target="_blank" data-i18n="footer.site">🌐 smartcare.house</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.rights">&copy; 2026 smartcare.house - Все права защищены</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Instagram Embed SDK -->
+    <script async src="//www.instagram.com/embed.js"></script>
+
+</body>
+</html>
