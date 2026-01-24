@@ -1,0 +1,14 @@
+{
+  "name": "smartcare-house",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Заботливый дом - умное пространство для заботы о близких",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
