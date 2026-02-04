@@ -22,7 +22,7 @@
             document.head.appendChild(script);
         })();
     </script>
-  <link rel="stylesheet" crossorigin href="/assets/index-C1ztsYP1.css">
+  <link rel="stylesheet" crossorigin href="/assets/main-DOSLa9oZ.css">
 </head>
 <body>
     <!-- Header -->
@@ -93,9 +93,9 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🔐</div>
-                    <h3 data-i18n="features.nfc.title">Умный замок с NFC</h3>
-                    <p data-i18n="features.nfc.text">Входная дверь оборудована умным замком, который открывается по NFC: телефоном, картой или меткой. 
-                    Это снимает проблему с ключами и упрощает доступ людям с ограниченной моторикой.</p>
+                    <h3 data-i18n="features.nfc.title">Биометрические замки</h3>
+                    <p data-i18n="features.nfc.text">Две входные двери оборудованы замками, которые открываются телефоном, отпечатком пальца, набором пин-кода или по лицу.
+                    Распознавание лица включает видеоверификацию для защиты от фотографий и повышенной безопасности.</p>
                 </div>
 
                 <div class="feature-card">
@@ -264,29 +264,19 @@
             <div id="all-feed" class="feed-container active">
                 <div class="posts-grid">
                     <!-- Facebook Page Embed -->
-                    <div class="post-card large">
-                        <iframe
-                            title="Facebook Timeline"
-                            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F61582836781257&tabs=timeline&width=500&height=800&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                            width="500"
-                            height="800"
-                            style="border:none;overflow:hidden;width:100%;height:800px;min-height:800px;"
-                            scrolling="no"
-                            frameborder="0"
-                            allowfullscreen="true"
-                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                        </iframe>
+                    <div class="post-card facebook-timeline">
+                        <div class="embedsocial-hashtag" data-ref="80cf1c5e35d1a8a42ae1eb70b6c9a9632607c097"></div>
                     </div>
 
-                    <!-- Known Facebook Reel -->
-                    <div class="post-card">
-                        <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1348545846955296&show_text=false&width=267" 
-                                width="267" 
-                                height="476" 
-                                style="border:none;overflow:hidden;width:100%;min-height:500px;" 
-                                scrolling="no" 
-                                frameborder="0" 
-                                allowfullscreen="true" 
+                    <!-- Facebook Reels Section -->
+                    <div class="post-card reel-card">
+                        <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1348545846955296&show_text=false&width=267"
+                                width="267"
+                                height="476"
+                                style="border:none;overflow:hidden;width:100%;min-height:500px;"
+                                scrolling="no"
+                                frameborder="0"
+                                allowfullscreen="true"
                                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
                         </iframe>
                     </div>
@@ -306,17 +296,7 @@
             <!-- Facebook Only Feed -->
             <div id="facebook-feed" class="feed-container">
                 <div class="fb-page-wrapper">
-                    <iframe
-                        title="Facebook Timeline"
-                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F61582836781257&tabs=timeline&width=500&height=800&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                        width="500"
-                        height="800"
-                        style="border:none;overflow:hidden;width:100%;height:800px;min-height:800px;"
-                        scrolling="no"
-                        frameborder="0"
-                        allowfullscreen="true"
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                    </iframe>
+                    <div class="embedsocial-hashtag" data-ref="80cf1c5e35d1a8a42ae1eb70b6c9a9632607c097"></div>
                 </div>
             </div>
 
@@ -355,6 +335,18 @@
 
     <!-- Instagram Embed SDK -->
     <script async src="//www.instagram.com/embed.js"></script>
+
+    <!-- EmbedSocial Script -->
+    <script>
+        (function(d, s, id) {
+            var js;
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://embedsocial.com/cdn/ht.js";
+            d.getElementsByTagName("head")[0].appendChild(js);
+        }(document, "script", "EmbedSocialHashtagScript"));
+    </script>
 
 </body>
 </html>
