@@ -406,6 +406,28 @@ const setupLanguageSwitcher = () => {
 
 setupLanguageSwitcher();
 
+// Mobile menu toggle
+const setupMobileMenu = () => {
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const nav = document.querySelector('.nav');
+
+    if (!toggle || !nav) return;
+
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        nav.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            nav.classList.remove('active');
+        });
+    });
+};
+
+setupMobileMenu();
+
 // Tab switching
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
