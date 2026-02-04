@@ -265,17 +265,7 @@
                 <div class="posts-grid">
                     <!-- Facebook Page Embed -->
                     <div class="post-card facebook-timeline">
-                        <iframe
-                            title="Facebook Timeline"
-                            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F61582836781257&tabs=timeline&width=500&height=800&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                            width="500"
-                            height="800"
-                            style="border:none;overflow:hidden;width:100%;height:800px;min-height:800px;"
-                            scrolling="no"
-                            frameborder="0"
-                            allowfullscreen="true"
-                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                        </iframe>
+                        <div class="embedsocial-hashtag" data-ref="80cf1c5e35d1a8a42ae1eb70b6c9a9632607c097"></div>
                     </div>
 
                     <!-- Facebook Reels Section -->
@@ -306,17 +296,7 @@
             <!-- Facebook Only Feed -->
             <div id="facebook-feed" class="feed-container">
                 <div class="fb-page-wrapper">
-                    <iframe
-                        title="Facebook Timeline"
-                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F61582836781257&tabs=timeline&width=500&height=800&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                        width="500"
-                        height="800"
-                        style="border:none;overflow:hidden;width:100%;height:800px;min-height:800px;"
-                        scrolling="no"
-                        frameborder="0"
-                        allowfullscreen="true"
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                    </iframe>
+                    <div class="embedsocial-hashtag" data-ref="80cf1c5e35d1a8a42ae1eb70b6c9a9632607c097"></div>
                 </div>
             </div>
 
@@ -355,6 +335,18 @@
 
     <!-- Instagram Embed SDK -->
     <script async src="//www.instagram.com/embed.js"></script>
+
+    <!-- EmbedSocial Script -->
+    <script>
+        (function(d, s, id) {
+            var js;
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://embedsocial.com/cdn/ht.js";
+            d.getElementsByTagName("head")[0].appendChild(js);
+        }(document, "script", "EmbedSocialHashtagScript"));
+    </script>
 
 </body>
 </html>
