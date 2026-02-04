@@ -428,6 +428,35 @@ const setupMobileMenu = () => {
 
 setupMobileMenu();
 
+// Header hide on scroll down, show on scroll up
+const setupHeaderScroll = () => {
+    const header = document.querySelector('.header');
+    if (!header) return;
+
+    let lastScroll = 0;
+    const scrollThreshold = 100;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll <= scrollThreshold) {
+            header.classList.remove('hidden');
+            lastScroll = currentScroll;
+            return;
+        }
+
+        if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+            header.classList.add('hidden');
+        } else if (currentScroll < lastScroll) {
+            header.classList.remove('hidden');
+        }
+
+        lastScroll = currentScroll;
+    });
+};
+
+setupHeaderScroll();
+
 // Tab switching
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
