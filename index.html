@@ -261,9 +261,9 @@
             <!-- Section Title -->
             <h2 style="text-align: center; margin: 1rem 0; font-size: 2rem; color: #1a5490;">Мои reels</h2>
 
-            <!-- Videos Grid -->
-            <div id="reels-grid" class="reels-grid">
-                <div class="loading-message">Загрузка видео...</div>
+            <!-- Feed Container -->
+            <div class="feed-container active">
+                <div class="embedsocial-hashtag" data-ref="80cf1c5e35d1a8a42ae1eb70b6c9a9632607c097"></div>
             </div>
         </div>
     </section>
@@ -288,6 +288,20 @@
         </div>
     </footer>
 
+    <!-- Instagram Embed SDK -->
+    <script async src="//www.instagram.com/embed.js"></script>
+
+    <!-- EmbedSocial Script -->
+    <script>
+        (function(d, s, id) {
+            var js;
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://embedsocial.com/cdn/ht.js";
+            d.getElementsByTagName("head")[0].appendChild(js);
+        }(document, "script", "EmbedSocialHashtagScript"));
+    </script>
 
 </body>
 </html>
