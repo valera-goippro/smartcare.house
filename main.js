@@ -484,3 +484,69 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('load', () => {
     if (typeof FB !== 'undefined') FB.XFBML.parse();
 });
+
+// Load reels from Supabase
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+const loadReels = async () => {
+    const grid = document.getElementById('reels-grid');
+    if (!grid) return;
+
+    try {
+        const { data: reels, error } = await supabase
+            .from('reels')
+            .select('*')
+            .eq('is_published', true)
+            .order('sort_order', { ascending: false })
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (!reels || reels.length === 0) {
+            grid.innerHTML = `
+                <div class="no-reels-message">
+                    <h3>🎬 Видео скоро появятся</h3>
+                    <p>Следите за обновлениями в нашем Instagram!</p>
+                </div>
+            `;
+            return;
+        }
+
+        grid.innerHTML = reels.map(reel => `
+            <div class="reel-item">
+                <video
+                    controls
+                    playsinline
+                    preload="metadata"
+                    ${reel.thumbnail_url ? `poster="${reel.thumbnail_url}"` : ''}
+                >
+                    <source src="${reel.video_url}" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+                ${reel.title || reel.description ? `
+                    <div class="reel-info">
+                        ${reel.title ? `<div class="reel-title">${reel.title}</div>` : ''}
+                        ${reel.description ? `<div class="reel-description">${reel.description}</div>` : ''}
+                    </div>
+                ` : ''}
+            </div>
+        `).join('');
+
+    } catch (error) {
+        console.error('Error loading reels:', error);
+        grid.innerHTML = `
+            <div class="no-reels-message">
+                <h3>😔 Ошибка загрузки</h3>
+                <p>Не удалось загрузить видео. Попробуйте обновить страницу.</p>
+            </div>
+        `;
+    }
+};
+
+if (document.getElementById('reels-grid')) {
+    loadReels();
+}
