@@ -1,0 +1,21 @@
+{
+  "name": "smartcare-house",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Заботливый дом - умное пространство для заботы о близких",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "import": "node simple-import.js",
+    "import:auto": "node auto-import.js"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.91.1",
+    "dotenv": "^17.2.3",
+    "puppeteer": "^24.36.0"
+  }
+}

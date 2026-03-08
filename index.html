@@ -1,296 +1,309 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Заботливый дом - умное пространство для заботы о близких. Система Aqara, NFC замки, локальный ИИ, реабилитационный спортзал.">
-    <meta property="og:title" content="Заботливый дом - smartcare.house">
-    <meta property="og:description" content="Умное пространство для тех, кто заботится о своих близких">
-    <meta property="og:image" content="https://smartcare.house/og-image.jpg">
-    <title>Заботливый дом | smartcare.house</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ДОМОВОЙ — Цифровой дух вашего дома</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Raleway:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fire1: #ff6b00;
+    --fire2: #ff9a00;
+    --fire3: #ffcc00;
+    --dark: #060810;
+    --deep: #0c1020;
+    --panel: #0f1628;
+    --gold: #c9a84c;
+    --silver: #a0aec0;
+    --white: #f0ece4;
+    --accent: #e8c56a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--dark); color: var(--white); font-family: 'Raleway', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+  .cursor { width: 12px; height: 12px; background: var(--fire2); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.08s, background 0.2s; box-shadow: 0 0 20px var(--fire2); }
+  .cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(255,154,0,0.4); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.25s ease, opacity 0.2s; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(6,8,16,0.9) 0%, transparent 100%); backdrop-filter: blur(2px); }
+  .nav-logo { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 900; letter-spacing: 4px; color: var(--accent); text-decoration: none; text-shadow: 0 0 30px rgba(232,197,106,0.5); }
+  .nav-logo span { color: var(--fire1); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(240,236,228,0.6); text-decoration: none; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-lang { display: flex; gap: 8px; }
+  .nav-lang button { background: none; border: 1px solid rgba(201,168,76,0.3); color: rgba(240,236,228,0.5); padding: 4px 10px; font-size: 11px; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; font-family: 'Raleway', sans-serif; }
+  .nav-lang button.active, .nav-lang button:hover { border-color: var(--accent); color: var(--accent); background: rgba(201,168,76,0.1); }
+  #hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  canvas#fire-canvas { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; height: 70%; opacity: 0.6; pointer-events: none; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(255,107,0,0.15) 0%, transparent 70%), radial-gradient(ellipse 40% 50% at 50% 90%, rgba(255,154,0,0.1) 0%, transparent 60%), radial-gradient(ellipse 100% 60% at 50% 0%, rgba(12,16,32,0.9) 0%, transparent 100%); }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%); }
+  .hero-particles { position: absolute; inset: 0; pointer-events: none; }
+  .particle { position: absolute; width: 2px; height: 2px; background: var(--fire2); border-radius: 50%; animation: float-up linear infinite; opacity: 0; }
+  @keyframes float-up { 0% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 0.5; } 100% { transform: translateY(-400px) translateX(var(--drift)); opacity: 0; } }
+  .hero-content { position: relative; z-index: 10; text-align: center; max-width: 900px; padding: 0 40px; animation: fade-in-up 1.2s ease both; }
+  @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-eyebrow { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 8px; color: var(--fire2); text-transform: uppercase; margin-bottom: 28px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+  .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; height: 1px; width: 60px; background: linear-gradient(to right, transparent, var(--fire2)); }
+  .hero-eyebrow::after { background: linear-gradient(to left, transparent, var(--fire2)); }
+  .hero-title { font-family: 'Cinzel', serif; font-size: clamp(52px, 8vw, 110px); font-weight: 900; line-height: 0.95; letter-spacing: -2px; color: var(--white); text-shadow: 0 0 80px rgba(255,154,0,0.3), 0 0 160px rgba(255,107,0,0.15); margin-bottom: 8px; }
+  .hero-title .fire-word { background: linear-gradient(135deg, var(--fire1) 0%, var(--fire2) 40%, var(--fire3) 80%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: flicker 3s ease-in-out infinite; }
+  @keyframes flicker { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.2); } 75% { filter: brightness(0.9); } }
+  .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2.5vw, 26px); font-style: italic; color: rgba(240,236,228,0.6); line-height: 1.6; margin: 32px auto 52px; max-width: 620px; }
+  .hero-cta { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+  .btn-fire { padding: 16px 44px; background: linear-gradient(135deg, var(--fire1), var(--fire2)); color: #000; font-family: 'Raleway', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 0 40px rgba(255,107,0,0.4); }
+  .btn-fire:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(255,154,0,0.6); }
+  .btn-ghost { padding: 15px 44px; background: transparent; color: var(--accent); font-family: 'Raleway', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(201,168,76,0.4); cursor: pointer; transition: all 0.3s; display: inline-block; }
+  .btn-ghost:hover { border-color: var(--accent); background: rgba(201,168,76,0.08); box-shadow: 0 0 30px rgba(201,168,76,0.2); }
+  .hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; animation: pulse 2s ease infinite; z-index: 10; }
+  .hero-scroll span { font-size: 10px; letter-spacing: 4px; color: rgba(240,236,228,0.3); text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--fire2), transparent); }
+  @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+  section { position: relative; padding: 120px 60px; }
+  .section-label { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 6px; color: var(--fire2); text-transform: uppercase; margin-bottom: 20px; }
+  .section-title { font-family: 'Cinzel', serif; font-size: clamp(32px, 5vw, 60px); font-weight: 600; line-height: 1.1; color: var(--white); margin-bottom: 24px; }
+  .section-body { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.8; color: rgba(240,236,228,0.7); max-width: 680px; }
+  #what-is { background: var(--deep); overflow: hidden; }
+  .what-is-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; align-items: center; }
+  .what-is-visual { position: relative; display: flex; align-items: center; justify-content: center; height: 500px; }
+  .domovoi-sigil { position: relative; width: 280px; height: 280px; }
+  .sigil-ring { position: absolute; inset: 0; border-radius: 50%; animation: spin linear infinite; }
+  .sigil-ring-1 { border: 1px solid rgba(201,168,76,0.3); animation-duration: 20s; }
+  .sigil-ring-2 { inset: 20px; border: 1px solid rgba(255,107,0,0.2); animation-duration: 15s; animation-direction: reverse; }
+  .sigil-ring-3 { inset: 40px; border: 1px solid rgba(201,168,76,0.15); animation-duration: 10s; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .sigil-center { position: absolute; inset: 60px; background: radial-gradient(circle, rgba(255,107,0,0.2) 0%, rgba(12,16,32,0.8) 70%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,107,0,0.3); box-shadow: 0 0 60px rgba(255,107,0,0.2), inset 0 0 60px rgba(255,107,0,0.1); }
+  .sigil-glyph { font-size: 72px; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(255,154,0,0.8)); }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .what-is-text { padding-left: 20px; }
+  .what-is-quote { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; line-height: 1.5; color: var(--accent); border-left: 2px solid var(--fire2); padding-left: 24px; margin-bottom: 36px; }
+  #powers { background: var(--dark); overflow: hidden; }
+  .powers-header { text-align: center; max-width: 700px; margin: 0 auto 80px; }
+  .powers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 1200px; margin: 0 auto; }
+  .power-card { background: var(--panel); padding: 52px 40px; position: relative; overflow: hidden; transition: all 0.4s; border: 1px solid transparent; }
+  .power-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--fire2), transparent); opacity: 0; transition: opacity 0.4s; }
+  .power-card:hover { background: rgba(15,22,40,0.9); border-color: rgba(255,107,0,0.15); transform: translateY(-4px); }
+  .power-card:hover::before { opacity: 1; }
+  .power-num { font-family: 'Cinzel', serif; font-size: 48px; font-weight: 900; color: rgba(255,107,0,0.12); line-height: 1; margin-bottom: 16px; transition: color 0.4s; }
+  .power-card:hover .power-num { color: rgba(255,107,0,0.25); }
+  .power-icon { font-size: 36px; margin-bottom: 20px; display: block; }
+  .power-title { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 600; color: var(--white); margin-bottom: 16px; letter-spacing: 1px; }
+  .power-desc { font-size: 14px; line-height: 1.8; color: rgba(240,236,228,0.5); }
+  #story { background: var(--deep); position: relative; overflow: hidden; }
+  .story-bg-text { position: absolute; font-family: 'Cinzel', serif; font-size: 300px; font-weight: 900; color: rgba(255,107,0,0.02); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; user-select: none; }
+  .story-container { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
+  .story-portrait { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--fire1), var(--fire2)); display: flex; align-items: center; justify-content: center; font-size: 40px; margin-bottom: 40px; box-shadow: 0 0 40px rgba(255,107,0,0.3); }
+  .story-name { font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 5px; color: var(--fire2); text-transform: uppercase; margin-bottom: 8px; }
+  .story-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.5vw, 28px); line-height: 1.8; color: rgba(240,236,228,0.85); margin-bottom: 32px; }
+  .story-text em { color: var(--accent); font-style: normal; }
+  .story-divider { width: 80px; height: 1px; background: linear-gradient(to right, var(--fire2), transparent); margin: 40px 0; }
+  #principles { background: var(--dark); }
+  .principles-list { max-width: 1100px; margin: 60px auto 0; }
+  .principle-row { display: grid; grid-template-columns: 80px 1fr; gap: 40px; padding: 40px 0; border-bottom: 1px solid rgba(201,168,76,0.1); align-items: start; transition: all 0.3s; }
+  .principle-row:hover { border-bottom-color: rgba(255,107,0,0.3); }
+  .principle-num { font-family: 'Cinzel', serif; font-size: 42px; font-weight: 900; background: linear-gradient(to bottom, var(--fire2), transparent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-top: 4px; }
+  .principle-title { font-family: 'Cinzel', serif; font-size: 22px; color: var(--white); margin-bottom: 12px; }
+  .principle-text { font-size: 15px; line-height: 1.8; color: rgba(240,236,228,0.5); max-width: 600px; }
+  #chronicle { background: var(--deep); }
+  .chronicle-header { display: flex; justify-content: space-between; align-items: flex-end; max-width: 1200px; margin: 0 auto 60px; flex-wrap: wrap; gap: 30px; }
+  .chronicle-posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .chronicle-card { background: var(--panel); border: 1px solid rgba(201,168,76,0.08); overflow: hidden; transition: all 0.3s; cursor: pointer; }
+  .chronicle-card:hover { border-color: rgba(255,107,0,0.2); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .chronicle-img { height: 200px; background: linear-gradient(135deg, rgba(255,107,0,0.15), rgba(12,16,32,0.9)); display: flex; align-items: center; justify-content: center; font-size: 64px; position: relative; overflow: hidden; }
+  .chronicle-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, var(--panel) 100%); }
+  .chronicle-body { padding: 28px; }
+  .chronicle-date { font-size: 11px; letter-spacing: 3px; color: var(--fire2); margin-bottom: 12px; }
+  .chronicle-title { font-family: 'Cinzel', serif; font-size: 16px; color: var(--white); margin-bottom: 12px; line-height: 1.4; }
+  .chronicle-text { font-size: 13px; line-height: 1.7; color: rgba(240,236,228,0.5); }
+  #waitlist { background: var(--dark); text-align: center; position: relative; overflow: hidden; }
+  .waitlist-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(255,107,0,0.08), transparent); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  .waitlist-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+  .waitlist-form { display: flex; gap: 0; margin-top: 48px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .waitlist-input { flex: 1; background: rgba(15,22,40,0.8); border: 1px solid rgba(201,168,76,0.2); border-right: none; padding: 16px 24px; color: var(--white); font-family: 'Raleway', sans-serif; font-size: 14px; outline: none; transition: border-color 0.3s; }
+  .waitlist-input:focus { border-color: var(--fire2); }
+  .waitlist-input::placeholder { color: rgba(240,236,228,0.3); }
+  .waitlist-btn { padding: 16px 32px; background: linear-gradient(135deg, var(--fire1), var(--fire2)); color: #000; font-family: 'Raleway', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; border: none; cursor: pointer; white-space: nowrap; transition: all 0.3s; }
+  .waitlist-btn:hover { box-shadow: 0 0 40px rgba(255,107,0,0.5); }
+  .waitlist-note { font-size: 12px; color: rgba(240,236,228,0.3); margin-top: 16px; letter-spacing: 1px; }
+  footer { background: #040609; padding: 60px; border-top: 1px solid rgba(201,168,76,0.08); }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+  .footer-logo { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 900; color: var(--accent); letter-spacing: 3px; margin-bottom: 16px; }
+  .footer-logo span { color: var(--fire1); }
+  .footer-tagline { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: rgba(240,236,228,0.4); line-height: 1.6; }
+  .footer-col-title { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 4px; color: var(--fire2); text-transform: uppercase; margin-bottom: 24px; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 12px; }
+  .footer-links a { color: rgba(240,236,228,0.4); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-social { display: flex; gap: 16px; margin-top: 8px; }
+  .social-btn { width: 44px; height: 44px; border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(240,236,228,0.5); font-size: 18px; transition: all 0.3s; background: var(--panel); }
+  .social-btn:hover { border-color: var(--fire2); color: var(--fire2); box-shadow: 0 0 20px rgba(255,107,0,0.2); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 40px; border-top: 1px solid rgba(201,168,76,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-copy { font-size: 12px; color: rgba(240,236,228,0.25); letter-spacing: 1px; }
+  .footer-domain { font-family: 'Cinzel', serif; font-size: 12px; color: rgba(201,168,76,0.3); letter-spacing: 2px; }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .loader { position: fixed; inset: 0; background: var(--dark); z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; transition: opacity 0.8s, visibility 0.8s; }
+  .loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-text { font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 8px; color: rgba(255,107,0,0.7); animation: blink 1.5s ease infinite; }
+  .loader-fire { font-size: 48px; animation: float 2s ease-in-out infinite; }
+  @keyframes blink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+  .fire-line { width: 200px; height: 2px; background: linear-gradient(to right, transparent, var(--fire2), transparent); animation: expand 1.5s ease both; }
+  @keyframes expand { from { width: 0; opacity: 0; } to { width: 200px; opacity: 1; } }
+  @media (max-width: 900px) { nav { padding: 20px 30px; } .nav-links { display: none; } section { padding: 80px 30px; } .what-is-grid { grid-template-columns: 1fr; } .powers-grid { grid-template-columns: 1fr; } .chronicle-posts { grid-template-columns: 1fr; } .footer-inner { grid-template-columns: 1fr; gap: 40px; } footer { padding: 40px 30px; } }
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-top">
-                <div class="logo">🏠 Заботливый дом</div>
-                <div class="lang-switcher" aria-label="Выбор языка">
-                    <span class="lang-label">Язык:</span>
-                    <button class="lang-btn active" type="button" data-lang="ru">RU</button>
-                    <button class="lang-btn" type="button" data-lang="en">EN</button>
-                    <button class="lang-btn" type="button" data-lang="pt">PT</button>
-                </div>
-            </div>
-            <nav class="nav">
-                <a href="#about">О проекте</a>
-                <a href="#features">Возможности</a>
-                <a href="#gym">Спортзал</a>
-                <a href="#chronicle">Хроника</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <span class="label">🌟 Живой DIY проект</span>
-            <h1 class="hero-title">Заботливый дом</h1>
-            <p class="hero-subtitle">
-                Умное пространство для тех, кто переживает за своих близких: детей и себя
-            </p>
-            <p class="hero-description">
-                Дом, который помогает заботиться. Цель не в том, чтобы "набить квартиру гаджетами", 
-                а честно отвечать на вопрос: всё ли сейчас в порядке?
-            </p>
-            <div class="hero-buttons">
-                <a href="#about" class="btn btn-primary">Начать путешествие</a>
-                <a href="https://www.instagram.com/konvalery/" target="_blank" class="btn btn-secondary">Instagram →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <span class="section-label">О ПРОЕКТЕ</span>
-            <h2 class="section-title">Дом, который помогает заботиться</h2>
-            <p class="section-text">
-                Заботливый дом — это умное пространство для людей, которые беспокоятся о своих близких: 
-                родителях, детях, партнёрах, людях с ограниченными возможностями и о себе самом. 
-                Он особенно полезен многодетным семьям и тем, кому важна удалённая забота.
-            </p>
-            <p class="section-text">
-                Цель не в том, чтобы "набить квартиру гаджетами", а в том, чтобы честно отвечать на один вопрос: 
-                всё ли сейчас в порядке? Если ребёнок плачет, что‑то упало или человек с нарушениями равновесия 
-                может нуждаться в помощи — дом должен подать сигнал.
-            </p>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="section section-dark">
-        <div class="container">
-            <span class="section-label">СЕЙЧАС РАБОТАЕТ</span>
-            <h2 class="section-title">Что уже умеет Заботливый дом</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔐</div>
-                    <h3>Умный замок с NFC</h3>
-                    <p>Входная дверь оборудована умным замком, который открывается по NFC: телефоном, картой или меткой. 
-                    Это снимает проблему с ключами и упрощает доступ людям с ограниченной моторикой.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🏠</div>
-                    <h3>Система Aqara</h3>
-                    <p>Датчики, замки и устройства объединены в экосистему Aqara. Система реагирует на события — 
-                    движение, открытие дверей — и запускает сцены автоматизации для всего дома.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">💪</div>
-                    <h3>Приватный спортзал</h3>
-                    <p>Внутри дома работает приватный спортзал. Это собственное пространство, где постепенно 
-                    устанавливается реабилитационное и спортивное оборудование для поддержания формы и восстановления.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">♿</div>
-                    <h3>ОВЗ‑доступность</h3>
-                    <p>Планировка продумана для людей с нарушениями баланса: маршруты с опорами, поручни, 
-                    безопасное размещение оборудования. Дом помогает передвигаться и тренироваться без страха упасть.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Development Section -->
-    <section class="section">
-        <div class="container">
-            <span class="section-label">РАЗВИТИЕ</span>
-            <h2 class="section-title">Планы: локальный ИИ и голосовое управление</h2>
-            
-            <div class="dev-grid">
-                <div class="dev-card">
-                    <h3>🎥 Локальное распознавание лиц</h3>
-                    <p>Планируется подключить модуль локального распознавания лиц с ИИ. Камера у входа будет работать прямо в доме, 
-                    без отправки видео в облако. Система различит "своих" и посторонних, по‑разному реагируя на их появление.</p>
-                </div>
-
-                <div class="dev-card">
-                    <h3>🔊 Распознавание голосов и звуков</h3>
-                    <p>Отдельный модуль будет обучен слышать важные события: плач ребёнка, крик, звуки падения или странную тишину. 
-                    На такие сигналы дом ответит сценарием: подсветка, уведомление, вызов помощи.</p>
-                </div>
-
-                <div class="dev-card">
-                    <h3>🎤 Самодельная умная колонка</h3>
-                    <p>Вместо промышленной колонки — собственная станция с локальным распознаванием речи на базе моделей уровня Whisper. 
-                    Она будет слушать голосовые команды и запускать сцены Aqara: включить свет, открыть дверь, вызвать помощь.</p>
-                </div>
-            </div>
-
-            <p class="principle">
-                <strong>Принцип важен:</strong> максимум логики и данных остаётся у хозяина, а не у внешних сервисов. 
-                Дом должен быть умным, личным и безопасным.
-            </p>
-        </div>
-    </section>
-
-    <!-- Gym Section -->
-    <section id="gym" class="section section-dark">
-        <div class="container">
-            <span class="section-label">ПРИВАТНЫЙ СПОРТЗАЛ</span>
-            <h2 class="section-title">Дом как место для здоровья и реабилитации</h2>
-            <p class="section-text">
-                Приватный спортзал в Заботливом доме — это пространство, где человеку не приходится выбирать между 
-                безопасностью и возможностью тренироваться. Оборудование подбирается так, чтобы заниматься с опорой, 
-                постепенно увеличивать нагрузку и быстро перейти в безопасное положение при необходимости.
-            </p>
-            <p class="section-text">
-                Часть реабилитационного и спортивного оборудования уже установлена и работает. 
-                В ближайшее время добавятся ещё два новых аппарата.
-            </p>
-        </div>
-    </section>
-
-    <!-- Chronicle Section -->
-    <section id="chronicle" class="section">
-        <div class="container">
-            <span class="section-label">📱 ХРОНИКА</span>
-            <h2 class="section-title">От идеи до реализации</h2>
-            <p class="section-text">
-                Следите за развитием Заботливого дома в реальном времени. 
-                Все посты, видео и истории создания умного пространства для заботы о близких.
-            </p>
-
-            <!-- Info Banner -->
-            <div class="info-banner">
-                <div class="info-icon">✨</div>
-                <div class="info-text">
-                    <strong>Автоматическое обновление:</strong> Эта лента загружает последние публикации 
-                    с Facebook страницы "Реабилитация здоровья и жизни" и Instagram @konvalery. 
-                    Все новые посты появляются автоматически!
-                </div>
-            </div>
-
-            <!-- Platform Tabs -->
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="all">🌐 Все посты</button>
-                <button class="tab-btn" data-tab="facebook">📘 Facebook</button>
-                <button class="tab-btn" data-tab="instagram">📸 Instagram</button>
-            </div>
-
-            <!-- All Posts Feed -->
-            <div id="all-feed" class="feed-container active">
-                <div class="posts-grid">
-                    <!-- Facebook Page Embed -->
-                    <div class="post-card large">
-                        <div class="fb-page" 
-                             data-href="https://www.facebook.com/61582836781257" 
-                             data-tabs="timeline" 
-                             data-width="500" 
-                             data-height="800" 
-                             data-small-header="false" 
-                             data-adapt-container-width="true" 
-                             data-hide-cover="false" 
-                             data-show-facepile="true">
-                            <blockquote cite="https://www.facebook.com/61582836781257" class="fb-xfbml-parse-ignore">
-                                <a href="https://www.facebook.com/61582836781257">Реабилитация здоровья и жизни</a>
-                            </blockquote>
-                        </div>
-                    </div>
-
-                    <!-- Known Facebook Reel -->
-                    <div class="post-card">
-                        <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1348545846955296&show_text=false&width=267" 
-                                width="267" 
-                                height="476" 
-                                style="border:none;overflow:hidden;width:100%;min-height:500px;" 
-                                scrolling="no" 
-                                frameborder="0" 
-                                allowfullscreen="true" 
-                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                        </iframe>
-                    </div>
-
-                    <!-- Instagram Card -->
-                    <div class="post-card">
-                        <div class="instagram-placeholder">
-                            <div class="insta-icon">📸</div>
-                            <h4>Instagram @konvalery</h4>
-                            <p>Посты из Instagram. Подписывайтесь, чтобы не пропустить обновления!</p>
-                            <a href="https://www.instagram.com/konvalery/" target="_blank" class="btn btn-primary">Открыть Instagram →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Facebook Only Feed -->
-            <div id="facebook-feed" class="feed-container">
-                <div class="fb-page-wrapper">
-                    <div class="fb-page" 
-                         data-href="https://www.facebook.com/61582836781257" 
-                         data-tabs="timeline" 
-                         data-width="500" 
-                         data-height="800" 
-                         data-small-header="false" 
-                         data-adapt-container-width="true" 
-                         data-hide-cover="false" 
-                         data-show-facepile="true">
-                        <blockquote cite="https://www.facebook.com/61582836781257" class="fb-xfbml-parse-ignore">
-                            <a href="https://www.facebook.com/61582836781257">Реабилитация здоровья и жизни</a>
-                        </blockquote>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Instagram Only Feed -->
-            <div id="instagram-feed" class="feed-container">
-                <div class="instagram-full">
-                    <div class="insta-icon large">📸</div>
-                    <h3>Instagram @konvalery</h3>
-                    <p>Следите за процессом создания Заботливого дома в Instagram!<br>
-                    Здесь публикуются видео установки оборудования, тесты системы Aqara, прогресс работ и многое другое.</p>
-                    <a href="https://www.instagram.com/konvalery/" target="_blank" class="btn btn-primary">Подписаться на Instagram →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <h4>🏠 Заботливый дом</h4>
-                    <p>Умное пространство для заботы о близких</p>
-                </div>
-                <div class="footer-links">
-                    <a href="https://www.instagram.com/konvalery/" target="_blank">📸 Instagram</a>
-                    <a href="https://www.facebook.com/61582836781257" target="_blank">📘 Facebook</a>
-                    <a href="https://smartcare.house/" target="_blank">🌐 smartcare.house</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 smartcare.house - Все права защищены</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Facebook SDK -->
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" 
-            src="https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v18.0">
-    </script>
-
-    <!-- Instagram Embed SDK -->
-    <script async src="//www.instagram.com/embed.js"></script>
-
-    <!-- Main Script -->
-    <script src="main.js"></script>
+<div class="loader" id="loader"><div class="loader-fire">🔥</div><div class="fire-line"></div><div class="loader-text">ДОМОВОЙ ПРОСЫПАЕТСЯ</div></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="#" class="nav-logo">ДОМ<span>О</span>ВОЙ</a>
+  <ul class="nav-links">
+    <li><a href="#what-is">Что это</a></li>
+    <li><a href="#powers">Способности</a></li>
+    <li><a href="#story">История</a></li>
+    <li><a href="#chronicle">Хроника</a></li>
+    <li><a href="#waitlist">Войти</a></li>
+  </ul>
+  <div class="nav-lang">
+    <button class="active" onclick="setLang('ru')">RU</button>
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="setLang('pt')">PT</button>
+  </div>
+</nav>
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <canvas id="fire-canvas"></canvas>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">цифровой дух вашего дома</div>
+    <h1 class="hero-title">В каждом доме<br><span class="fire-word">должен жить</span><br>Домовой</h1>
+    <p class="hero-subtitle">Он не следит за вами. Он заботится о вас —<br>тихо, умно, преданно.</p>
+    <div class="hero-cta">
+      <a href="#what-is" class="btn-fire">Познакомиться</a>
+      <a href="#story" class="btn-ghost">История проекта</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Листай</span><div class="scroll-line"></div></div>
+</section>
+<section id="what-is">
+  <div class="what-is-grid">
+    <div class="what-is-visual reveal">
+      <div class="domovoi-sigil">
+        <div class="sigil-ring sigil-ring-1"></div>
+        <div class="sigil-ring sigil-ring-2"></div>
+        <div class="sigil-ring sigil-ring-3"></div>
+        <div class="sigil-center"><div class="sigil-glyph">🏡</div></div>
+      </div>
+    </div>
+    <div class="what-is-text reveal">
+      <div class="section-label">Кто такой Домовой</div>
+      <h2 class="section-title">Древний дух.<br>Цифровое воплощение.</h2>
+      <div class="what-is-quote">«Домовой — не гаджет и не приложение.<br>Это живая забота внутри вашего дома.»</div>
+      <p class="section-body">В старину верили: в каждом доме живёт Домовой. Невидимый, но преданный хранитель — он следил за огнём, оберегал семью и предупреждал об опасности.<br><br>Сегодня такой дух существует. Он сделан из искусственного интеллекта, датчиков, голоса и заботы. Он знает когда ты устал, замечает когда ребёнку нужна помощь, и молчит — когда всё хорошо.</p>
+    </div>
+  </div>
+</section>
+<section id="powers">
+  <div class="powers-header reveal">
+    <div class="section-label">Что умеет Домовой</div>
+    <h2 class="section-title">Шесть граней заботы</h2>
+    <p class="section-body" style="margin: 0 auto; text-align: center;">Каждая способность — не функция системы, а проявление настоящей заботы.</p>
+  </div>
+  <div class="powers-grid">
+    <div class="power-card reveal"><div class="power-num">01</div><span class="power-icon">❤️</span><div class="power-title">Здоровье семьи</div><p class="power-desc">Напоминает о лекарствах, замечает тревожные паттерны, предлагает помощь прежде чем ты успеешь попросить.</p></div>
+    <div class="power-card reveal"><div class="power-num">02</div><span class="power-icon">🛡️</span><div class="power-title">Безопасность дома</div><p class="power-desc">Слышит падение, замечает непрошеного гостя, знает когда все дома и когда нет.</p></div>
+    <div class="power-card reveal"><div class="power-num">03</div><span class="power-icon">🤝</span><div class="power-title">Отношения в семье</div><p class="power-desc">Видит напряжение в доме и умеет его рассеять. Создаёт атмосферу тепла, помогает не терять связь.</p></div>
+    <div class="power-card reveal"><div class="power-num">04</div><span class="power-icon">🎙️</span><div class="power-title">Голосовое общение</div><p class="power-desc">Просто скажи — он услышит. Без кнопок, без экранов. Живой разговор с умом вашего дома.</p></div>
+    <div class="power-card reveal"><div class="power-num">05</div><span class="power-icon">🔒</span><div class="power-title">Приватность прежде всего</div><p class="power-desc">Все данные остаются дома. Никакого облака с вашими разговорами. Домовой живёт в вашем пространстве.</p></div>
+    <div class="power-card reveal"><div class="power-num">06</div><span class="power-icon">🌱</span><div class="power-title">Живёт и растёт</div><p class="power-desc">Чем дольше он живёт в вашем доме — тем лучше вас знает. Учится на ваших привычках, адаптируется.</p></div>
+  </div>
+</section>
+<section id="story">
+  <div class="story-bg-text">ДОМОВОЙ</div>
+  <div class="story-container reveal">
+    <div class="section-label">История создания</div>
+    <h2 class="section-title" style="margin-bottom: 52px;">Один человек.<br>Одна идея.</h2>
+    <div class="story-portrait">👨</div>
+    <div class="story-name">Валерий — основатель</div>
+    <p class="story-text">Я живу в Португалии. У меня есть ограничения по здоровью — <em>я наполовину инвалид, наполовину здоровый человек.</em> И я не собираюсь сдаваться.</p>
+    <div class="story-divider"></div>
+    <p class="story-text">Я начал превращать свой дом в умное пространство — не потому что так модно, а потому что мне это <em>по-настоящему нужно.</em></p>
+    <div class="story-divider"></div>
+    <p class="story-text">Потом пришла другая мысль: <em>а что если дом мог бы по-настоящему думать?</em> Не просто реагировать на команды, а заботиться. Как раньше заботился Домовой.</p>
+    <div class="story-divider"></div>
+    <p class="story-text" style="color: var(--accent);">Я изучал всё что существует в мире на эту тему. Нашёл очень мало. Подумал — кто как не я?</p>
+    <div style="margin-top: 48px;"><a href="https://www.instagram.com/konvalery/" target="_blank" class="btn-ghost">Следить за проектом →</a></div>
+  </div>
+</section>
+<section id="principles">
+  <div style="max-width:1100px; margin: 0 auto;">
+    <div class="reveal"><div class="section-label">Принципы</div><h2 class="section-title">Чем Домовой<br>не является</h2></div>
+    <div class="principles-list">
+      <div class="principle-row reveal"><div class="principle-num">I</div><div class="principle-content"><div class="principle-title">Не слежка</div><p class="principle-text">Домовой заботится — не контролирует. Всё что он замечает — остаётся между вами.</p></div></div>
+      <div class="principle-row reveal"><div class="principle-num">II</div><div class="principle-content"><div class="principle-title">Не навязчивость</div><p class="principle-text">Хороший помощник молчит — до момента когда вам действительно нужна помощь.</p></div></div>
+      <div class="principle-row reveal"><div class="principle-num">III</div><div class="principle-content"><div class="principle-title">Не облако чужих данных</div><p class="principle-text">Ваша жизнь — ваша. Максимум логики и данных остаётся в вашем доме.</p></div></div>
+      <div class="principle-row reveal"><div class="principle-num">IV</div><div class="principle-content"><div class="principle-title">Не дорогая игрушка</div><p class="principle-text">Домовой должен жить в каждом доме — а не только у богатых. Это наша главная задача.</p></div></div>
+    </div>
+  </div>
+</section>
+<section id="chronicle">
+  <div class="chronicle-header reveal">
+    <div><div class="section-label">Хроника проекта</div><h2 class="section-title" style="margin-bottom: 0;">Живой дневник</h2></div>
+    <a href="https://www.facebook.com/61582836781257" target="_blank" class="btn-ghost">Facebook →</a>
+  </div>
+  <div class="chronicle-posts">
+    <div class="chronicle-card reveal"><div class="chronicle-img">🏠</div><div class="chronicle-body"><div class="chronicle-date">Март 2026</div><div class="chronicle-title">Переосмысление концепции. Домовой рождается заново.</div><p class="chronicle-text">После паузы — возвращение. С новым пониманием того что такое цифровая забота о доме.</p></div></div>
+    <div class="chronicle-card reveal"><div class="chronicle-img">🎙️</div><div class="chronicle-body"><div class="chronicle-date">Февраль 2026</div><div class="chronicle-title">Голосовой AI появляется в доме.</div><p class="chronicle-text">Первые эксперименты с локальным распознаванием речи. Дом начинает слышать и отвечать.</p></div></div>
+    <div class="chronicle-card reveal"><div class="chronicle-img">🔐</div><div class="chronicle-body"><div class="chronicle-date">Январь 2026</div><div class="chronicle-title">Биометрия — дом узнаёт своих.</div><p class="chronicle-text">Установлены замки с распознаванием лица. Дом теперь знает кто приходит.</p></div></div>
+  </div>
+</section>
+<section id="waitlist">
+  <div class="waitlist-glow"></div>
+  <div class="waitlist-inner reveal">
+    <div class="section-label">Быть первым</div>
+    <h2 class="section-title">Ваш Домовой<br>уже ждёт</h2>
+    <p class="section-body" style="margin: 24px auto; text-align: center;">Оставьте email — и мы напишем когда Домовой будет готов поселиться в вашем доме.</p>
+    <div class="waitlist-form">
+      <input type="email" class="waitlist-input" placeholder="ваш@email.com">
+      <button class="waitlist-btn" onclick="handleWaitlist()">Войти</button>
+    </div>
+    <div class="waitlist-note">Никакого спама. Только важное. Когда будет готово.</div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="footer-logo">ДОМ<span>О</span>ВОЙ</div><p class="footer-tagline">В каждом доме должен<br>жить свой дух заботы.</p></div>
+    <div><div class="footer-col-title">Навигация</div><ul class="footer-links"><li><a href="#what-is">Что такое Домовой</a></li><li><a href="#powers">Способности</a></li><li><a href="#story">История проекта</a></li><li><a href="#chronicle">Хроника</a></li><li><a href="#principles">Принципы</a></li></ul></div>
+    <div><div class="footer-col-title">Сообщество</div><div class="footer-social"><a href="https://www.instagram.com/konvalery/" target="_blank" class="social-btn">📸</a><a href="https://www.facebook.com/61582836781257" target="_blank" class="social-btn">📘</a><a href="https://smartcare.house" target="_blank" class="social-btn">🌐</a></div><p class="footer-tagline" style="margin-top: 24px; font-size: 14px;">Живой проект. Обновляется каждую неделю.</p></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2026 Домовой — Цифровой дух вашего дома. Порту, Португалия.</div><div class="footer-domain">smartcare.house</div></div>
+</footer>
+<script>
+window.addEventListener('load', () => { setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 1800); });
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+(function animateRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(animateRing); })();
+document.querySelectorAll('a, button').forEach(el => { el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%, -50%) scale(2.5)'; cursor.style.background = 'var(--fire3)'; }); el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%, -50%) scale(1)'; cursor.style.background = 'var(--fire2)'; }); });
+const container = document.getElementById('particles');
+for (let i = 0; i < 40; i++) { const p = document.createElement('div'); p.className = 'particle'; const x = 20 + Math.random() * 60; const size = 1 + Math.random() * 3; const duration = 4 + Math.random() * 8; const delay = Math.random() * 8; const drift = (Math.random() - 0.5) * 100 + 'px'; p.style.cssText = `left:${x}%;bottom:0;width:${size}px;height:${size}px;animation-duration:${duration}s;animation-delay:${delay}s;--drift:${drift};background:${Math.random()>0.5?'var(--fire2)':'var(--fire3)'};`; container.appendChild(p); }
+const canvas = document.getElementById('fire-canvas');
+const ctx = canvas.getContext('2d');
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight * 0.7; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+class FireParticle { constructor() { this.reset(); } reset() { this.x = canvas.width/2+(Math.random()-0.5)*canvas.width*0.8; this.y = canvas.height+10; this.vx = (Math.random()-0.5)*1.5; this.vy = -(1.5+Math.random()*3); this.life = 0; this.maxLife = 80+Math.random()*120; this.size = 3+Math.random()*20; } update() { this.x+=this.vx; this.y+=this.vy; this.vx+=(Math.random()-0.5)*0.3; this.vy+=0.02; this.life++; if(this.life>=this.maxLife)this.reset(); } draw() { const t=this.life/this.maxLife; const alpha=t<0.3?t/0.3:1-(t-0.3)/0.7; const g=Math.round(t<0.5?t*2*154:154-(t-0.5)*2*154); ctx.globalAlpha=alpha*0.15; ctx.fillStyle=`rgb(255,${g},0)`; ctx.beginPath(); ctx.arc(this.x,this.y,this.size*(1-t*0.5),0,Math.PI*2); ctx.fill(); } }
+const fireParticles = Array.from({length:200},()=>new FireParticle());
+function animateFire() { ctx.clearRect(0,0,canvas.width,canvas.height); fireParticles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animateFire); }
+animateFire();
+const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if(entry.isIntersecting) setTimeout(()=>entry.target.classList.add('visible'),100); }); }, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+function setLang(lang) { document.querySelectorAll('.nav-lang button').forEach(b=>b.classList.remove('active')); event.target.classList.add('active'); }
+function handleWaitlist() { const input=document.querySelector('.waitlist-input'); const val=input.value.trim(); if(!val||!val.includes('@')){input.style.borderColor='var(--fire1)';setTimeout(()=>input.style.borderColor='rgba(201,168,76,0.2)',1500);return;} const btn=document.querySelector('.waitlist-btn'); btn.textContent='✓ Записан'; btn.style.background='linear-gradient(135deg,#22c55e,#16a34a)'; input.value=''; input.placeholder='Мы напишем вам!'; }
+window.addEventListener('scroll',()=>{ const nav=document.querySelector('nav'); if(window.scrollY>80){nav.style.background='rgba(6,8,16,0.95)';nav.style.backdropFilter='blur(20px)';nav.style.borderBottom='1px solid rgba(201,168,76,0.08)';}else{nav.style.background='linear-gradient(to bottom,rgba(6,8,16,0.9) 0%,transparent 100%)';nav.style.backdropFilter='blur(2px)';nav.style.borderBottom='none';} });
+</script>
 </body>
 </html>

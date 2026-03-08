@@ -1,12 +1,44 @@
-# SmartCare.House
+# Заботливый дом - Умное пространство для заботы о близких
 
-Website files are in `public_html/` directory for Hostinger deployment.
+## 🎯 Добавление видео с Facebook
 
-## Structure
-- `public_html/index.html` - Main page
-- `public_html/style.css` - Styles
-- `public_html/main.js` - JavaScript
-- `public_html/.htaccess` - Apache configuration
+### Способ 1: Простой (рекомендуется)
 
-## Deployment
-Files are automatically deployed via GitHub webhook to Hostinger.
+1. **Создайте файл со ссылками:**
+   ```bash
+   npm run import
+   ```
+   Команда создаст файл `reels.txt`
+
+2. **Скопируйте ссылки:**
+   - Откройте вашу страницу: https://www.facebook.com/61582836781257
+   - Откройте каждое видео Reel
+   - Скопируйте ссылку из адресной строки
+   - Вставьте все ссылки в файл `reels.txt` (каждую на новой строке)
+
+3. **Запустите импорт:**
+   ```bash
+   npm run import
+   ```
+   Все видео автоматически загрузятся на сайт
+
+### Способ 2: Автоматический
+
+```bash
+npm run import:auto
+```
+
+Скрипт попытается автоматически собрать все ссылки с Facebook.
+Откроется окно браузера на 30 секунд для парсинга страницы.
+
+**Примечание:** Может не работать, если Facebook требует авторизацию.
+
+---
+
+## 🚀 Деплой
+
+```bash
+bash deploy.sh
+```
+
+Файлы автоматически развернутся на Hostinger через GitHub webhook.

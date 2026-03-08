@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добавить видео - Заботливый дом</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .instruction {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border-left: 4px solid #667eea;
+    }
+
+    .instruction h2 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .instruction ol {
+      margin-left: 20px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .instruction code {
+      background: #e9ecef;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: monospace;
+      resize: vertical;
+      transition: border-color 0.3s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .hint {
+      color: #666;
+      font-size: 14px;
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block;
+    }
+
+    .status.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+      display: block;
+    }
+
+    .progress {
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    .video-list {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 2px solid #e0e0e0;
+    }
+
+    .video-list h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .video-item {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .video-info {
+      flex: 1;
+    }
+
+    .video-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .video-url {
+      font-size: 12px;
+      color: #666;
+      word-break: break-all;
+    }
+
+    .delete-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      width: auto;
+    }
+
+    .delete-btn:hover {
+      background: #c82333;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #999;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📹 Управление видео</h1>
+    <p class="subtitle">Заботливый дом - Добавление и редактирование видео</p>
+
+    <div class="instruction">
+      <h2>📝 Как добавить видео:</h2>
+      <ol>
+        <li>Загрузите ваше видео в облачное хранилище (например, Google Drive, Dropbox)</li>
+        <li>Получите прямую ссылку на видеофайл (.mp4)</li>
+        <li>Заполните форму ниже: название, ссылку на видео, описание (опционально)</li>
+        <li>Нажмите "Добавить видео"</li>
+      </ol>
+    </div>
+
+    <form id="importForm">
+      <label for="title">Название видео*:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        placeholder="Например: Установка замка Aqara"
+        required
+        style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; margin-bottom: 20px;"
+      >
+
+      <label for="videoUrl">Прямая ссылка на видео (.mp4)*:</label>
+      <input
+        type="url"
+        id="videoUrl"
+        name="videoUrl"
+        placeholder="https://example.com/video.mp4"
+        required
+        style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; margin-bottom: 20px;"
+      >
+
+      <label for="description">Описание (опционально):</label>
+      <textarea
+        id="description"
+        name="description"
+        placeholder="Краткое описание видео..."
+        style="min-height: 100px;"
+      ></textarea>
+
+      <label for="thumbnailUrl">Ссылка на превью (опционально):</label>
+      <input
+        type="url"
+        id="thumbnailUrl"
+        name="thumbnailUrl"
+        placeholder="https://example.com/thumbnail.jpg"
+        style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; margin-bottom: 20px;"
+      >
+
+      <button type="submit" id="submitBtn">Добавить видео</button>
+    </form>
+
+    <div id="status" class="status"></div>
+
+    <div class="video-list">
+      <h2>Текущие видео на сайте:</h2>
+      <div id="videosList"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    const supabaseUrl = 'https://dbhjxlepxehsfdsbvbul.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRiaGp4bGVweGVoc2Zkc2J2YnVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkzMDM0MTcsImV4cCI6MjA4NDg3OTQxN30.JN5dL_mzP4NQTSvj-A2C-ZhP8hT1iZcwhgRPqcZw46Y';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const form = document.getElementById('importForm');
+    const statusDiv = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+    const videosListDiv = document.getElementById('videosList');
+
+    async function loadVideos() {
+      try {
+        const { data, error } = await supabase
+          .from('reels')
+          .select('*')
+          .order('sort_order', { ascending: false })
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          videosListDiv.innerHTML = '<div class="empty-state">Пока нет видео. Добавьте первое!</div>';
+          return;
+        }
+
+        videosListDiv.innerHTML = data.map((video, index) => `
+          <div class="video-item">
+            <div class="video-info">
+              <div class="video-title">${video.title}</div>
+              <div class="video-url">${video.video_url}</div>
+              ${video.description ? `<div style="font-size: 12px; color: #999; margin-top: 5px;">${video.description}</div>` : ''}
+            </div>
+            <button class="delete-btn" onclick="deleteVideo('${video.id}')">Удалить</button>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        console.error('Ошибка загрузки видео:', error);
+        videosListDiv.innerHTML = '<div class="empty-state">Ошибка загрузки видео</div>';
+      }
+    }
+
+    window.deleteVideo = async function(id) {
+      if (!confirm('Удалить это видео?')) return;
+
+      try {
+        const { error } = await supabase
+          .from('reels')
+          .delete()
+          .eq('id', id);
+
+        if (error) throw error;
+
+        showStatus('Видео удалено', 'success');
+        await loadVideos();
+      } catch (error) {
+        showStatus('Ошибка удаления: ' + error.message, 'error');
+      }
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const title = document.getElementById('title').value.trim();
+      const videoUrl = document.getElementById('videoUrl').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const thumbnailUrl = document.getElementById('thumbnailUrl').value.trim();
+
+      if (!title || !videoUrl) {
+        showStatus('Заполните обязательные поля', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Добавляю...';
+
+      try {
+        const { data: existingVideos } = await supabase
+          .from('reels')
+          .select('sort_order')
+          .order('sort_order', { ascending: false })
+          .limit(1);
+
+        const nextSortOrder = existingVideos && existingVideos.length > 0
+          ? existingVideos[0].sort_order + 1
+          : 1;
+
+        const { error } = await supabase
+          .from('reels')
+          .insert({
+            title: title,
+            video_url: videoUrl,
+            description: description || '',
+            thumbnail_url: thumbnailUrl || '',
+            sort_order: nextSortOrder,
+            is_published: true
+          });
+
+        if (error) throw error;
+
+        showStatus('✅ Видео успешно добавлено!', 'success');
+        document.getElementById('title').value = '';
+        document.getElementById('videoUrl').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('thumbnailUrl').value = '';
+
+        await loadVideos();
+
+      } catch (error) {
+        showStatus('Ошибка: ' + error.message, 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Добавить видео';
+      }
+    });
+
+    function showStatus(message, type) {
+      statusDiv.textContent = message;
+      statusDiv.className = 'status ' + type;
+    }
+
+    loadVideos();
+  </script>
+</body>
+</html>
