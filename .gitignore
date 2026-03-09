@@ -1,2 +1,4 @@
 node_modules/
 .env
+api/config.php
+api/reels_cache.json
