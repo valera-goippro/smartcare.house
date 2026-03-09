@@ -149,7 +149,20 @@
   @keyframes blink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
   .fire-line { width: 200px; height: 2px; background: linear-gradient(to right, transparent, var(--fire2), transparent); animation: expand 1.5s ease both; }
   @keyframes expand { from { width: 0; opacity: 0; } to { width: 200px; opacity: 1; } }
-  @media (max-width: 900px) { nav { padding: 20px 30px; } .nav-links { display: none; } section { padding: 80px 30px; } .what-is-grid { grid-template-columns: 1fr; } .powers-grid { grid-template-columns: 1fr; } .chronicle-posts { grid-template-columns: 1fr; } .footer-inner { grid-template-columns: 1fr; gap: 40px; } footer { padding: 40px 30px; } }
+  .reels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .reel-card { background: var(--panel); border: 1px solid rgba(201,168,76,0.08); overflow: hidden; transition: all 0.3s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+  .reel-card:hover { border-color: rgba(255,107,0,0.2); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .reel-thumb { position: relative; width: 100%; aspect-ratio: 9/16; max-height: 360px; overflow: hidden; background: linear-gradient(135deg, rgba(255,107,0,0.15), rgba(12,16,32,0.9)); display: flex; align-items: center; justify-content: center; }
+  .reel-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .reel-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.3s; }
+  .reel-card:hover .reel-play { opacity: 1; }
+  .reel-play-btn { width: 60px; height: 60px; background: rgba(255,107,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 0 30px rgba(255,107,0,0.5); }
+  .reel-info { padding: 20px; }
+  .reel-date { font-size: 11px; letter-spacing: 3px; color: var(--fire2); margin-bottom: 8px; }
+  .reel-desc { font-size: 13px; line-height: 1.6; color: rgba(240,236,228,0.6); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .reels-loading { text-align: center; padding: 60px; color: rgba(240,236,228,0.4); font-size: 14px; letter-spacing: 2px; }
+  .reels-error { text-align: center; padding: 40px; color: rgba(255,107,0,0.6); font-size: 14px; }
+  @media (max-width: 900px) { nav { padding: 20px 30px; } .nav-links { display: none; } section { padding: 80px 30px; } .what-is-grid { grid-template-columns: 1fr; } .powers-grid { grid-template-columns: 1fr; } .chronicle-posts { grid-template-columns: 1fr; } .reels-grid { grid-template-columns: 1fr; } .footer-inner { grid-template-columns: 1fr; gap: 40px; } footer { padding: 40px 30px; } }
 </style>
 </head>
 <body>
@@ -234,7 +247,7 @@
     <p class="story-text">Потом пришла другая мысль: <em>а что если дом мог бы по-настоящему думать?</em> Не просто реагировать на команды, а заботиться. Как раньше заботился Домовой.</p>
     <div class="story-divider"></div>
     <p class="story-text" style="color: var(--accent);">Я изучал всё что существует в мире на эту тему. Нашёл очень мало. Подумал — кто как не я?</p>
-    <div style="margin-top: 48px;"><a href="https://www.instagram.com/konvalery/" target="_blank" class="btn-ghost">Следить за проектом →</a></div>
+    <div style="margin-top: 48px;"><a href="https://www.facebook.com/61582836781257" target="_blank" class="btn-ghost">Следить за проектом →</a></div>
   </div>
 </section>
 <section id="principles">
@@ -250,10 +263,16 @@
 </section>
 <section id="chronicle">
   <div class="chronicle-header reveal">
-    <div><div class="section-label">Хроника проекта</div><h2 class="section-title" style="margin-bottom: 0;">Живой дневник</h2></div>
+    <div><div class="section-label">Следи за процессом</div><h2 class="section-title" style="margin-bottom: 0;">Reels из жизни проекта</h2></div>
     <a href="https://www.facebook.com/61582836781257" target="_blank" class="btn-ghost">Facebook →</a>
   </div>
-  <div class="chronicle-posts">
+  <div id="reels-container">
+    <div class="reels-loading" id="reels-loading">🔥 Загружаем Reels...</div>
+    <div class="reels-grid" id="reels-grid" style="display:none;"></div>
+    <div class="reels-error" id="reels-error" style="display:none;"></div>
+  </div>
+  <!-- Фолбэк: статичные карточки пока API не подключён -->
+  <div class="chronicle-posts" id="reels-fallback">
     <div class="chronicle-card reveal"><div class="chronicle-img">🏠</div><div class="chronicle-body"><div class="chronicle-date">Март 2026</div><div class="chronicle-title">Переосмысление концепции. Домовой рождается заново.</div><p class="chronicle-text">После паузы — возвращение. С новым пониманием того что такое цифровая забота о доме.</p></div></div>
     <div class="chronicle-card reveal"><div class="chronicle-img">🎙️</div><div class="chronicle-body"><div class="chronicle-date">Февраль 2026</div><div class="chronicle-title">Голосовой AI появляется в доме.</div><p class="chronicle-text">Первые эксперименты с локальным распознаванием речи. Дом начинает слышать и отвечать.</p></div></div>
     <div class="chronicle-card reveal"><div class="chronicle-img">🔐</div><div class="chronicle-body"><div class="chronicle-date">Январь 2026</div><div class="chronicle-title">Биометрия — дом узнаёт своих.</div><p class="chronicle-text">Установлены замки с распознаванием лица. Дом теперь знает кто приходит.</p></div></div>
@@ -276,7 +295,7 @@
   <div class="footer-inner">
     <div class="footer-brand"><div class="footer-logo">ДОМ<span>О</span>ВОЙ</div><p class="footer-tagline">В каждом доме должен<br>жить свой дух заботы.</p></div>
     <div><div class="footer-col-title">Навигация</div><ul class="footer-links"><li><a href="#what-is">Что такое Домовой</a></li><li><a href="#powers">Способности</a></li><li><a href="#story">История проекта</a></li><li><a href="#chronicle">Хроника</a></li><li><a href="#principles">Принципы</a></li></ul></div>
-    <div><div class="footer-col-title">Сообщество</div><div class="footer-social"><a href="https://www.instagram.com/konvalery/" target="_blank" class="social-btn">📸</a><a href="https://www.facebook.com/61582836781257" target="_blank" class="social-btn">📘</a><a href="https://smartcare.house" target="_blank" class="social-btn">🌐</a></div><p class="footer-tagline" style="margin-top: 24px; font-size: 14px;">Живой проект. Обновляется каждую неделю.</p></div>
+    <div><div class="footer-col-title">Сообщество</div><div class="footer-social"><a href="https://www.facebook.com/61582836781257" target="_blank" class="social-btn">📘</a><a href="https://smartcare.house" target="_blank" class="social-btn">🌐</a></div><p class="footer-tagline" style="margin-top: 24px; font-size: 14px;">Живой проект. Обновляется каждую неделю.</p></div>
   </div>
   <div class="footer-bottom"><div class="footer-copy">© 2026 Домовой — Цифровой дух вашего дома. Порту, Португалия.</div><div class="footer-domain">smartcare.house</div></div>
 </footer>
@@ -304,6 +323,52 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 function setLang(lang) { document.querySelectorAll('.nav-lang button').forEach(b=>b.classList.remove('active')); event.target.classList.add('active'); }
 function handleWaitlist() { const input=document.querySelector('.waitlist-input'); const val=input.value.trim(); if(!val||!val.includes('@')){input.style.borderColor='var(--fire1)';setTimeout(()=>input.style.borderColor='rgba(201,168,76,0.2)',1500);return;} const btn=document.querySelector('.waitlist-btn'); btn.textContent='✓ Записан'; btn.style.background='linear-gradient(135deg,#22c55e,#16a34a)'; input.value=''; input.placeholder='Мы напишем вам!'; }
 window.addEventListener('scroll',()=>{ const nav=document.querySelector('nav'); if(window.scrollY>80){nav.style.background='rgba(6,8,16,0.95)';nav.style.backdropFilter='blur(20px)';nav.style.borderBottom='1px solid rgba(201,168,76,0.08)';}else{nav.style.background='linear-gradient(to bottom,rgba(6,8,16,0.9) 0%,transparent 100%)';nav.style.backdropFilter='blur(2px)';nav.style.borderBottom='none';} });
+
+// ===== REELS ИЗ FACEBOOK =====
+(function loadReels() {
+  const grid = document.getElementById('reels-grid');
+  const loading = document.getElementById('reels-loading');
+  const errorEl = document.getElementById('reels-error');
+  const fallback = document.getElementById('reels-fallback');
+
+  fetch('/api/reels.php')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data => {
+      if (!data.reels || data.reels.length === 0) throw new Error('empty');
+      loading.style.display = 'none';
+      fallback.style.display = 'none';
+      grid.style.display = 'grid';
+
+      data.reels.forEach(reel => {
+        const date = new Date(reel.created);
+        const months = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+        const dateStr = months[date.getMonth()] + ' ' + date.getFullYear();
+        const desc = reel.description || 'Новый Reel из проекта Домовой';
+
+        const card = document.createElement('a');
+        card.className = 'reel-card reveal';
+        card.href = reel.permalink;
+        card.target = '_blank';
+        card.rel = 'noopener';
+        card.innerHTML = `
+          <div class="reel-thumb">
+            ${reel.thumbnail ? `<img src="${reel.thumbnail}" alt="${desc.slice(0,60)}" loading="lazy">` : '<div style="font-size:64px;">🎬</div>'}
+            <div class="reel-play"><div class="reel-play-btn">▶</div></div>
+          </div>
+          <div class="reel-info">
+            <div class="reel-date">${dateStr}</div>
+            <p class="reel-desc">${desc}</p>
+          </div>`;
+        grid.appendChild(card);
+        observer.observe(card);
+      });
+    })
+    .catch(() => {
+      // API не подключён — показываем статичные карточки
+      loading.style.display = 'none';
+      fallback.style.display = 'grid';
+    });
+})();
 </script>
 </body>
 </html>

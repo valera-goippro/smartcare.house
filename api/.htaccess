@@ -1,0 +1,5 @@
+# Запрет доступа к кешу и прямого листинга
+<Files "reels_cache.json">
+    Deny from all
+</Files>
+Options -Indexes
