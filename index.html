@@ -375,7 +375,7 @@ window.addEventListener('scroll',()=>{ const nav=document.querySelector('nav'); 
 <!-- Firebase Auth -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+  import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
   const firebaseConfig = {
@@ -413,15 +413,18 @@ window.addEventListener('scroll',()=>{ const nav=document.querySelector('nav'); 
 
   window.__firebaseSignOut = () => signOut(auth);
 
+  // Handle redirect result after returning from Google/Facebook
+  getRedirectResult(auth).catch(e => console.error('redirect error:', e));
+
   window.signInGoogle = async () => {
     try {
-      await signInWithPopup(auth, new GoogleAuthProvider());
+      await signInWithRedirect(auth, new GoogleAuthProvider());
     } catch(e) { console.error(e); }
   };
 
   window.signInFacebook = async () => {
     try {
-      await signInWithPopup(auth, new FacebookAuthProvider());
+      await signInWithRedirect(auth, new FacebookAuthProvider());
     } catch(e) { console.error(e); }
   };
 </script>
