@@ -7,941 +7,284 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Raleway:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --fire1: #ff6b00;
-    --fire2: #ff9a00;
-    --fire3: #ffcc00;
-    --dark: #060810;
-    --deep: #0c1020;
-    --panel: #0f1628;
-    --gold: #c9a84c;
-    --silver: #a0aec0;
-    --white: #f0ece4;
-    --accent: #e8c56a;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--dark);
-    color: var(--white);
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* ── Custom cursor ── */
-  .cursor {
-    width: 12px; height: 12px;
-    background: var(--fire2);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.08s, background 0.2s;
-    box-shadow: 0 0 20px var(--fire2);
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid rgba(255,154,0,0.4);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: transform 0.25s ease, opacity 0.2s;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
-    padding: 20px 60px;
-    display: flex; justify-content: space-between; align-items: center;
-    background: linear-gradient(to bottom, rgba(6,8,16,0.9) 0%, transparent 100%);
-    backdrop-filter: blur(2px);
-  }
-  .nav-logo {
-    font-family: 'Cinzel', serif;
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: 4px;
-    color: var(--accent);
-    text-decoration: none;
-    text-shadow: 0 0 30px rgba(232,197,106,0.5);
-  }
-  .nav-logo span { color: var(--fire1); }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
-  .nav-links a {
-    color: rgba(240,236,228,0.6);
-    text-decoration: none;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-lang {
-    display: flex; gap: 8px;
-  }
-  .nav-lang button {
-    background: none; border: 1px solid rgba(201,168,76,0.3);
-    color: rgba(240,236,228,0.5);
-    padding: 4px 10px; font-size: 11px;
-    letter-spacing: 2px; cursor: pointer;
-    transition: all 0.3s; font-family: 'Raleway', sans-serif;
-  }
-  .nav-lang button.active,
-  .nav-lang button:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(201,168,76,0.1);
-  }
-
-  /* ── HERO ── */
-  #hero {
-    position: relative;
-    height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-
-  canvas#fire-canvas {
-    position: absolute; bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 100%; height: 70%;
-    opacity: 0.6;
-    pointer-events: none;
-  }
-
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 60% 80% at 50% 100%, rgba(255,107,0,0.15) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 50% at 50% 90%, rgba(255,154,0,0.1) 0%, transparent 60%),
-      radial-gradient(ellipse 100% 60% at 50% 0%, rgba(12,16,32,0.9) 0%, transparent 100%);
-  }
-
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%);
-  }
-
-  .hero-particles {
-    position: absolute; inset: 0;
-    pointer-events: none;
-  }
-
-  .particle {
-    position: absolute;
-    width: 2px; height: 2px;
-    background: var(--fire2);
-    border-radius: 50%;
-    animation: float-up linear infinite;
-    opacity: 0;
-  }
-
-  @keyframes float-up {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 0.5; }
-    100% { transform: translateY(-400px) translateX(var(--drift)); opacity: 0; }
-  }
-
-  .hero-content {
-    position: relative; z-index: 10;
-    text-align: center;
-    max-width: 900px;
-    padding: 0 40px;
-    animation: fade-in-up 1.2s ease both;
-  }
-
-  @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-eyebrow {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 8px;
-    color: var(--fire2);
-    text-transform: uppercase;
-    margin-bottom: 28px;
-    display: flex; align-items: center; justify-content: center; gap: 16px;
-  }
-  .hero-eyebrow::before, .hero-eyebrow::after {
-    content: '';
-    display: block; height: 1px; width: 60px;
-    background: linear-gradient(to right, transparent, var(--fire2));
-  }
-  .hero-eyebrow::after {
-    background: linear-gradient(to left, transparent, var(--fire2));
-  }
-
-  .hero-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(52px, 8vw, 110px);
-    font-weight: 900;
-    line-height: 0.95;
-    letter-spacing: -2px;
-    color: var(--white);
-    text-shadow:
-      0 0 80px rgba(255,154,0,0.3),
-      0 0 160px rgba(255,107,0,0.15);
-    margin-bottom: 8px;
-  }
-
-  .hero-title .fire-word {
-    background: linear-gradient(135deg, var(--fire1) 0%, var(--fire2) 40%, var(--fire3) 80%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: flicker 3s ease-in-out infinite;
-  }
-
-  @keyframes flicker {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.2); }
-    75% { filter: brightness(0.9); }
-  }
-
-  .hero-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(18px, 2.5vw, 26px);
-    font-style: italic;
-    color: rgba(240,236,228,0.6);
-    line-height: 1.6;
-    margin: 32px 0 52px;
-    max-width: 620px;
-    margin-left: auto; margin-right: auto;
-  }
-
-  .hero-cta {
-    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
-  }
-
-  .btn-fire {
-    padding: 16px 44px;
-    background: linear-gradient(135deg, var(--fire1), var(--fire2));
-    color: #000;
-    font-family: 'Raleway', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 0 40px rgba(255,107,0,0.4);
-  }
-  .btn-fire:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 60px rgba(255,154,0,0.6);
-  }
-
-  .btn-ghost {
-    padding: 15px 44px;
-    background: transparent;
-    color: var(--accent);
-    font-family: 'Raleway', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid rgba(201,168,76,0.4);
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .btn-ghost:hover {
-    border-color: var(--accent);
-    background: rgba(201,168,76,0.08);
-    box-shadow: 0 0 30px rgba(201,168,76,0.2);
-  }
-
-  .hero-scroll {
-    position: absolute; bottom: 40px; left: 50%;
-    transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    animation: pulse 2s ease infinite;
-    z-index: 10;
-  }
-  .hero-scroll span {
-    font-size: 10px; letter-spacing: 4px;
-    color: rgba(240,236,228,0.3); text-transform: uppercase;
-  }
-  .scroll-line {
-    width: 1px; height: 60px;
-    background: linear-gradient(to bottom, var(--fire2), transparent);
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-  }
-
-  /* ── SECTIONS ── */
-  section {
-    position: relative;
-    padding: 120px 60px;
-  }
-
-  .section-label {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 6px;
-    color: var(--fire2);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .section-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(32px, 5vw, 60px);
-    font-weight: 600;
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 24px;
-  }
-
-  .section-body {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(17px, 1.8vw, 21px);
-    line-height: 1.8;
-    color: rgba(240,236,228,0.7);
-    max-width: 680px;
-  }
-
-  /* ── WHAT IS ── */
-  #what-is {
-    background: var(--deep);
-    overflow: hidden;
-  }
-
-  .what-is-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-  }
-
-  .what-is-visual {
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    height: 500px;
-  }
-
-  .domovoi-sigil {
-    position: relative;
-    width: 280px; height: 280px;
-  }
-
-  .sigil-ring {
-    position: absolute; inset: 0;
-    border-radius: 50%;
-    animation: spin linear infinite;
-  }
-  .sigil-ring-1 {
-    border: 1px solid rgba(201,168,76,0.3);
-    animation-duration: 20s;
-  }
-  .sigil-ring-2 {
-    inset: 20px;
-    border: 1px solid rgba(255,107,0,0.2);
-    animation-duration: 15s;
-    animation-direction: reverse;
-  }
-  .sigil-ring-3 {
-    inset: 40px;
-    border: 1px solid rgba(201,168,76,0.15);
-    animation-duration: 10s;
-  }
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .sigil-center {
-    position: absolute; inset: 60px;
-    background: radial-gradient(circle, rgba(255,107,0,0.2) 0%, rgba(12,16,32,0.8) 70%);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(255,107,0,0.3);
-    box-shadow:
-      0 0 60px rgba(255,107,0,0.2),
-      inset 0 0 60px rgba(255,107,0,0.1);
-  }
-
-  .sigil-glyph {
-    font-size: 72px;
-    animation: float 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 20px rgba(255,154,0,0.8));
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .sigil-dots {
-    position: absolute; inset: -20px;
-  }
-  .sigil-dots span {
-    position: absolute;
-    width: 4px; height: 4px;
-    background: var(--fire2);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--fire2);
-  }
-
-  .what-is-text { padding-left: 20px; }
-
-  .what-is-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-style: italic;
-    line-height: 1.5;
-    color: var(--accent);
-    border-left: 2px solid var(--fire2);
-    padding-left: 24px;
-    margin-bottom: 36px;
-  }
-
-  /* ── POWERS ── */
-  #powers {
-    background: var(--dark);
-    overflow: hidden;
-  }
-
-  .powers-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 80px;
-  }
-
-  .powers-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .power-card {
-    background: var(--panel);
-    padding: 52px 40px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s;
-    border: 1px solid transparent;
-  }
-
-  .power-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--fire2), transparent);
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-
-  .power-card:hover {
-    background: rgba(15,22,40,0.9);
-    border-color: rgba(255,107,0,0.15);
-    transform: translateY(-4px);
-  }
-
-  .power-card:hover::before { opacity: 1; }
-
-  .power-card::after {
-    content: '';
-    position: absolute; bottom: -60px; right: -60px;
-    width: 160px; height: 160px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,107,0,0.06), transparent);
-    transition: all 0.4s;
-  }
-
-  .power-card:hover::after {
-    bottom: -20px; right: -20px;
-    background: radial-gradient(circle, rgba(255,107,0,0.12), transparent);
-  }
-
-  .power-num {
-    font-family: 'Cinzel', serif;
-    font-size: 48px;
-    font-weight: 900;
-    color: rgba(255,107,0,0.12);
-    line-height: 1;
-    margin-bottom: 16px;
-    transition: color 0.4s;
-  }
-  .power-card:hover .power-num {
-    color: rgba(255,107,0,0.25);
-  }
-
-  .power-icon {
-    font-size: 36px;
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  .power-title {
-    font-family: 'Cinzel', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-  }
-
-  .power-desc {
-    font-size: 14px;
-    line-height: 1.8;
-    color: rgba(240,236,228,0.5);
-  }
-
-  /* ── STORY ── */
-  #story {
-    background: var(--deep);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .story-bg-text {
-    position: absolute;
-    font-family: 'Cinzel', serif;
-    font-size: 300px;
-    font-weight: 900;
-    color: rgba(255,107,0,0.02);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .story-container {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative; z-index: 2;
-  }
-
-  .story-portrait {
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--fire1), var(--fire2));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 40px;
-    margin-bottom: 40px;
-    box-shadow: 0 0 40px rgba(255,107,0,0.3);
-  }
-
-  .story-name {
-    font-family: 'Cinzel', serif;
-    font-size: 14px;
-    letter-spacing: 5px;
-    color: var(--fire2);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .story-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(20px, 2.5vw, 28px);
-    line-height: 1.8;
-    color: rgba(240,236,228,0.85);
-    margin-bottom: 32px;
-  }
-
-  .story-text em {
-    color: var(--accent);
-    font-style: normal;
-  }
-
-  .story-divider {
-    width: 80px; height: 1px;
-    background: linear-gradient(to right, var(--fire2), transparent);
-    margin: 40px 0;
-  }
-
-  /* ── PRINCIPLES ── */
-  #principles {
-    background: var(--dark);
-  }
-
-  .principles-list {
-    max-width: 1100px;
-    margin: 60px auto 0;
-  }
-
-  .principle-row {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 40px;
-    padding: 40px 0;
-    border-bottom: 1px solid rgba(201,168,76,0.1);
-    align-items: start;
-    transition: all 0.3s;
-  }
-
-  .principle-row:hover {
-    border-bottom-color: rgba(255,107,0,0.3);
-  }
-
-  .principle-num {
-    font-family: 'Cinzel', serif;
-    font-size: 42px;
-    font-weight: 900;
-    background: linear-gradient(to bottom, var(--fire2), transparent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    padding-top: 4px;
-  }
-
-  .principle-content {}
-
-  .principle-title {
-    font-family: 'Cinzel', serif;
-    font-size: 22px;
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-
-  .principle-text {
-    font-size: 15px;
-    line-height: 1.8;
-    color: rgba(240,236,228,0.5);
-    max-width: 600px;
-  }
-
-  /* ── CHRONICLE ── */
-  #chronicle {
-    background: var(--deep);
-  }
-
-  .chronicle-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    max-width: 1200px; margin: 0 auto 60px;
-    flex-wrap: wrap; gap: 30px;
-  }
-
-  .chronicle-posts {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .chronicle-card {
-    background: var(--panel);
-    border: 1px solid rgba(201,168,76,0.08);
-    overflow: hidden;
-    transition: all 0.3s;
-    cursor: pointer;
-  }
-
-  .chronicle-card:hover {
-    border-color: rgba(255,107,0,0.2);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  }
-
-  .chronicle-img {
-    height: 200px;
-    background: linear-gradient(135deg, rgba(255,107,0,0.15), rgba(12,16,32,0.9));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 64px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .chronicle-img::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to bottom, transparent 50%, var(--panel) 100%);
-  }
-
-  .chronicle-body { padding: 28px; }
-
-  .chronicle-date {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--fire2);
-    margin-bottom: 12px;
-  }
-
-  .chronicle-title {
-    font-family: 'Cinzel', serif;
-    font-size: 16px;
-    color: var(--white);
-    margin-bottom: 12px;
-    line-height: 1.4;
-  }
-
-  .chronicle-text {
-    font-size: 13px;
-    line-height: 1.7;
-    color: rgba(240,236,228,0.5);
-  }
-
-  /* ── WAITLIST ── */
-  #waitlist {
-    background: var(--dark);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .waitlist-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,107,0,0.08), transparent);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-
-  .waitlist-inner {
-    position: relative; z-index: 2;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .waitlist-form {
-    display: flex; gap: 0;
-    margin-top: 48px;
-    max-width: 480px;
-    margin-left: auto; margin-right: auto;
-  }
-
-  .waitlist-input {
-    flex: 1;
-    background: rgba(15,22,40,0.8);
-    border: 1px solid rgba(201,168,76,0.2);
-    border-right: none;
-    padding: 16px 24px;
-    color: var(--white);
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-
-  .waitlist-input:focus {
-    border-color: var(--fire2);
-  }
-
-  .waitlist-input::placeholder {
-    color: rgba(240,236,228,0.3);
-  }
-
-  .waitlist-btn {
-    padding: 16px 32px;
-    background: linear-gradient(135deg, var(--fire1), var(--fire2));
-    color: #000;
-    font-family: 'Raleway', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.3s;
-  }
-
-  .waitlist-btn:hover {
-    box-shadow: 0 0 40px rgba(255,107,0,0.5);
-  }
-
-  .waitlist-note {
-    font-size: 12px;
-    color: rgba(240,236,228,0.3);
-    margin-top: 16px;
-    letter-spacing: 1px;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: #040609;
-    padding: 60px;
-    border-top: 1px solid rgba(201,168,76,0.08);
-  }
-
-  .footer-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 60px;
-    margin-bottom: 60px;
-  }
-
-  .footer-brand {}
-
-  .footer-logo {
-    font-family: 'Cinzel', serif;
-    font-size: 24px;
-    font-weight: 900;
-    color: var(--accent);
-    letter-spacing: 3px;
-    margin-bottom: 16px;
-  }
-
-  .footer-logo span { color: var(--fire1); }
-
-  .footer-tagline {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
-    font-style: italic;
-    color: rgba(240,236,228,0.4);
-    line-height: 1.6;
-  }
-
-  .footer-col-title {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--fire2);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .footer-links { list-style: none; }
-  .footer-links li { margin-bottom: 12px; }
-  .footer-links a {
-    color: rgba(240,236,228,0.4);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s;
-  }
-  .footer-links a:hover { color: var(--white); }
-
-  .footer-social {
-    display: flex; gap: 16px; margin-top: 8px;
-  }
-
-  .social-btn {
-    width: 44px; height: 44px;
-    border: 1px solid rgba(201,168,76,0.2);
-    display: flex; align-items: center; justify-content: center;
-    text-decoration: none;
-    color: rgba(240,236,228,0.5);
-    font-size: 18px;
-    transition: all 0.3s;
-    background: var(--panel);
-  }
-
-  .social-btn:hover {
-    border-color: var(--fire2);
-    color: var(--fire2);
-    box-shadow: 0 0 20px rgba(255,107,0,0.2);
-  }
-
-  .footer-bottom {
-    max-width: 1200px; margin: 0 auto;
-    padding-top: 40px;
-    border-top: 1px solid rgba(201,168,76,0.06);
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 20px;
-  }
-
-  .footer-copy {
-    font-size: 12px;
-    color: rgba(240,236,228,0.25);
-    letter-spacing: 1px;
-  }
-
-  .footer-domain {
-    font-family: 'Cinzel', serif;
-    font-size: 12px;
-    color: rgba(201,168,76,0.3);
-    letter-spacing: 2px;
-  }
-
-  /* ── SCROLL ANIMATIONS ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 20px 30px; }
-    .nav-links { display: none; }
-    section { padding: 80px 30px; }
-    .what-is-grid { grid-template-columns: 1fr; }
-    .powers-grid { grid-template-columns: 1fr; }
-    .chronicle-posts { grid-template-columns: 1fr; }
-    .footer-inner { grid-template-columns: 1fr; gap: 40px; }
-    .footer { padding: 40px 30px; }
-    .hero-title { font-size: 52px; }
-  }
-
-  /* ── LOADING ── */
-  .loader {
-    position: fixed; inset: 0;
-    background: var(--dark);
-    z-index: 1000;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 20px;
-    transition: opacity 0.8s, visibility 0.8s;
-  }
-
-  .loader.hidden { opacity: 0; visibility: hidden; }
-
-  .loader-text {
-    font-family: 'Cinzel', serif;
-    font-size: 13px;
-    letter-spacing: 8px;
-    color: rgba(255,107,0,0.7);
-    animation: blink 1.5s ease infinite;
-  }
-
-  .loader-fire { font-size: 48px; animation: float 2s ease-in-out infinite; }
-
-  @keyframes blink {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-
-  .fire-line {
-    width: 200px; height: 2px;
-    background: linear-gradient(to right, transparent, var(--fire2), transparent);
-    animation: expand 1.5s ease both;
-  }
-
-  @keyframes expand {
-    from { width: 0; opacity: 0; }
-    to { width: 200px; opacity: 1; }
-  }
+:root {
+  --amber: #c8860a;
+  --amber2: #e8a020;
+  --amber3: #f5c842;
+  --dark: #0e0a06;
+  --deep: #160f08;
+  --panel: #1e1408;
+  --wood: #2d1f0e;
+  --white: #f5efe6;
+  --cream: #ede0c8;
+  --accent: #d4a843;
+  --green: #2a4a2e;
+  --green2: #3d6b42;
+  --rune: rgba(212,168,67,0.15);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--dark); color:var(--white); font-family:'Raleway',sans-serif; font-weight:300; overflow-x:hidden; cursor:none; }
+
+/* CURSOR */
+.cursor { width:10px; height:10px; background:var(--amber2); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); box-shadow:0 0 12px var(--amber2); transition:transform 0.08s; }
+.cursor-ring { width:32px; height:32px; border:1px solid rgba(232,160,32,0.35); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform 0.22s ease; }
+
+/* NAV */
+nav { position:fixed; top:0; width:100%; z-index:100; padding:18px 60px; display:flex; justify-content:space-between; align-items:center; transition:all 0.4s; }
+nav.scrolled { background:rgba(14,10,6,0.96); backdrop-filter:blur(20px); border-bottom:1px solid rgba(212,168,67,0.1); }
+.nav-logo { font-family:'Cinzel',serif; font-size:19px; font-weight:900; letter-spacing:5px; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:10px; }
+.nav-logo-icon { font-size:22px; animation:wiggle 4s ease-in-out infinite; }
+@keyframes wiggle { 0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);} }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a { color:rgba(245,239,230,0.55); text-decoration:none; font-size:12px; letter-spacing:3px; text-transform:uppercase; transition:color 0.3s; }
+.nav-links a:hover { color:var(--accent); }
+.nav-right { display:flex; align-items:center; gap:16px; }
+.nav-lang { display:flex; gap:6px; }
+.nav-lang button { background:none; border:1px solid rgba(212,168,67,0.25); color:rgba(245,239,230,0.45); padding:4px 9px; font-size:10px; letter-spacing:2px; cursor:pointer; transition:all 0.3s; font-family:'Raleway',sans-serif; }
+.nav-lang button.active, .nav-lang button:hover { border-color:var(--accent); color:var(--accent); background:rgba(212,168,67,0.08); }
+#auth-btn { padding:8px 20px; background:transparent; border:1px solid rgba(212,168,67,0.35); color:var(--accent); font-family:'Raleway',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:all 0.3s; }
+#auth-btn:hover { background:rgba(212,168,67,0.1); border-color:var(--accent); }
+#user-info { display:none; align-items:center; gap:8px; font-size:13px; color:var(--accent); }
+
+/* HERO */
+#hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+
+.hero-bg { position:absolute; inset:0;
+  background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(200,134,10,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 40% at 30% 60%, rgba(42,74,46,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 100% 50% at 50% 0%, rgba(22,15,8,0.95) 0%, transparent 100%),
+              #0e0a06; }
+
+/* Орнамент фон */
+.hero-ornament { position:absolute; inset:0; opacity:0.04; pointer-events:none;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4a843' stroke-width='0.5'%3E%3Ccircle cx='40' cy='40' r='35'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3Cline x1='40' y1='5' x2='40' y2='75'/%3E%3Cline x1='5' y1='40' x2='75' y2='40'/%3E%3Cline x1='15' y1='15' x2='65' y2='65'/%3E%3Cline x1='65' y1='15' x2='15' y2='65'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:80px 80px; }
+
+/* Глоу снизу */
+.hero-glow { position:absolute; bottom:-100px; left:50%; transform:translateX(-50%); width:600px; height:300px; background:radial-gradient(ellipse, rgba(200,134,10,0.2), transparent); pointer-events:none; }
+
+.hero-inner { position:relative; z-index:10; display:grid; grid-template-columns:1fr 1fr; gap:60px; max-width:1200px; padding:0 60px; align-items:center; }
+
+.hero-text { animation:fadeInLeft 1s ease both; }
+@keyframes fadeInLeft { from{opacity:0;transform:translateX(-30px);}to{opacity:1;transform:translateX(0);} }
+
+.hero-eyebrow { display:flex; align-items:center; gap:14px; margin-bottom:24px; }
+.hero-eyebrow-line { height:1px; width:50px; background:linear-gradient(to right,transparent,var(--amber2)); }
+.hero-eyebrow span { font-family:'Cinzel',serif; font-size:10px; letter-spacing:7px; color:var(--amber2); text-transform:uppercase; }
+
+.hero-title { font-family:'Cinzel',serif; font-size:clamp(40px,5.5vw,76px); font-weight:900; line-height:1.0; color:var(--white); margin-bottom:12px; }
+.hero-title .gold { background:linear-gradient(135deg,var(--amber) 0%,var(--amber2) 50%,var(--amber3) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+.hero-subtitle { font-family:'Cormorant Garamond',serif; font-size:clamp(17px,2vw,22px); font-style:italic; color:rgba(245,239,230,0.6); line-height:1.7; margin:28px 0 44px; max-width:520px; }
+
+.hero-cta { display:flex; gap:16px; flex-wrap:wrap; }
+.btn-amber { padding:15px 40px; background:linear-gradient(135deg,var(--amber),var(--amber2)); color:#000; font-family:'Raleway',sans-serif; font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; text-decoration:none; border:none; cursor:pointer; transition:all 0.3s; box-shadow:0 0 30px rgba(200,134,10,0.35); }
+.btn-amber:hover { transform:translateY(-2px); box-shadow:0 0 50px rgba(232,160,32,0.5); }
+.btn-outline { padding:14px 40px; background:transparent; color:var(--cream); font-family:'Raleway',sans-serif; font-size:11px; font-weight:600; letter-spacing:4px; text-transform:uppercase; text-decoration:none; border:1px solid rgba(212,168,67,0.35); cursor:pointer; transition:all 0.3s; display:inline-block; }
+.btn-outline:hover { border-color:var(--accent); background:rgba(212,168,67,0.08); }
+
+/* ДОМОВОЙ SVG ПЕРСОНАЖ */
+.hero-character { display:flex; align-items:center; justify-content:center; animation:fadeInRight 1.2s ease both; position:relative; }
+@keyframes fadeInRight { from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);} }
+
+.character-glow { position:absolute; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle,rgba(200,134,10,0.15),transparent 70%); animation:pulse-glow 3s ease-in-out infinite; }
+@keyframes pulse-glow { 0%,100%{transform:scale(1);opacity:0.7;}50%{transform:scale(1.15);opacity:1;} }
+
+.domovoi-svg { width:320px; height:380px; filter:drop-shadow(0 20px 60px rgba(200,134,10,0.3)); animation:float-char 4s ease-in-out infinite; position:relative; z-index:2; }
+@keyframes float-char { 0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);} }
+
+/* Орнамент вокруг персонажа */
+.char-ring { position:absolute; width:360px; height:360px; border:1px solid rgba(212,168,67,0.12); border-radius:50%; animation:spin 30s linear infinite; }
+.char-ring-2 { position:absolute; width:420px; height:420px; border:1px solid rgba(212,168,67,0.06); border-radius:50%; animation:spin 45s linear infinite reverse; }
+
+/* RUNE DECORATIONS */
+.rune-float { position:absolute; font-family:'Cinzel',serif; color:rgba(212,168,67,0.15); font-size:28px; animation:rune-drift linear infinite; pointer-events:none; user-select:none; }
+@keyframes rune-drift { 0%{transform:translateY(0) rotate(0deg);opacity:0;} 10%{opacity:1;} 90%{opacity:0.5;} 100%{transform:translateY(-300px) rotate(180deg);opacity:0;} }
+
+/* SCROLL INDICATOR */
+.hero-scroll { position:absolute; bottom:36px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; z-index:10; animation:pulse-op 2s ease infinite; }
+.hero-scroll span { font-size:9px; letter-spacing:5px; color:rgba(245,239,230,0.25); text-transform:uppercase; }
+.scroll-line { width:1px; height:50px; background:linear-gradient(to bottom,var(--amber2),transparent); }
+@keyframes pulse-op { 0%,100%{opacity:0.4;}50%{opacity:1;} }
+
+/* SECTIONS */
+section { position:relative; padding:110px 60px; }
+.section-label { font-family:'Cinzel',serif; font-size:10px; letter-spacing:6px; color:var(--amber2); text-transform:uppercase; margin-bottom:18px; }
+.section-title { font-family:'Cinzel',serif; font-size:clamp(30px,4.5vw,56px); font-weight:600; line-height:1.1; color:var(--white); margin-bottom:22px; }
+.section-body { font-family:'Cormorant Garamond',serif; font-size:clamp(17px,1.7vw,21px); line-height:1.85; color:rgba(245,239,230,0.68); max-width:660px; }
+
+/* DIVIDER */
+.ornament-divider { display:flex; align-items:center; gap:20px; max-width:600px; margin:0 auto; }
+.ornament-divider::before,.ornament-divider::after { content:''; flex:1; height:1px; background:linear-gradient(to right,transparent,rgba(212,168,67,0.3),transparent); }
+.ornament-divider span { font-size:20px; color:rgba(212,168,67,0.5); }
+
+/* WHAT IS */
+#what-is { background:var(--deep); overflow:hidden; }
+.what-is-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; max-width:1200px; margin:0 auto; align-items:center; }
+.what-is-sigil { position:relative; display:flex; align-items:center; justify-content:center; height:460px; }
+
+/* Скандинавский орнамент */
+.sigil-outer { position:absolute; width:300px; height:300px; }
+.sigil-inner { position:relative; width:200px; height:200px; display:flex; align-items:center; justify-content:center; }
+.sigil-circle { position:absolute; border-radius:50%; border:1px solid rgba(212,168,67,0.25); animation:spin linear infinite; }
+.sc1 { width:300px;height:300px;animation-duration:25s; }
+.sc2 { width:240px;height:240px;animation-duration:18s;animation-direction:reverse; border-color:rgba(212,168,67,0.15); }
+.sc3 { width:180px;height:180px;animation-duration:12s; }
+.sigil-glyph-wrap { width:120px; height:120px; border-radius:50%; background:radial-gradient(circle,rgba(200,134,10,0.25),rgba(30,20,8,0.9)); border:1px solid rgba(212,168,67,0.3); display:flex; align-items:center; justify-content:center; box-shadow:0 0 60px rgba(200,134,10,0.25),inset 0 0 40px rgba(200,134,10,0.1); }
+.sigil-mini-char { width:80px; height:95px; animation:float 4s ease-in-out infinite; }
+
+@keyframes spin { from{transform:rotate(0deg);}to{transform:rotate(360deg);} }
+@keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }
+
+.what-is-text .quote-block { font-family:'Cormorant Garamond',serif; font-size:26px; font-style:italic; line-height:1.6; color:var(--accent); border-left:2px solid var(--amber2); padding-left:24px; margin-bottom:32px; }
+
+/* POWERS */
+#powers { background:var(--dark); }
+.powers-header { text-align:center; max-width:680px; margin:0 auto 70px; }
+.powers-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1200px; margin:0 auto; }
+.power-card { background:var(--panel); padding:48px 36px; position:relative; overflow:hidden; transition:all 0.4s; border:1px solid transparent; }
+.power-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--amber2),transparent); opacity:0; transition:opacity 0.4s; }
+.power-card::after { content:''; position:absolute; top:-30px; right:-30px; width:100px; height:100px; border-radius:50%; background:radial-gradient(circle,rgba(200,134,10,0.06),transparent); transition:all 0.4s; }
+.power-card:hover { background:#221808; border-color:rgba(200,134,10,0.15); transform:translateY(-4px); }
+.power-card:hover::before { opacity:1; }
+.power-card:hover::after { top:-10px; right:-10px; background:radial-gradient(circle,rgba(200,134,10,0.12),transparent); }
+.power-num { font-family:'Cinzel',serif; font-size:44px; font-weight:900; color:rgba(200,134,10,0.1); line-height:1; margin-bottom:14px; transition:color 0.4s; }
+.power-card:hover .power-num { color:rgba(200,134,10,0.22); }
+.power-icon { font-size:34px; margin-bottom:18px; display:block; }
+.power-title { font-family:'Cinzel',serif; font-size:17px; font-weight:600; color:var(--white); margin-bottom:14px; letter-spacing:1px; }
+.power-desc { font-size:14px; line-height:1.85; color:rgba(245,239,230,0.48); }
+
+/* HOW IT WORKS */
+#how { background:var(--deep); }
+.how-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; max-width:1100px; margin:0 auto 60px; }
+.step-card { background:var(--panel); padding:56px 36px; text-align:center; border:1px solid rgba(212,168,67,0.06); transition:all 0.3s; }
+.step-card:hover { border-color:rgba(212,168,67,0.18); }
+.step-num { width:72px; height:72px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; font-size:28px; font-weight:900; color:#000; margin:0 auto 28px; }
+.step-num-1 { background:linear-gradient(135deg,var(--amber),var(--amber2)); box-shadow:0 0 35px rgba(200,134,10,0.3); }
+.step-num-2 { background:linear-gradient(135deg,var(--amber2),var(--amber3)); box-shadow:0 0 35px rgba(232,160,32,0.3); }
+.step-num-3 { background:linear-gradient(135deg,var(--amber3),#f0d870); box-shadow:0 0 35px rgba(245,200,66,0.3); }
+.step-title { font-family:'Cinzel',serif; font-size:17px; color:var(--white); margin-bottom:14px; }
+.step-desc { font-size:14px; line-height:1.85; color:rgba(245,239,230,0.48); }
+
+.privacy-block { max-width:1100px; margin:0 auto; padding:44px 52px; background:var(--panel); border:1px solid rgba(212,168,67,0.1); border-left:3px solid var(--amber2); display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.privacy-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.privacy-item { padding:22px; border:1px solid rgba(212,168,67,0.1); text-align:center; }
+.privacy-item.no { background:rgba(200,50,50,0.04); border-color:rgba(200,50,50,0.12); }
+.privacy-item.yes { background:rgba(42,74,46,0.08); border-color:rgba(42,74,46,0.2); }
+.privacy-item div:first-child { font-size:28px; margin-bottom:8px; }
+.privacy-item div:last-child { font-family:'Cinzel',serif; font-size:11px; color:rgba(245,239,230,0.45); letter-spacing:1px; }
+
+/* STORY */
+#story { background:var(--dark); position:relative; overflow:hidden; }
+.story-bg-rune { position:absolute; font-family:'Cinzel',serif; font-size:280px; font-weight:900; color:rgba(200,134,10,0.025); top:50%; left:50%; transform:translate(-50%,-50%); white-space:nowrap; pointer-events:none; }
+.story-wrap { max-width:860px; margin:0 auto; position:relative; z-index:2; }
+.story-avatar { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,var(--amber),var(--amber2)); display:flex; align-items:center; justify-content:center; font-size:36px; margin-bottom:36px; box-shadow:0 0 40px rgba(200,134,10,0.3); }
+.story-name { font-family:'Cinzel',serif; font-size:13px; letter-spacing:5px; color:var(--amber2); text-transform:uppercase; margin-bottom:8px; }
+.story-p { font-family:'Cormorant Garamond',serif; font-size:clamp(19px,2.2vw,26px); line-height:1.85; color:rgba(245,239,230,0.83); margin-bottom:28px; }
+.story-p em { color:var(--accent); font-style:normal; }
+.story-line { width:70px; height:1px; background:linear-gradient(to right,var(--amber2),transparent); margin:36px 0; }
+
+/* PRINCIPLES */
+#principles { background:var(--deep); }
+.principles-wrap { max-width:1060px; margin:56px auto 0; }
+.principle-row { display:grid; grid-template-columns:70px 1fr; gap:36px; padding:36px 0; border-bottom:1px solid rgba(212,168,67,0.08); align-items:start; transition:border-color 0.3s; }
+.principle-row:hover { border-bottom-color:rgba(200,134,10,0.3); }
+.principle-num { font-family:'Cinzel',serif; font-size:38px; font-weight:900; background:linear-gradient(to bottom,var(--amber2),transparent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.principle-title { font-family:'Cinzel',serif; font-size:20px; color:var(--white); margin-bottom:10px; }
+.principle-text { font-size:14px; line-height:1.85; color:rgba(245,239,230,0.48); max-width:580px; }
+
+/* CHRONICLE */
+#chronicle { background:var(--dark); }
+.chronicle-head { display:flex; justify-content:space-between; align-items:flex-end; max-width:1180px; margin:0 auto 56px; flex-wrap:wrap; gap:24px; }
+.chronicle-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1180px; margin:0 auto; }
+.chron-card { background:var(--panel); border:1px solid rgba(212,168,67,0.07); overflow:hidden; transition:all 0.3s; cursor:pointer; }
+.chron-card:hover { border-color:rgba(200,134,10,0.2); transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,0.5); }
+.chron-img { height:180px; display:flex; align-items:center; justify-content:center; font-size:56px; position:relative; overflow:hidden; }
+.chron-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,transparent 40%,var(--panel) 100%); }
+.chron-body { padding:24px; }
+.chron-date { font-size:10px; letter-spacing:3px; color:var(--amber2); margin-bottom:10px; }
+.chron-title { font-family:'Cinzel',serif; font-size:15px; color:var(--white); margin-bottom:10px; line-height:1.4; }
+.chron-text { font-size:13px; line-height:1.75; color:rgba(245,239,230,0.45); }
+
+/* WAITLIST */
+#waitlist { background:var(--deep); text-align:center; position:relative; overflow:hidden; }
+.waitlist-glow { position:absolute; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(200,134,10,0.07),transparent); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+.waitlist-inner { position:relative; z-index:2; max-width:560px; margin:0 auto; }
+.wl-form { display:flex; margin-top:44px; max-width:460px; margin-left:auto; margin-right:auto; }
+.wl-input { flex:1; background:rgba(30,20,8,0.8); border:1px solid rgba(212,168,67,0.2); border-right:none; padding:15px 22px; color:var(--white); font-family:'Raleway',sans-serif; font-size:14px; outline:none; transition:border-color 0.3s; }
+.wl-input:focus { border-color:var(--amber2); }
+.wl-input::placeholder { color:rgba(245,239,230,0.28); }
+.wl-btn { padding:15px 28px; background:linear-gradient(135deg,var(--amber),var(--amber2)); color:#000; font-family:'Raleway',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; border:none; cursor:pointer; white-space:nowrap; transition:all 0.3s; }
+.wl-btn:hover { box-shadow:0 0 35px rgba(200,134,10,0.5); }
+.wl-note { font-size:11px; color:rgba(245,239,230,0.25); margin-top:14px; letter-spacing:1px; }
+
+/* FOOTER */
+footer { background:#080604; padding:56px 60px; border-top:1px solid rgba(212,168,67,0.07); }
+.footer-inner { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:56px; margin-bottom:56px; }
+.footer-logo { font-family:'Cinzel',serif; font-size:22px; font-weight:900; color:var(--accent); letter-spacing:3px; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+.footer-tagline { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:rgba(245,239,230,0.35); line-height:1.65; }
+.footer-col-title { font-family:'Cinzel',serif; font-size:10px; letter-spacing:4px; color:var(--amber2); text-transform:uppercase; margin-bottom:22px; }
+.footer-links { list-style:none; }
+.footer-links li { margin-bottom:10px; }
+.footer-links a { color:rgba(245,239,230,0.38); text-decoration:none; font-size:13px; transition:color 0.3s; }
+.footer-links a:hover { color:var(--white); }
+.footer-social { display:flex; gap:12px; margin-top:6px; }
+.social-btn { width:42px; height:42px; border:1px solid rgba(212,168,67,0.18); display:flex; align-items:center; justify-content:center; text-decoration:none; color:rgba(245,239,230,0.45); font-size:17px; transition:all 0.3s; background:var(--panel); }
+.social-btn:hover { border-color:var(--amber2); color:var(--amber2); box-shadow:0 0 18px rgba(200,134,10,0.2); }
+.footer-bottom { max-width:1180px; margin:0 auto; padding-top:36px; border-top:1px solid rgba(212,168,67,0.05); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+.footer-copy { font-size:11px; color:rgba(245,239,230,0.22); letter-spacing:1px; }
+.footer-domain { font-family:'Cinzel',serif; font-size:11px; color:rgba(212,168,67,0.28); letter-spacing:2px; }
+
+/* AUTH MODAL */
+#auth-modal { display:none; position:fixed; inset:0; z-index:500; background:rgba(8,6,4,0.93); backdrop-filter:blur(12px); align-items:center; justify-content:center; }
+.auth-box { background:var(--panel); border:1px solid rgba(212,168,67,0.18); padding:52px; max-width:400px; width:90%; position:relative; box-shadow:0 0 80px rgba(200,134,10,0.12); }
+.auth-close { position:absolute; top:18px; right:18px; background:none; border:none; color:rgba(245,239,230,0.35); font-size:20px; cursor:pointer; }
+.auth-head { text-align:center; margin-bottom:36px; }
+.auth-icon { font-size:52px; margin-bottom:14px; display:block; }
+.auth-title { font-family:'Cinzel',serif; font-size:20px; color:var(--white); margin-bottom:6px; }
+.auth-sub { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:rgba(245,239,230,0.45); }
+.auth-google { width:100%; padding:14px; background:white; color:#333; border:none; font-family:'Raleway',sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:10px; transition:all 0.3s; }
+.auth-google:hover { box-shadow:0 4px 20px rgba(0,0,0,0.3); }
+.auth-fb { width:100%; padding:14px; background:#1877f2; color:white; border:none; font-family:'Raleway',sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:12px; transition:all 0.3s; }
+.auth-fb:hover { background:#1565d8; }
+.auth-note { text-align:center; font-size:11px; color:rgba(245,239,230,0.22); margin-top:18px; letter-spacing:1px; }
+
+/* LOADER */
+.loader { position:fixed; inset:0; background:var(--dark); z-index:1000; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px; transition:opacity 0.8s,visibility 0.8s; }
+.loader.hidden { opacity:0; visibility:hidden; }
+.loader-char { font-size:64px; animation:float 2s ease-in-out infinite; }
+.loader-line { width:0; height:2px; background:linear-gradient(to right,transparent,var(--amber2),transparent); animation:expand-line 1.5s ease both; }
+@keyframes expand-line { to{width:180px;} }
+.loader-text { font-family:'Cinzel',serif; font-size:12px; letter-spacing:7px; color:rgba(200,134,10,0.65); animation:blink 1.5s ease infinite; }
+@keyframes blink { 0%,100%{opacity:0.4;}50%{opacity:1;} }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:18px 24px;}
+  .nav-links{display:none;}
+  section{padding:80px 24px;}
+  .hero-inner{grid-template-columns:1fr;text-align:center;padding:0 24px;padding-top:100px;}
+  .hero-eyebrow{justify-content:center;}
+  .hero-subtitle{margin-left:auto;margin-right:auto;}
+  .hero-cta{justify-content:center;}
+  .hero-character{margin-top:40px;}
+  .what-is-grid,.privacy-block,.footer-inner{grid-template-columns:1fr;}
+  .powers-grid,.how-steps,.chronicle-grid{grid-template-columns:1fr;}
+  footer{padding:40px 24px;}
+}
 </style>
 </head>
 <body>
 
 <!-- LOADER -->
 <div class="loader" id="loader">
-  <div class="loader-fire">🔥</div>
-  <div class="fire-line"></div>
+  <div class="loader-char">🏠</div>
+  <div class="loader-line"></div>
   <div class="loader-text">ДОМОВОЙ ПРОСЫПАЕТСЯ</div>
 </div>
 
@@ -950,44 +293,249 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">ДОМ<span>О</span>ВОЙ</a>
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-icon">🏡</span>
+    ДОМОВОЙ
+  </a>
   <ul class="nav-links">
-    <li><a href="#what-is">Что это</a></li>
+    <li><a href="#what-is">Кто это</a></li>
     <li><a href="#powers">Способности</a></li>
+    <li><a href="#how">Как работает</a></li>
     <li><a href="#story">История</a></li>
     <li><a href="#chronicle">Хроника</a></li>
-    <li><a href="#" id="auth-btn" onclick="document.getElementById('auth-modal').style.display='flex';return false;">Войти</a></li>
   </ul>
-  <div id="user-info" style="display:none;align-items:center;font-size:13px;color:var(--accent);gap:8px;"></div>
-  <div class="nav-lang">
-    <button class="active" onclick="setLang('ru')">RU</button>
-    <button onclick="setLang('en')">EN</button>
-    <button onclick="setLang('pt')">PT</button>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="active" onclick="setLang(event,'ru')">RU</button>
+      <button onclick="setLang(event,'en')">EN</button>
+      <button onclick="setLang(event,'pt')">PT</button>
+    </div>
+    <button id="auth-btn" onclick="document.getElementById('auth-modal').style.display='flex'">Войти</button>
+    <div id="user-info"></div>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <canvas id="fire-canvas"></canvas>
-  <div class="hero-particles" id="particles"></div>
+  <div class="hero-ornament"></div>
+  <div class="hero-glow"></div>
 
-  <div class="hero-content">
-    <div class="hero-eyebrow">цифровой дух вашего дома</div>
-    <h1 class="hero-title">
-      В каждом доме<br>
-      <span class="fire-word">должен жить</span><br>
-      Домовой
-    </h1>
-    <p class="hero-subtitle">
-      Он не следит за вами. Он заботится о вас —<br>
-      тихо, умно, преданно.
-    </p>
-    <div class="hero-cta">
-      <a href="#what-is" class="btn-fire">Познакомиться</a>
-      <a href="#story" class="btn-ghost">История проекта</a>
+  <!-- Плавающие руны -->
+  <div class="rune-float" style="left:8%;bottom:0;animation-duration:9s;animation-delay:0s;">ᚠ</div>
+  <div class="rune-float" style="left:15%;bottom:0;animation-duration:12s;animation-delay:3s;">ᚢ</div>
+  <div class="rune-float" style="left:75%;bottom:0;animation-duration:10s;animation-delay:1.5s;">ᚱ</div>
+  <div class="rune-float" style="left:85%;bottom:0;animation-duration:14s;animation-delay:5s;">ᚦ</div>
+  <div class="rune-float" style="left:50%;bottom:0;animation-duration:11s;animation-delay:2s;">ᚨ</div>
+  <div class="rune-float" style="left:30%;bottom:0;animation-duration:8s;animation-delay:4s;">ᚷ</div>
+  <div class="rune-float" style="left:60%;bottom:0;animation-duration:13s;animation-delay:6s;">ᛏ</div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span>цифровой дух вашего дома</span>
+      </div>
+      <h1 class="hero-title">
+        В каждом доме<br>
+        <span class="gold">должен жить</span><br>
+        Домовой
+      </h1>
+      <p class="hero-subtitle">
+        Он не следит за вами. Он заботится о вас —<br>
+        тихо, умно, преданно. Как в старых сказках.
+      </p>
+      <div class="hero-cta">
+        <a href="#what-is" class="btn-amber">Познакомиться</a>
+        <a href="#story" class="btn-outline">История проекта</a>
+      </div>
+    </div>
+
+    <div class="hero-character">
+      <div class="char-ring"></div>
+      <div class="char-ring-2"></div>
+      <div class="character-glow"></div>
+
+      <!-- SVG ДОМОВОЙ -->
+      <svg class="domovoi-svg" viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bodyGrad" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#6b4423"/>
+            <stop offset="60%" stop-color="#4a2e14"/>
+            <stop offset="100%" stop-color="#2d1a08"/>
+          </radialGradient>
+          <radialGradient id="faceGrad" cx="50%" cy="35%" r="50%">
+            <stop offset="0%" stop-color="#c4956a"/>
+            <stop offset="70%" stop-color="#a07040"/>
+            <stop offset="100%" stop-color="#7a5228"/>
+          </radialGradient>
+          <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f5c842"/>
+            <stop offset="50%" stop-color="#c8860a"/>
+            <stop offset="100%" stop-color="#6b3a02"/>
+          </radialGradient>
+          <radialGradient id="noseGrad" cx="50%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="#e09060"/>
+            <stop offset="100%" stop-color="#8b5030"/>
+          </radialGradient>
+          <filter id="furBlur">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="eyeFilter">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- СВЕЧЕНИЕ СНИЗУ -->
+        <ellipse cx="160" cy="360" rx="80" ry="18" fill="rgba(200,134,10,0.2)"/>
+        <ellipse cx="160" cy="360" rx="50" ry="10" fill="rgba(200,134,10,0.15)"/>
+
+        <!-- ТЕЛО — меховое, пушистое -->
+        <!-- Основное тело -->
+        <ellipse cx="160" cy="270" rx="85" ry="95" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+
+        <!-- Слои меха на теле -->
+        <ellipse cx="160" cy="280" rx="82" ry="88" fill="none" stroke="#3d2010" stroke-width="0.5" opacity="0.3"/>
+
+        <!-- Нижний мех — хвостатые пряди -->
+        <path d="M80 320 Q60 350 75 370 Q90 360 85 335" fill="#3d2010" opacity="0.6"/>
+        <path d="M105 335 Q90 365 108 375 Q120 362 112 338" fill="#4a2e14" opacity="0.7"/>
+        <path d="M135 340 Q125 372 145 378 Q155 365 145 342" fill="#3d2010" opacity="0.6"/>
+        <path d="M160 342 Q155 375 172 378 Q180 364 170 344" fill="#4a2e14" opacity="0.7"/>
+        <path d="M185 338 Q182 370 198 374 Q205 360 196 340" fill="#3d2010" opacity="0.6"/>
+        <path d="M210 330 Q210 360 224 366 Q230 352 222 332" fill="#4a2e14" opacity="0.7"/>
+        <path d="M232 318 Q235 348 245 352 Q248 338 240 320" fill="#3d2010" opacity="0.6"/>
+
+        <!-- Мех бока левый -->
+        <path d="M78 240 Q55 250 52 270 Q65 268 75 255" fill="#3d2010" opacity="0.5"/>
+        <path d="M76 260 Q50 272 52 292 Q66 288 72 272" fill="#4a2e14" opacity="0.5"/>
+        <path d="M80 280 Q55 295 58 312 Q72 308 76 292" fill="#3d2010" opacity="0.5"/>
+
+        <!-- Мех бока правый -->
+        <path d="M242 240 Q265 250 268 270 Q255 268 245 255" fill="#3d2010" opacity="0.5"/>
+        <path d="M244 260 Q270 272 268 292 Q254 288 248 272" fill="#4a2e14" opacity="0.5"/>
+        <path d="M240 280 Q265 295 262 312 Q248 308 244 292" fill="#3d2010" opacity="0.5"/>
+
+        <!-- УШКИ БОЛЬШИЕ — левое -->
+        <path d="M90 160 Q55 100 70 70 Q90 85 100 120 Q110 140 108 165" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+        <!-- Внутренность уха левого -->
+        <path d="M93 158 Q68 108 78 82 Q90 95 98 125 Q105 143 104 163" fill="#c4705a" opacity="0.6"/>
+        <!-- Мех на ухе левом -->
+        <path d="M72 75 Q60 90 65 105" stroke="#2d1a08" stroke-width="2" fill="none" opacity="0.4"/>
+        <path d="M78 72 Q68 86 72 100" stroke="#2d1a08" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M84 70 Q76 83 79 97" stroke="#2d1a08" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+        <!-- УШКИ БОЛЬШИЕ — правое -->
+        <path d="M230 160 Q265 100 250 70 Q230 85 220 120 Q210 140 212 165" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+        <!-- Внутренность уха правого -->
+        <path d="M227 158 Q252 108 242 82 Q230 95 222 125 Q215 143 216 163" fill="#c4705a" opacity="0.6"/>
+        <!-- Мех на ухе правом -->
+        <path d="M248 75 Q260 90 255 105" stroke="#2d1a08" stroke-width="2" fill="none" opacity="0.4"/>
+        <path d="M242 72 Q252 86 248 100" stroke="#2d1a08" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M236 70 Q244 83 241 97" stroke="#2d1a08" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+        <!-- ГОЛОВА -->
+        <ellipse cx="160" cy="195" rx="78" ry="72" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+
+        <!-- Мех головы - пряди -->
+        <path d="M95 145 Q82 130 88 118 Q98 128 100 142" fill="#2d1a08" opacity="0.5"/>
+        <path d="M110 133 Q100 116 108 105 Q118 117 116 131" fill="#3d2010" opacity="0.4"/>
+        <path d="M128 126 Q122 108 132 98 Q140 112 136 126" fill="#2d1a08" opacity="0.4"/>
+        <path d="M148 122 Q145 104 156 96 Q162 110 157 124" fill="#3d2010" opacity="0.4"/>
+        <path d="M168 122 Q168 104 180 98 Q184 112 176 124" fill="#2d1a08" opacity="0.4"/>
+        <path d="M186 126 Q188 108 200 102 Q202 116 194 127" fill="#3d2010" opacity="0.4"/>
+        <path d="M202 133 Q208 116 220 114 Q220 128 210 134" fill="#2d1a08" opacity="0.4"/>
+        <path d="M218 145 Q226 130 236 132 Q232 146 222 148" fill="#3d2010" opacity="0.4"/>
+
+        <!-- ЛИЦО — более светлое пятно -->
+        <ellipse cx="160" cy="200" rx="52" ry="46" fill="url(#faceGrad)" opacity="0.85"/>
+
+        <!-- БРОВИ — выразительные, добрые -->
+        <path d="M128 172 Q140 165 152 169" stroke="#3d2010" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M168 169 Q180 165 192 172" stroke="#3d2010" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+        <!-- ГЛАЗА — большие, янтарные, умные -->
+        <!-- Глаз левый -->
+        <circle cx="140" cy="190" r="16" fill="#1a1008"/>
+        <circle cx="140" cy="190" r="13" fill="url(#eyeGlow)" filter="url(#eyeFilter)"/>
+        <circle cx="140" cy="190" r="8" fill="#1a0a00"/>
+        <circle cx="140" cy="190" r="5" fill="#0a0500"/>
+        <!-- Блики -->
+        <circle cx="135" cy="185" r="3.5" fill="rgba(255,255,255,0.9)"/>
+        <circle cx="143" cy="195" r="1.5" fill="rgba(255,255,255,0.5)"/>
+        <!-- Свечение глаза -->
+        <circle cx="140" cy="190" r="16" fill="none" stroke="rgba(245,200,66,0.3)" stroke-width="2"/>
+
+        <!-- Глаз правый -->
+        <circle cx="180" cy="190" r="16" fill="#1a1008"/>
+        <circle cx="180" cy="190" r="13" fill="url(#eyeGlow)" filter="url(#eyeFilter)"/>
+        <circle cx="180" cy="190" r="8" fill="#1a0a00"/>
+        <circle cx="180" cy="190" r="5" fill="#0a0500"/>
+        <circle cx="175" cy="185" r="3.5" fill="rgba(255,255,255,0.9)"/>
+        <circle cx="183" cy="195" r="1.5" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="180" cy="190" r="16" fill="none" stroke="rgba(245,200,66,0.3)" stroke-width="2"/>
+
+        <!-- НОС — круглый, мохнатый -->
+        <ellipse cx="160" cy="212" rx="12" ry="9" fill="url(#noseGrad)"/>
+        <ellipse cx="156" cy="210" rx="3" ry="2" fill="rgba(255,255,255,0.15)"/>
+
+        <!-- РОТ — добрая улыбка -->
+        <path d="M143 226 Q152 236 160 237 Q168 236 177 226" stroke="#3d2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M143 226 Q140 224 142 221" stroke="#3d2010" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M177 226 Q180 224 178 221" stroke="#3d2010" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- УСИКИ -->
+        <line x1="112" y1="213" x2="145" y2="216" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.7"/>
+        <line x1="110" y1="218" x2="143" y2="219" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.6"/>
+        <line x1="113" y1="223" x2="144" y2="222" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.5"/>
+        <line x1="208" y1="213" x2="175" y2="216" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.7"/>
+        <line x1="210" y1="218" x2="177" y2="219" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.6"/>
+        <line x1="207" y1="223" x2="176" y2="222" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.5"/>
+
+        <!-- ЛАПКИ — маленькие, с коготками -->
+        <!-- Лапка левая -->
+        <ellipse cx="105" cy="305" rx="22" ry="14" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+        <path d="M88 299 Q84 292 90 289" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M95 296 Q93 288 99 286" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M103 295 Q103 287 109 285" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M111 296 Q113 288 118 287" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- Лапка правая -->
+        <ellipse cx="215" cy="305" rx="22" ry="14" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+        <path d="M202 296 Q200 288 206 287" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M210 295 Q210 287 216 285" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M218 296 Q220 288 225 287" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M226 299 Q230 292 234 291" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- ХВОСТИК -->
+        <path d="M240 310 Q270 295 265 275 Q258 265 248 278 Q242 288 252 298 Q256 304 248 308" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+
+        <!-- МАЛЕНЬКИЙ ФОНАРИК в лапке — символ Домового-хранителя -->
+        <ellipse cx="160" cy="315" rx="18" ry="22" fill="rgba(200,134,10,0.15)" stroke="rgba(212,168,67,0.3)" stroke-width="1"/>
+        <ellipse cx="160" cy="315" rx="10" ry="12" fill="rgba(245,200,66,0.25)"/>
+        <ellipse cx="160" cy="315" rx="5" ry="6" fill="rgba(255,220,100,0.5)">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- Ручка фонарика -->
+        <path d="M150 308 Q142 300 145 295" stroke="rgba(212,168,67,0.5)" stroke-width="1.5" fill="none"/>
+        <path d="M170 308 Q178 300 175 295" stroke="rgba(212,168,67,0.5)" stroke-width="1.5" fill="none"/>
+        <line x1="145" y1="295" x2="175" y2="295" stroke="rgba(212,168,67,0.5)" stroke-width="1.5"/>
+
+        <!-- СВЕЧЕНИЕ ГЛАЗ -->
+        <ellipse cx="140" cy="190" rx="20" ry="18" fill="none" stroke="rgba(245,200,66,0.12)" stroke-width="4" filter="url(#glow)"/>
+        <ellipse cx="180" cy="190" rx="20" ry="18" fill="none" stroke="rgba(245,200,66,0.12)" stroke-width="4" filter="url(#glow)"/>
+
+        <!-- Руна на груди -->
+        <text x="160" y="268" text-anchor="middle" font-size="18" fill="rgba(212,168,67,0.25)" font-family="serif">ᚠ</text>
+
+      </svg>
     </div>
   </div>
 
@@ -998,44 +546,60 @@
 </section>
 
 <!-- WHAT IS -->
-<section id="what-is">
+<section id="what-is" style="background:var(--deep);">
   <div class="what-is-grid">
     <div class="what-is-visual reveal">
-      <div class="domovoi-sigil">
-        <div class="sigil-ring sigil-ring-1"></div>
-        <div class="sigil-ring sigil-ring-2"></div>
-        <div class="sigil-ring sigil-ring-3"></div>
-        <div class="sigil-center">
-          <div class="sigil-glyph">🏡</div>
+      <div class="sigil-outer">
+        <div class="sigil-circle sc1"></div>
+        <div class="sigil-circle sc2"></div>
+        <div class="sigil-circle sc3"></div>
+      </div>
+      <div class="sigil-inner">
+        <div class="sigil-glyph-wrap">
+          <!-- Мини версия домового -->
+          <svg class="sigil-mini-char" viewBox="0 0 80 95" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="40" cy="68" rx="22" ry="24" fill="#4a2e14"/>
+            <path d="M22 60 Q12 44 18 34 Q26 40 28 54" fill="#4a2e14"/>
+            <path d="M58 60 Q68 44 62 34 Q54 40 52 54" fill="#4a2e14"/>
+            <ellipse cx="40" cy="48" rx="20" ry="18" fill="#4a2e14"/>
+            <ellipse cx="40" cy="50" rx="13" ry="12" fill="#a07040" opacity="0.8"/>
+            <circle cx="33" cy="47" r="5" fill="url(#eyeGlow)"/>
+            <circle cx="33" cy="47" r="3" fill="#1a0a00"/>
+            <circle cx="31" cy="45" r="1.5" fill="white" opacity="0.9"/>
+            <circle cx="47" cy="47" r="5" fill="url(#eyeGlow)"/>
+            <circle cx="47" cy="47" r="3" fill="#1a0a00"/>
+            <circle cx="45" cy="45" r="1.5" fill="white" opacity="0.9"/>
+            <ellipse cx="40" cy="55" rx="4" ry="3" fill="#e09060" opacity="0.8"/>
+            <path d="M34 62 Q40 67 46 62" stroke="#3d2010" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          </svg>
         </div>
       </div>
     </div>
 
-    <div class="what-is-text reveal">
+    <div class="reveal" style="padding-left:20px;">
       <div class="section-label">Кто такой Домовой</div>
       <h2 class="section-title">Древний дух.<br>Цифровое воплощение.</h2>
-      <div class="what-is-quote">
-        «Домовой — не гаджет и не приложение.<br>
-        Это живая забота внутри вашего дома.»
+      <div class="what-is-text">
+        <div class="quote-block">«Домовой — не гаджет и не приложение.<br>Это живая забота внутри вашего дома.»</div>
       </div>
       <p class="section-body">
-        В старину верили: в каждом доме живёт Домовой. Невидимый, но преданный хранитель —
-        он следил за огнём, оберегал семью и предупреждал об опасности.
+        В славянских и скандинавских преданиях дух-хранитель жил в каждом доме.
+        У славян — <em style="color:var(--accent);font-style:normal;">Домовой</em>, у скандинавов — <em style="color:var(--accent);font-style:normal;">Ниссе</em>.
+        Мохнатый, маленький, невидимый — он следил за очагом, оберегал семью и предупреждал об опасности.
         <br><br>
-        Сегодня такой дух существует. Он сделан из искусственного интеллекта,
-        датчиков, голоса и заботы. Он знает когда ты устал, замечает когда ребёнку нужна помощь,
-        и молчит — когда всё хорошо.
+        Сегодня такой дух существует снова. Он сделан из искусственного интеллекта, датчиков и заботы.
+        Он знает когда ты устал, замечает когда нужна помощь, и молчит — когда всё хорошо.
       </p>
     </div>
   </div>
 </section>
 
 <!-- POWERS -->
-<section id="powers">
+<section id="powers" style="background:var(--dark);">
   <div class="powers-header reveal">
     <div class="section-label">Что умеет Домовой</div>
     <h2 class="section-title">Шесть граней заботы</h2>
-    <p class="section-body" style="margin: 0 auto; text-align: center;">Каждая способность — не функция системы, а проявление настоящей заботы.</p>
+    <p class="section-body" style="margin:0 auto;text-align:center;">Каждая способность — не функция системы, а проявление настоящей заботы.</p>
   </div>
   <div class="powers-grid">
     <div class="power-card reveal">
@@ -1054,13 +618,13 @@
       <div class="power-num">03</div>
       <span class="power-icon">🧠</span>
       <div class="power-title">Знает вашу жизнь</div>
-      <p class="power-desc">Учит распорядок каждого члена семьи. Замечает отклонения — встал позже обычного, не позавтракал, не вышел на прогулку. Не контролирует — заботится.</p>
+      <p class="power-desc">Учит распорядок каждого члена семьи. Замечает отклонения — встал позже, не вышел на прогулку. Не контролирует — заботится.</p>
     </div>
     <div class="power-card reveal">
       <div class="power-num">04</div>
       <span class="power-icon">🎙️</span>
       <div class="power-title">Просто скажи</div>
-      <p class="power-desc">Без кнопок, без экранов, без команд. Живой разговор — как с человеком. Домовой понимает контекст, помнит что было вчера и знает что важно сегодня.</p>
+      <p class="power-desc">Без кнопок, без экранов. Живой разговор — как с человеком. Домовой понимает контекст, помнит что было вчера и знает что важно сегодня.</p>
     </div>
     <div class="power-card reveal">
       <div class="power-num">05</div>
@@ -1072,228 +636,154 @@
       <div class="power-num">06</div>
       <span class="power-icon">🌱</span>
       <div class="power-title">Растёт вместе с вами</div>
-      <p class="power-desc">Первые дни — присматривается. Через месяц — знает вас лучше любого приложения. Через год — становится по-настоящему своим. Частью дома.</p>
+      <p class="power-desc">Первые дни — присматривается. Через месяц — знает вас лучше любого приложения. Через год — становится по-настоящему своим.</p>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="how" style="background: var(--deep);">
-  <div style="max-width:1100px; margin: 0 auto;">
-    <div class="reveal" style="text-align:center; margin-bottom: 80px;">
+<section id="how" style="background:var(--deep);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:70px;">
       <div class="section-label">Как это работает</div>
       <h2 class="section-title">Три простых шага</h2>
-      <p class="section-body" style="margin: 0 auto; text-align: center;">Никакого сложного монтажа. Никаких подписок на облачные сервисы.</p>
+      <p class="section-body" style="margin:0 auto;text-align:center;">Никакого сложного монтажа. Никаких облачных подписок.</p>
     </div>
-    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap: 2px;">
-      <div class="power-card reveal" style="text-align:center; padding: 60px 40px;">
-        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--fire1),var(--fire2));display:flex;align-items:center;justify-content:center;font-size:32px;font-family:Cinzel,serif;font-weight:900;color:#000;margin:0 auto 32px;box-shadow:0 0 40px rgba(255,107,0,0.3);">1</div>
-        <div class="power-title" style="margin-bottom:16px;">Домовой поселяется</div>
-        <p class="power-desc">Небольшое устройство подключается к вашей домашней сети. Никаких дырок в стенах, никаких специалистов. Просто розетка и Wi-Fi.</p>
+    <div class="how-steps">
+      <div class="step-card reveal">
+        <div class="step-num step-num-1">1</div>
+        <div class="step-title">Домовой поселяется</div>
+        <p class="step-desc">Небольшое устройство подключается к вашей домашней сети. Никаких дырок в стенах, никаких специалистов. Просто розетка и Wi-Fi.</p>
       </div>
-      <div class="power-card reveal" style="text-align:center; padding: 60px 40px;">
-        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--fire2),var(--fire3));display:flex;align-items:center;justify-content:center;font-size:32px;font-family:Cinzel,serif;font-weight:900;color:#000;margin:0 auto 32px;box-shadow:0 0 40px rgba(255,154,0,0.3);">2</div>
-        <div class="power-title" style="margin-bottom:16px;">Присматривается</div>
-        <p class="power-desc">Первые недели Домовой молча наблюдает. Учит привычки, распорядок, голоса. Не тревожит — просто запоминает что значит "нормально" в вашем доме.</p>
+      <div class="step-card reveal">
+        <div class="step-num step-num-2">2</div>
+        <div class="step-title">Присматривается</div>
+        <p class="step-desc">Первые недели Домовой молча наблюдает. Учит привычки, распорядок, голоса. Запоминает что значит "нормально" в вашем доме.</p>
       </div>
-      <div class="power-card reveal" style="text-align:center; padding: 60px 40px;">
-        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--fire3),var(--accent));display:flex;align-items:center;justify-content:center;font-size:32px;font-family:Cinzel,serif;font-weight:900;color:#000;margin:0 auto 32px;box-shadow:0 0 40px rgba(232,197,106,0.3);">3</div>
-        <div class="power-title" style="margin-bottom:16px;">Начинает заботиться</div>
-        <p class="power-desc">Когда что-то идёт не так — Домовой подаёт сигнал. Тихо, без паники. Только когда это действительно важно. Всё остальное время — просто рядом.</p>
+      <div class="step-card reveal">
+        <div class="step-num step-num-3">3</div>
+        <div class="step-title">Начинает заботиться</div>
+        <p class="step-desc">Когда что-то идёт не так — Домовой подаёт сигнал. Тихо, без паники. Только когда это действительно важно.</p>
       </div>
     </div>
-    <div class="reveal" style="margin-top:60px; padding:48px; background:var(--panel); border:1px solid rgba(201,168,76,0.1); border-left: 3px solid var(--fire2);">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;">
-        <div>
-          <div class="section-label" style="margin-bottom:16px;">Важный принцип</div>
-          <h3 style="font-family:Cinzel,serif;font-size:28px;color:var(--white);margin-bottom:20px;line-height:1.3;">Только события — никогда запись</h3>
-          <p style="font-family:Cormorant Garamond,serif;font-size:19px;line-height:1.8;color:rgba(240,236,228,0.7);">Домовой не ведёт видеозапись вашей жизни. Он слышит и видит — но сохраняет только сигналы: "упал", "долго молчит", "пришёл чужой". Ни одного лишнего байта о вашей частной жизни.</p>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-          <div style="padding:24px;background:rgba(255,107,0,0.06);border:1px solid rgba(255,107,0,0.1);text-align:center;">
-            <div style="font-size:32px;margin-bottom:8px;">🚫</div>
-            <div style="font-family:Cinzel,serif;font-size:12px;color:rgba(240,236,228,0.5);letter-spacing:1px;">Нет видеозаписи</div>
-          </div>
-          <div style="padding:24px;background:rgba(255,107,0,0.06);border:1px solid rgba(255,107,0,0.1);text-align:center;">
-            <div style="font-size:32px;margin-bottom:8px;">🚫</div>
-            <div style="font-family:Cinzel,serif;font-size:12px;color:rgba(240,236,228,0.5);letter-spacing:1px;">Нет облака</div>
-          </div>
-          <div style="padding:24px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.1);text-align:center;">
-            <div style="font-size:32px;margin-bottom:8px;">✅</div>
-            <div style="font-family:Cinzel,serif;font-size:12px;color:rgba(240,236,228,0.5);letter-spacing:1px;">Только сигналы</div>
-          </div>
-          <div style="padding:24px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.1);text-align:center;">
-            <div style="font-size:32px;margin-bottom:8px;">✅</div>
-            <div style="font-family:Cinzel,serif;font-size:12px;color:rgba(240,236,228,0.5);letter-spacing:1px;">Данные дома</div>
-          </div>
-        </div>
+    <div class="privacy-block reveal">
+      <div>
+        <div class="section-label" style="margin-bottom:14px;">Важный принцип</div>
+        <h3 style="font-family:'Cinzel',serif;font-size:26px;color:var(--white);margin-bottom:18px;line-height:1.3;">Только события — никогда запись</h3>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.85;color:rgba(245,239,230,0.68);">Домовой не ведёт видеозапись вашей жизни. Сохраняет только сигналы: "упал", "долго молчит", "пришёл чужой". Ни одного лишнего байта о вашей частной жизни.</p>
+      </div>
+      <div class="privacy-grid">
+        <div class="privacy-item no"><div>🚫</div><div>Нет видеозаписи</div></div>
+        <div class="privacy-item no"><div>🚫</div><div>Нет облака</div></div>
+        <div class="privacy-item yes"><div>✅</div><div>Только сигналы</div></div>
+        <div class="privacy-item yes"><div>✅</div><div>Данные дома</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- STORY -->
-<section id="story">
-  <div class="story-bg-text">ДОМОВОЙ</div>
-  <div class="story-container reveal">
+<section id="story" style="background:var(--dark);">
+  <div class="story-bg-rune">ᚠ</div>
+  <div class="story-wrap reveal">
     <div class="section-label">История создания</div>
-    <h2 class="section-title" style="margin-bottom: 52px;">Один человек.<br>Одна идея.</h2>
-
-    <div class="story-portrait">👨</div>
+    <h2 class="section-title" style="margin-bottom:48px;">Один человек.<br>Одна идея.</h2>
+    <div class="story-avatar">👨</div>
     <div class="story-name">Валерий — основатель</div>
-
-    <p class="story-text">
-      Я живу в Португалии. У меня есть ограничения по здоровью —
-      <em>я наполовину инвалид, наполовину здоровый человек.</em>
-      И я не собираюсь сдаваться.
-    </p>
-
-    <div class="story-divider"></div>
-
-    <p class="story-text">
-      Два года назад я начал превращать свой дом в умное пространство — не потому что
-      так модно, а потому что мне это <em>по-настоящему нужно.</em>
-      Датчики, камеры, автоматизации. Всё это помогает жить.
-    </p>
-
-    <div class="story-divider"></div>
-
-    <p class="story-text">
-      Потом пришла другая мысль: <em>а что если дом мог бы по-настоящему думать?</em>
-      Не просто реагировать на команды, а заботиться. Как раньше заботился Домовой —
-      тихий дух, который всегда рядом.
-    </p>
-
-    <div class="story-divider"></div>
-
-    <p class="story-text" style="color: var(--accent);">
-      Я изучал всё что существует в мире на эту тему. Нашёл очень мало.
-      Подумал — кто как не я?
-    </p>
-
-    <div style="margin-top: 48px;">
-      <a href="https://www.instagram.com/konvalery/" target="_blank" class="btn-ghost" style="display: inline-block;">Следить за проектом →</a>
-    </div>
+    <p class="story-p">Я живу в Португалии. У меня есть ограничения по здоровью — <em>я наполовину инвалид, наполовину здоровый человек.</em> И я не собираюсь сдаваться.</p>
+    <div class="story-line"></div>
+    <p class="story-p">Я начал превращать свой дом в умное пространство — не потому что так модно, а потому что мне это <em>по-настоящему нужно.</em></p>
+    <div class="story-line"></div>
+    <p class="story-p">Потом пришла другая мысль: <em>а что если дом мог бы по-настоящему думать?</em> Не просто реагировать на команды, а заботиться. Как раньше заботился Домовой.</p>
+    <div class="story-line"></div>
+    <p class="story-p" style="color:var(--accent);">Я изучал всё что существует в мире на эту тему. Нашёл очень мало. Подумал — кто как не я?</p>
+    <div style="margin-top:44px;"><a href="https://www.instagram.com/konvalery/" target="_blank" class="btn-outline">Следить за проектом →</a></div>
   </div>
 </section>
 
 <!-- PRINCIPLES -->
-<section id="principles">
-  <div style="max-width:1100px; margin: 0 auto;">
+<section id="principles" style="background:var(--deep);">
+  <div style="max-width:1060px;margin:0 auto;">
     <div class="reveal">
       <div class="section-label">Принципы</div>
-      <h2 class="section-title">Чем Домовой<br>не является</h2>
+      <h2 class="section-title">Чем Домовой не является</h2>
     </div>
-
-    <div class="principles-list">
-      <div class="principle-row reveal">
-        <div class="principle-num">I</div>
-        <div class="principle-content">
-          <div class="principle-title">Не слежка</div>
-          <p class="principle-text">Домовой заботится — не контролирует. Он не следит за каждым вашим шагом и не ведёт досье. Всё что он замечает — остаётся между вами.</p>
-        </div>
-      </div>
-      <div class="principle-row reveal">
-        <div class="principle-num">II</div>
-        <div class="principle-content">
-          <div class="principle-title">Не навязчивость</div>
-          <p class="principle-text">Он не будет беспокоить вас каждую минуту. Хороший помощник молчит — до момента когда вам действительно нужна помощь.</p>
-        </div>
-      </div>
-      <div class="principle-row reveal">
-        <div class="principle-num">III</div>
-        <div class="principle-content">
-          <div class="principle-title">Не облако чужих данных</div>
-          <p class="principle-text">Ваша жизнь — ваша. Максимум логики и данных остаётся в вашем доме. Не в дата-центре корпорации.</p>
-        </div>
-      </div>
-      <div class="principle-row reveal">
-        <div class="principle-num">IV</div>
-        <div class="principle-content">
-          <div class="principle-title">Не дорогая игрушка</div>
-          <p class="principle-text">Домовой должен жить в каждом доме — а не только в доме у богатых. Это наша главная задача.</p>
-        </div>
-      </div>
+    <div class="principles-wrap">
+      <div class="principle-row reveal"><div class="principle-num">I</div><div><div class="principle-title">Не слежка</div><p class="principle-text">Домовой заботится — не контролирует. Всё что он замечает — остаётся между вами.</p></div></div>
+      <div class="principle-row reveal"><div class="principle-num">II</div><div><div class="principle-title">Не навязчивость</div><p class="principle-text">Хороший помощник молчит — до момента когда вам действительно нужна помощь.</p></div></div>
+      <div class="principle-row reveal"><div class="principle-num">III</div><div><div class="principle-title">Не облако чужих данных</div><p class="principle-text">Ваша жизнь — ваша. Максимум логики и данных остаётся в вашем доме.</p></div></div>
+      <div class="principle-row reveal"><div class="principle-num">IV</div><div><div class="principle-title">Не дорогая игрушка</div><p class="principle-text">Домовой должен жить в каждом доме — а не только у богатых. Это наша главная задача.</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- CHRONICLE -->
-<section id="chronicle">
-  <div class="chronicle-header reveal">
+<section id="chronicle" style="background:var(--dark);">
+  <div class="chronicle-head reveal">
     <div>
       <div class="section-label">Хроника проекта</div>
-      <h2 class="section-title" style="margin-bottom: 0;">Живой дневник</h2>
+      <h2 class="section-title" style="margin-bottom:0;">Живой дневник</h2>
     </div>
-    <a href="https://www.facebook.com/61582836781257" target="_blank" class="btn-ghost">
-      Facebook →
-    </a>
+    <a href="https://www.facebook.com/61582836781257" target="_blank" class="btn-outline">Facebook →</a>
   </div>
-
-  <div class="chronicle-posts">
-    <div class="chronicle-card reveal">
-      <div class="chronicle-img">🏠</div>
-      <div class="chronicle-body">
-        <div class="chronicle-date">Март 2026</div>
-        <div class="chronicle-title">Переосмысление концепции. Домовой рождается заново.</div>
-        <p class="chronicle-text">После паузы — возвращение. С новым пониманием того что такое цифровая забота о доме и зачем она нужна людям.</p>
+  <div class="chronicle-grid">
+    <div class="chron-card reveal">
+      <div class="chron-img" style="background:linear-gradient(135deg,rgba(200,134,10,0.15),rgba(22,15,8,0.9));">🏠</div>
+      <div class="chron-body">
+        <div class="chron-date">Март 2026</div>
+        <div class="chron-title">Домовой рождается заново</div>
+        <p class="chron-text">После паузы — возвращение. Новое осмысление концепции цифровой заботы о доме.</p>
       </div>
     </div>
-    <div class="chronicle-card reveal">
-      <div class="chronicle-img">🎙️</div>
-      <div class="chronicle-body">
-        <div class="chronicle-date">Февраль 2026</div>
-        <div class="chronicle-title">Голосовой AI появляется в доме.</div>
-        <p class="chronicle-text">Первые эксперименты с локальным распознаванием речи. Дом начинает слышать и отвечать на живом языке.</p>
+    <div class="chron-card reveal">
+      <div class="chron-img" style="background:linear-gradient(135deg,rgba(42,74,46,0.2),rgba(22,15,8,0.9));">🎙️</div>
+      <div class="chron-body">
+        <div class="chron-date">Февраль 2026</div>
+        <div class="chron-title">Голосовой AI появляется в доме</div>
+        <p class="chron-text">Первые эксперименты с локальным распознаванием речи. Дом начинает слышать.</p>
       </div>
     </div>
-    <div class="chronicle-card reveal">
-      <div class="chronicle-img">🔐</div>
-      <div class="chronicle-body">
-        <div class="chronicle-date">Январь 2026</div>
-        <div class="chronicle-title">Биометрия — дом узнаёт своих.</div>
-        <p class="chronicle-text">Установлены замки с распознаванием лица. Дом теперь знает кто приходит — без ключей, без кодов, без чужих.</p>
+    <div class="chron-card reveal">
+      <div class="chron-img" style="background:linear-gradient(135deg,rgba(200,134,10,0.1),rgba(22,15,8,0.9));">🔐</div>
+      <div class="chron-body">
+        <div class="chron-date">Январь 2026</div>
+        <div class="chron-title">Биометрия — дом узнаёт своих</div>
+        <p class="chron-text">Замки с распознаванием лица. Дом теперь знает кто приходит.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- WAITLIST -->
-<section id="waitlist">
+<section id="waitlist" style="background:var(--deep);">
   <div class="waitlist-glow"></div>
   <div class="waitlist-inner reveal">
     <div class="section-label">Быть первым</div>
     <h2 class="section-title">Ваш Домовой<br>уже ждёт</h2>
-    <p class="section-body" style="margin: 24px auto; text-align: center;">
-      Оставьте email — и мы напишем когда Домовой<br>
-      будет готов поселиться в вашем доме.
-    </p>
-    <div class="waitlist-form">
-      <input type="email" class="waitlist-input" placeholder="ваш@email.com">
-      <button class="waitlist-btn" onclick="handleWaitlist()">Войти</button>
+    <p class="section-body" style="margin:22px auto;text-align:center;">Оставьте email — и мы напишем когда Домовой будет готов поселиться в вашем доме.</p>
+    <div class="wl-form">
+      <input type="email" class="wl-input" placeholder="ваш@email.com">
+      <button class="wl-btn" onclick="handleWaitlist()">Войти</button>
     </div>
-    <div class="waitlist-note">Никакого спама. Только важное. Когда будет готово.</div>
+    <div class="wl-note">Никакого спама. Только важное.</div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logo">ДОМ<span>О</span>ВОЙ</div>
-      <p class="footer-tagline">
-        В каждом доме должен<br>
-        жить свой дух заботы.
-      </p>
+    <div>
+      <div class="footer-logo"><span>🏡</span> ДОМОВОЙ</div>
+      <p class="footer-tagline">В каждом доме должен<br>жить свой дух заботы.</p>
     </div>
     <div>
       <div class="footer-col-title">Навигация</div>
       <ul class="footer-links">
         <li><a href="#what-is">Что такое Домовой</a></li>
         <li><a href="#powers">Способности</a></li>
+        <li><a href="#how">Как работает</a></li>
         <li><a href="#story">История проекта</a></li>
         <li><a href="#chronicle">Хроника</a></li>
-        <li><a href="#principles">Принципы</a></li>
       </ul>
     </div>
     <div>
@@ -1301,22 +791,42 @@
       <div class="footer-social">
         <a href="https://www.instagram.com/konvalery/" target="_blank" class="social-btn" title="Instagram">📸</a>
         <a href="https://www.facebook.com/61582836781257" target="_blank" class="social-btn" title="Facebook">📘</a>
-        <a href="https://smartcare.house" target="_blank" class="social-btn" title="Старый сайт">🌐</a>
+        <a href="https://smartcare.house" class="social-btn" title="Сайт">🌐</a>
       </div>
-      <p class="footer-tagline" style="margin-top: 24px; font-size: 14px;">
-        Живой проект. Обновляется каждую неделю.
-      </p>
+      <p class="footer-tagline" style="margin-top:22px;font-size:13px;">Живой проект. Порту, Португалия.</p>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Домовой — Цифровой дух вашего дома. Порту, Португалия.</div>
+    <div class="footer-copy">© 2026 Домовой — Цифровой дух вашего дома.</div>
     <div class="footer-domain">smartcare.house</div>
   </div>
 </footer>
 
+<!-- AUTH MODAL -->
+<div id="auth-modal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(8,6,4,0.93);backdrop-filter:blur(12px);align-items:center;justify-content:center;">
+  <div class="auth-box">
+    <button class="auth-close" onclick="document.getElementById('auth-modal').style.display='none'">✕</button>
+    <div class="auth-head">
+      <span class="auth-icon">🏡</span>
+      <div class="auth-title">Войти в Домовой</div>
+      <div class="auth-sub">Ваш дух вас узнает</div>
+    </div>
+    <button class="auth-google" onclick="signInGoogle()">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Войти через Google
+    </button>
+    <button class="auth-fb" onclick="signInFacebook()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Войти через Facebook
+    </button>
+    <div class="auth-note">Ваши данные защищены</div>
+  </div>
+</div>
+
+<!-- FIREBASE -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-  import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+  import { getAuth, signInWithRedirect, GoogleAuthProvider, FacebookAuthProvider, signOut, onAuthStateChanged, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
   const firebaseConfig = {
     apiKey: "AIzaSyAPeeDmx_gxK9Jgg4_m_GRzlkGLQsGvaWY",
     authDomain: "smartcarehouse-65349914-9b3c5.firebaseapp.com",
@@ -1327,205 +837,58 @@
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  getRedirectResult(auth).catch(console.error);
   onAuthStateChanged(auth, (user) => {
     const btn = document.getElementById('auth-btn');
     const userInfo = document.getElementById('user-info');
     if (user) {
       if (btn) { btn.textContent = 'Выйти'; btn.onclick = () => signOut(auth); }
-      if (userInfo) { userInfo.innerHTML = `<img src="${user.photoURL||''}" style="width:32px;height:32px;border-radius:50%;border:2px solid var(--fire2);vertical-align:middle;margin-right:8px;">${user.displayName||user.email}`; userInfo.style.display = 'flex'; }
+      if (userInfo) { userInfo.innerHTML = `<img src="${user.photoURL||''}" style="width:30px;height:30px;border-radius:50%;border:2px solid var(--amber2);">`; userInfo.style.display = 'flex'; }
       document.getElementById('auth-modal').style.display = 'none';
     } else {
       if (btn) { btn.textContent = 'Войти'; btn.onclick = () => document.getElementById('auth-modal').style.display = 'flex'; }
       if (userInfo) userInfo.style.display = 'none';
     }
   });
-  window.signInGoogle = () => signInWithPopup(auth, new GoogleAuthProvider()).catch(console.error);
-  window.signInFacebook = () => signInWithPopup(auth, new FacebookAuthProvider()).catch(console.error);
-  window.closeAuthModal = () => document.getElementById('auth-modal').style.display = 'none';
+  window.signInGoogle = () => signInWithRedirect(auth, new GoogleAuthProvider());
+  window.signInFacebook = () => signInWithRedirect(auth, new FacebookAuthProvider());
 </script>
 
-<div id="auth-modal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(6,8,16,0.92);backdrop-filter:blur(10px);align-items:center;justify-content:center;">
-  <div style="background:var(--panel);border:1px solid rgba(201,168,76,0.2);padding:52px;max-width:420px;width:90%;position:relative;box-shadow:0 0 80px rgba(255,107,0,0.15);">
-    <button onclick="closeAuthModal()" style="position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(240,236,228,0.4);font-size:20px;cursor:pointer;">✕</button>
-    <div style="text-align:center;margin-bottom:40px;">
-      <div style="font-size:48px;margin-bottom:16px;">🏡</div>
-      <div style="font-family:'Cinzel',serif;font-size:22px;color:var(--white);margin-bottom:8px;">Войти в Домовой</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:rgba(240,236,228,0.5);">Ваш дух вас узнает</div>
-    </div>
-    <button onclick="signInGoogle()" style="width:100%;padding:16px;background:white;color:#333;border:none;font-family:'Raleway',sans-serif;font-size:14px;font-weight:600;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px;">
-      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      Войти через Google
-    </button>
-    <button onclick="signInFacebook()" style="width:100%;padding:16px;background:#1877f2;color:white;border:none;font-family:'Raleway',sans-serif;font-size:14px;font-weight:600;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-      Войти через Facebook
-    </button>
-  </div>
-</div>
-
 <script>
-/* ── Loader ── */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hidden');
-  }, 1800);
-});
+// Loader
+window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1600));
 
-/* ── Cursor ── */
+// Cursor
 const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+(function ar(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(ar); })();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2.2)'; cursor.style.background='var(--amber3)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; cursor.style.background='var(--amber2)'; });
 });
 
-(function animateRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  cursorRing.style.left = rx + 'px';
-  cursorRing.style.top = ry + 'px';
-  requestAnimationFrame(animateRing);
-})();
-
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
-    cursor.style.background = 'var(--fire3)';
-    cursorRing.style.opacity = '0.3';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    cursor.style.background = 'var(--fire2)';
-    cursorRing.style.opacity = '1';
-  });
-});
-
-/* ── Particles ── */
-const container = document.getElementById('particles');
-for (let i = 0; i < 40; i++) {
-  const p = document.createElement('div');
-  p.className = 'particle';
-  const x = 20 + Math.random() * 60;
-  const size = 1 + Math.random() * 3;
-  const duration = 4 + Math.random() * 8;
-  const delay = Math.random() * 8;
-  const drift = (Math.random() - 0.5) * 100 + 'px';
-  p.style.cssText = `
-    left: ${x}%;
-    bottom: 0;
-    width: ${size}px;
-    height: ${size}px;
-    animation-duration: ${duration}s;
-    animation-delay: ${delay}s;
-    --drift: ${drift};
-    background: ${Math.random() > 0.5 ? 'var(--fire2)' : 'var(--fire3)'};
-  `;
-  container.appendChild(p);
-}
-
-/* ── Fire Canvas ── */
-const canvas = document.getElementById('fire-canvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight * 0.7;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-class FireParticle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = canvas.width / 2 + (Math.random() - 0.5) * canvas.width * 0.8;
-    this.y = canvas.height + 10;
-    this.vx = (Math.random() - 0.5) * 1.5;
-    this.vy = -(1.5 + Math.random() * 3);
-    this.life = 0;
-    this.maxLife = 80 + Math.random() * 120;
-    this.size = 3 + Math.random() * 20;
-  }
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.vx += (Math.random() - 0.5) * 0.3;
-    this.vy += 0.02;
-    this.life++;
-    if (this.life >= this.maxLife) this.reset();
-  }
-  draw() {
-    const t = this.life / this.maxLife;
-    const alpha = t < 0.3 ? t / 0.3 : 1 - (t - 0.3) / 0.7;
-    const r = t < 0.5 ? 255 : 255;
-    const g = Math.round(t < 0.5 ? t * 2 * 154 : 154 - (t - 0.5) * 2 * 154);
-    const b = 0;
-    ctx.globalAlpha = alpha * 0.15;
-    ctx.fillStyle = `rgb(${r},${g},${b})`;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size * (1 - t * 0.5), 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-const fireParticles = Array.from({ length: 200 }, () => new FireParticle());
-
-function animateFire() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  fireParticles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(animateFire);
-}
-animateFire();
-
-/* ── Scroll reveal ── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), 100);
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-/* ── Language switcher (placeholder) ── */
-function setLang(lang) {
-  document.querySelectorAll('.nav-lang button').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  // TODO: i18n implementation
-}
-
-/* ── Waitlist ── */
-function handleWaitlist() {
-  const input = document.querySelector('.waitlist-input');
-  const val = input.value.trim();
-  if (!val || !val.includes('@')) {
-    input.style.borderColor = 'var(--fire1)';
-    setTimeout(() => input.style.borderColor = 'rgba(201,168,76,0.2)', 1500);
-    return;
-  }
-  const btn = document.querySelector('.waitlist-btn');
-  btn.textContent = '✓ Записан';
-  btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-  input.value = '';
-  input.placeholder = 'Мы напишем вам!';
-}
-
-/* ── Nav scroll effect ── */
+// Nav scroll
 window.addEventListener('scroll', () => {
-  const nav = document.querySelector('nav');
-  if (window.scrollY > 80) {
-    nav.style.background = 'rgba(6,8,16,0.95)';
-    nav.style.backdropFilter = 'blur(20px)';
-    nav.style.borderBottom = '1px solid rgba(201,168,76,0.08)';
-  } else {
-    nav.style.background = 'linear-gradient(to bottom, rgba(6,8,16,0.9) 0%, transparent 100%)';
-    nav.style.backdropFilter = 'blur(2px)';
-    nav.style.borderBottom = 'none';
-  }
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
 });
+
+// Reveal
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),80); }), {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Lang
+function setLang(e, lang) { document.querySelectorAll('.nav-lang button').forEach(b=>b.classList.remove('active')); e.target.classList.add('active'); }
+
+// Waitlist
+function handleWaitlist() {
+  const input = document.querySelector('.wl-input');
+  if (!input.value.trim() || !input.value.includes('@')) { input.style.borderColor='var(--amber)'; setTimeout(()=>input.style.borderColor='rgba(212,168,67,0.2)',1500); return; }
+  const btn = document.querySelector('.wl-btn');
+  btn.textContent = '✓ Записан'; btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+  input.value = ''; input.placeholder = 'Мы напишем вам!';
+}
 </script>
 </body>
 </html>
