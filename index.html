@@ -357,183 +357,169 @@ footer { background:#080604; padding:56px 60px; border-top:1px solid rgba(212,16
       <div class="char-ring-2"></div>
       <div class="character-glow"></div>
 
-      <!-- SVG ДОМОВОЙ -->
+      <!-- SVG ДОМОВОЙ — круглый пушистый котёнок -->
       <svg class="domovoi-svg" viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <radialGradient id="bodyGrad" cx="50%" cy="40%" r="55%">
-            <stop offset="0%" stop-color="#6b4423"/>
-            <stop offset="60%" stop-color="#4a2e14"/>
-            <stop offset="100%" stop-color="#2d1a08"/>
+          <radialGradient id="bodyGrad" cx="50%" cy="45%" r="55%">
+            <stop offset="0%" stop-color="#c49a6c"/>
+            <stop offset="40%" stop-color="#a07848"/>
+            <stop offset="80%" stop-color="#7a5830"/>
+            <stop offset="100%" stop-color="#5a3c1a"/>
           </radialGradient>
-          <radialGradient id="faceGrad" cx="50%" cy="35%" r="50%">
-            <stop offset="0%" stop-color="#c4956a"/>
-            <stop offset="70%" stop-color="#a07040"/>
-            <stop offset="100%" stop-color="#7a5228"/>
+          <radialGradient id="bellyGrad" cx="50%" cy="45%" r="50%">
+            <stop offset="0%" stop-color="#e8d4b0"/>
+            <stop offset="60%" stop-color="#d4b888"/>
+            <stop offset="100%" stop-color="#c4a068"/>
           </radialGradient>
-          <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#f5c842"/>
-            <stop offset="50%" stop-color="#c8860a"/>
+          <radialGradient id="eyeGlow" cx="45%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#ffe066"/>
+            <stop offset="30%" stop-color="#f5c842"/>
+            <stop offset="60%" stop-color="#c8860a"/>
             <stop offset="100%" stop-color="#6b3a02"/>
           </radialGradient>
-          <radialGradient id="noseGrad" cx="50%" cy="30%" r="60%">
-            <stop offset="0%" stop-color="#e09060"/>
-            <stop offset="100%" stop-color="#8b5030"/>
+          <radialGradient id="cheekGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#e8907a"/>
+            <stop offset="100%" stop-color="#e8907a" stop-opacity="0"/>
           </radialGradient>
-          <filter id="furBlur">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+          <filter id="furSoft">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
           </filter>
           <filter id="glow">
             <feGaussianBlur stdDeviation="4" result="blur"/>
             <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
-          <filter id="eyeFilter">
+          <filter id="softGlow">
             <feGaussianBlur stdDeviation="2" result="blur"/>
             <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
 
-        <!-- СВЕЧЕНИЕ СНИЗУ -->
-        <ellipse cx="160" cy="360" rx="80" ry="18" fill="rgba(200,134,10,0.2)"/>
-        <ellipse cx="160" cy="360" rx="50" ry="10" fill="rgba(200,134,10,0.15)"/>
+        <!-- ТЕНЬ ПОД ПЕРСОНАЖЕМ -->
+        <ellipse cx="160" cy="358" rx="75" ry="16" fill="rgba(200,134,10,0.15)"/>
+        <ellipse cx="160" cy="358" rx="45" ry="8" fill="rgba(200,134,10,0.1)"/>
 
-        <!-- ТЕЛО — меховое, пушистое -->
-        <!-- Основное тело -->
-        <ellipse cx="160" cy="270" rx="85" ry="95" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+        <!-- ХВОСТИК — пушистый, закрученный -->
+        <path d="M235 280 Q275 260 280 225 Q282 200 265 195 Q250 192 252 210 Q254 228 242 248 Q235 260 238 272" fill="url(#bodyGrad)" filter="url(#furSoft)"/>
+        <path d="M268 210 Q260 200 258 212" stroke="#5a3c1a" stroke-width="1" fill="none" opacity="0.3"/>
+        <path d="M262 220 Q255 212 254 222" stroke="#5a3c1a" stroke-width="1" fill="none" opacity="0.3"/>
+        <path d="M258 232 Q250 225 250 235" stroke="#5a3c1a" stroke-width="1" fill="none" opacity="0.3"/>
 
-        <!-- Слои меха на теле -->
-        <ellipse cx="160" cy="280" rx="82" ry="88" fill="none" stroke="#3d2010" stroke-width="0.5" opacity="0.3"/>
+        <!-- ТЕЛО — большое, круглое, пушистое -->
+        <ellipse cx="160" cy="275" rx="95" ry="90" fill="url(#bodyGrad)" filter="url(#furSoft)"/>
 
-        <!-- Нижний мех — хвостатые пряди -->
-        <path d="M80 320 Q60 350 75 370 Q90 360 85 335" fill="#3d2010" opacity="0.6"/>
-        <path d="M105 335 Q90 365 108 375 Q120 362 112 338" fill="#4a2e14" opacity="0.7"/>
-        <path d="M135 340 Q125 372 145 378 Q155 365 145 342" fill="#3d2010" opacity="0.6"/>
-        <path d="M160 342 Q155 375 172 378 Q180 364 170 344" fill="#4a2e14" opacity="0.7"/>
-        <path d="M185 338 Q182 370 198 374 Q205 360 196 340" fill="#3d2010" opacity="0.6"/>
-        <path d="M210 330 Q210 360 224 366 Q230 352 222 332" fill="#4a2e14" opacity="0.7"/>
-        <path d="M232 318 Q235 348 245 352 Q248 338 240 320" fill="#3d2010" opacity="0.6"/>
+        <!-- Пушистый контур тела -->
+        <path d="M68 255 Q60 248 62 258" fill="#7a5830" opacity="0.4"/>
+        <path d="M70 270 Q58 268 64 278" fill="#7a5830" opacity="0.4"/>
+        <path d="M72 288 Q60 290 66 300" fill="#7a5830" opacity="0.4"/>
+        <path d="M80 305 Q68 310 76 318" fill="#7a5830" opacity="0.4"/>
+        <path d="M248 255 Q256 248 254 258" fill="#7a5830" opacity="0.4"/>
+        <path d="M250 270 Q262 268 256 278" fill="#7a5830" opacity="0.4"/>
+        <path d="M248 288 Q260 290 254 300" fill="#7a5830" opacity="0.4"/>
+        <path d="M240 305 Q252 310 244 318" fill="#7a5830" opacity="0.4"/>
 
-        <!-- Мех бока левый -->
-        <path d="M78 240 Q55 250 52 270 Q65 268 75 255" fill="#3d2010" opacity="0.5"/>
-        <path d="M76 260 Q50 272 52 292 Q66 288 72 272" fill="#4a2e14" opacity="0.5"/>
-        <path d="M80 280 Q55 295 58 312 Q72 308 76 292" fill="#3d2010" opacity="0.5"/>
+        <!-- ЖИВОТИК — светлое пятнышко -->
+        <ellipse cx="160" cy="290" rx="55" ry="52" fill="url(#bellyGrad)" opacity="0.6"/>
 
-        <!-- Мех бока правый -->
-        <path d="M242 240 Q265 250 268 270 Q255 268 245 255" fill="#3d2010" opacity="0.5"/>
-        <path d="M244 260 Q270 272 268 292 Q254 288 248 272" fill="#4a2e14" opacity="0.5"/>
-        <path d="M240 280 Q265 295 262 312 Q248 308 244 292" fill="#3d2010" opacity="0.5"/>
+        <!-- ЛАПКИ — маленькие, круглые, внизу -->
+        <ellipse cx="118" cy="345" rx="24" ry="16" fill="url(#bodyGrad)" filter="url(#furSoft)"/>
+        <ellipse cx="202" cy="345" rx="24" ry="16" fill="url(#bodyGrad)" filter="url(#furSoft)"/>
+        <!-- Подушечки -->
+        <ellipse cx="112" cy="348" rx="5" ry="4" fill="#d4a870" opacity="0.5"/>
+        <ellipse cx="124" cy="348" rx="5" ry="4" fill="#d4a870" opacity="0.5"/>
+        <ellipse cx="196" cy="348" rx="5" ry="4" fill="#d4a870" opacity="0.5"/>
+        <ellipse cx="208" cy="348" rx="5" ry="4" fill="#d4a870" opacity="0.5"/>
 
-        <!-- УШКИ БОЛЬШИЕ — левое -->
-        <path d="M90 160 Q55 100 70 70 Q90 85 100 120 Q110 140 108 165" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
-        <!-- Внутренность уха левого -->
-        <path d="M93 158 Q68 108 78 82 Q90 95 98 125 Q105 143 104 163" fill="#c4705a" opacity="0.6"/>
-        <!-- Мех на ухе левом -->
-        <path d="M72 75 Q60 90 65 105" stroke="#2d1a08" stroke-width="2" fill="none" opacity="0.4"/>
-        <path d="M78 72 Q68 86 72 100" stroke="#2d1a08" stroke-width="1.5" fill="none" opacity="0.4"/>
-        <path d="M84 70 Q76 83 79 97" stroke="#2d1a08" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <!-- ГОЛОВА — большая, круглая -->
+        <circle cx="160" cy="175" r="85" fill="url(#bodyGrad)" filter="url(#furSoft)"/>
 
-        <!-- УШКИ БОЛЬШИЕ — правое -->
-        <path d="M230 160 Q265 100 250 70 Q230 85 220 120 Q210 140 212 165" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
-        <!-- Внутренность уха правого -->
-        <path d="M227 158 Q252 108 242 82 Q230 95 222 125 Q215 143 216 163" fill="#c4705a" opacity="0.6"/>
-        <!-- Мех на ухе правом -->
-        <path d="M248 75 Q260 90 255 105" stroke="#2d1a08" stroke-width="2" fill="none" opacity="0.4"/>
-        <path d="M242 72 Q252 86 248 100" stroke="#2d1a08" stroke-width="1.5" fill="none" opacity="0.4"/>
-        <path d="M236 70 Q244 83 241 97" stroke="#2d1a08" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <!-- Пушистые пряди на голове -->
+        <path d="M80 135 Q72 122 78 115 Q86 120 84 132" fill="#5a3c1a" opacity="0.4"/>
+        <path d="M100 118 Q95 105 102 98 Q110 106 106 116" fill="#6b4a28" opacity="0.35"/>
+        <path d="M122 108 Q120 94 128 88 Q135 96 130 107" fill="#5a3c1a" opacity="0.35"/>
+        <path d="M145 103 Q146 88 155 84 Q160 94 154 104" fill="#6b4a28" opacity="0.35"/>
+        <path d="M168 103 Q172 88 180 86 Q182 96 176 105" fill="#5a3c1a" opacity="0.35"/>
+        <path d="M192 108 Q198 94 206 92 Q206 104 198 110" fill="#6b4a28" opacity="0.35"/>
+        <path d="M214 118 Q222 106 228 104 Q226 116 218 120" fill="#5a3c1a" opacity="0.35"/>
+        <path d="M232 135 Q240 124 244 120 Q242 134 234 138" fill="#6b4a28" opacity="0.35"/>
 
-        <!-- ГОЛОВА -->
-        <ellipse cx="160" cy="195" rx="78" ry="72" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
+        <!-- УШКИ — треугольные, пушистые -->
+        <!-- Левое ухо -->
+        <path d="M88 140 Q65 85 80 50 Q100 72 110 125" fill="url(#bodyGrad)" filter="url(#furSoft)"/>
+        <path d="M92 138 Q74 92 85 60 Q100 80 107 128" fill="#d4a080" opacity="0.5"/>
+        <!-- Кисточка -->
+        <path d="M78 54 Q72 42 76 35 Q82 40 80 50" fill="#5a3c1a" opacity="0.6"/>
 
-        <!-- Мех головы - пряди -->
-        <path d="M95 145 Q82 130 88 118 Q98 128 100 142" fill="#2d1a08" opacity="0.5"/>
-        <path d="M110 133 Q100 116 108 105 Q118 117 116 131" fill="#3d2010" opacity="0.4"/>
-        <path d="M128 126 Q122 108 132 98 Q140 112 136 126" fill="#2d1a08" opacity="0.4"/>
-        <path d="M148 122 Q145 104 156 96 Q162 110 157 124" fill="#3d2010" opacity="0.4"/>
-        <path d="M168 122 Q168 104 180 98 Q184 112 176 124" fill="#2d1a08" opacity="0.4"/>
-        <path d="M186 126 Q188 108 200 102 Q202 116 194 127" fill="#3d2010" opacity="0.4"/>
-        <path d="M202 133 Q208 116 220 114 Q220 128 210 134" fill="#2d1a08" opacity="0.4"/>
-        <path d="M218 145 Q226 130 236 132 Q232 146 222 148" fill="#3d2010" opacity="0.4"/>
+        <!-- Правое ухо -->
+        <path d="M232 140 Q255 85 240 50 Q220 72 210 125" fill="url(#bodyGrad)" filter="url(#furSoft)"/>
+        <path d="M228 138 Q246 92 235 60 Q220 80 213 128" fill="#d4a080" opacity="0.5"/>
+        <!-- Кисточка -->
+        <path d="M242 54 Q248 42 244 35 Q238 40 240 50" fill="#5a3c1a" opacity="0.6"/>
 
-        <!-- ЛИЦО — более светлое пятно -->
-        <ellipse cx="160" cy="200" rx="52" ry="46" fill="url(#faceGrad)" opacity="0.85"/>
-
-        <!-- БРОВИ — выразительные, добрые -->
-        <path d="M128 172 Q140 165 152 169" stroke="#3d2010" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <path d="M168 169 Q180 165 192 172" stroke="#3d2010" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <!-- МОРДОЧКА — светлая область -->
+        <ellipse cx="160" cy="190" rx="55" ry="48" fill="url(#bellyGrad)" opacity="0.7"/>
 
         <!-- ГЛАЗА — большие, янтарные, умные -->
-        <!-- Глаз левый -->
-        <circle cx="140" cy="190" r="16" fill="#1a1008"/>
-        <circle cx="140" cy="190" r="13" fill="url(#eyeGlow)" filter="url(#eyeFilter)"/>
-        <circle cx="140" cy="190" r="8" fill="#1a0a00"/>
-        <circle cx="140" cy="190" r="5" fill="#0a0500"/>
+        <!-- Левый глаз -->
+        <ellipse cx="132" cy="175" rx="18" ry="19" fill="#1a0e04"/>
+        <ellipse cx="132" cy="175" rx="15" ry="16" fill="url(#eyeGlow)" filter="url(#softGlow)"/>
+        <ellipse cx="132" cy="175" rx="9" ry="10" fill="#1a0a00"/>
+        <ellipse cx="132" cy="176" rx="5" ry="6" fill="#0a0500"/>
         <!-- Блики -->
-        <circle cx="135" cy="185" r="3.5" fill="rgba(255,255,255,0.9)"/>
-        <circle cx="143" cy="195" r="1.5" fill="rgba(255,255,255,0.5)"/>
-        <!-- Свечение глаза -->
-        <circle cx="140" cy="190" r="16" fill="none" stroke="rgba(245,200,66,0.3)" stroke-width="2"/>
+        <circle cx="126" cy="169" r="4.5" fill="rgba(255,255,255,0.92)"/>
+        <circle cx="136" cy="180" r="2" fill="rgba(255,255,255,0.5)"/>
+        <!-- Свечение -->
+        <ellipse cx="132" cy="175" rx="20" ry="21" fill="none" stroke="rgba(245,200,66,0.2)" stroke-width="3" filter="url(#glow)"/>
 
-        <!-- Глаз правый -->
-        <circle cx="180" cy="190" r="16" fill="#1a1008"/>
-        <circle cx="180" cy="190" r="13" fill="url(#eyeGlow)" filter="url(#eyeFilter)"/>
-        <circle cx="180" cy="190" r="8" fill="#1a0a00"/>
-        <circle cx="180" cy="190" r="5" fill="#0a0500"/>
-        <circle cx="175" cy="185" r="3.5" fill="rgba(255,255,255,0.9)"/>
-        <circle cx="183" cy="195" r="1.5" fill="rgba(255,255,255,0.5)"/>
-        <circle cx="180" cy="190" r="16" fill="none" stroke="rgba(245,200,66,0.3)" stroke-width="2"/>
+        <!-- Правый глаз -->
+        <ellipse cx="188" cy="175" rx="18" ry="19" fill="#1a0e04"/>
+        <ellipse cx="188" cy="175" rx="15" ry="16" fill="url(#eyeGlow)" filter="url(#softGlow)"/>
+        <ellipse cx="188" cy="175" rx="9" ry="10" fill="#1a0a00"/>
+        <ellipse cx="188" cy="176" rx="5" ry="6" fill="#0a0500"/>
+        <!-- Блики -->
+        <circle cx="182" cy="169" r="4.5" fill="rgba(255,255,255,0.92)"/>
+        <circle cx="192" cy="180" r="2" fill="rgba(255,255,255,0.5)"/>
+        <!-- Свечение -->
+        <ellipse cx="188" cy="175" rx="20" ry="21" fill="none" stroke="rgba(245,200,66,0.2)" stroke-width="3" filter="url(#glow)"/>
 
-        <!-- НОС — круглый, мохнатый -->
-        <ellipse cx="160" cy="212" rx="12" ry="9" fill="url(#noseGrad)"/>
-        <ellipse cx="156" cy="210" rx="3" ry="2" fill="rgba(255,255,255,0.15)"/>
+        <!-- РУМЯНЫЕ ЩЁЧКИ -->
+        <ellipse cx="108" cy="196" rx="16" ry="10" fill="url(#cheekGrad)" opacity="0.45"/>
+        <ellipse cx="212" cy="196" rx="16" ry="10" fill="url(#cheekGrad)" opacity="0.45"/>
 
-        <!-- РОТ — добрая улыбка -->
-        <path d="M143 226 Q152 236 160 237 Q168 236 177 226" stroke="#3d2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M143 226 Q140 224 142 221" stroke="#3d2010" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M177 226 Q180 224 178 221" stroke="#3d2010" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- НОСИК — маленький, тёмно-розовый -->
+        <ellipse cx="160" cy="198" rx="9" ry="7" fill="#a06050"/>
+        <ellipse cx="160" cy="197" rx="9" ry="7" fill="#c07060"/>
+        <ellipse cx="157" cy="196" rx="3" ry="2" fill="rgba(255,255,255,0.2)"/>
+
+        <!-- РОТИК — довольная улыбка -->
+        <path d="M148 207 Q154 215 160 216 Q166 215 172 207" stroke="#7a4a38" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Уголки -->
+        <path d="M148 207 Q145 205 146 202" stroke="#7a4a38" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M172 207 Q175 205 174 202" stroke="#7a4a38" stroke-width="1.8" fill="none" stroke-linecap="round"/>
 
         <!-- УСИКИ -->
-        <line x1="112" y1="213" x2="145" y2="216" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.7"/>
-        <line x1="110" y1="218" x2="143" y2="219" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.6"/>
-        <line x1="113" y1="223" x2="144" y2="222" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.5"/>
-        <line x1="208" y1="213" x2="175" y2="216" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.7"/>
-        <line x1="210" y1="218" x2="177" y2="219" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.6"/>
-        <line x1="207" y1="223" x2="176" y2="222" stroke="rgba(245,200,66,0.6)" stroke-width="1" opacity="0.5"/>
+        <line x1="100" y1="195" x2="138" y2="200" stroke="rgba(212,168,67,0.5)" stroke-width="1.2" opacity="0.6"/>
+        <line x1="98" y1="202" x2="136" y2="204" stroke="rgba(212,168,67,0.5)" stroke-width="1.2" opacity="0.5"/>
+        <line x1="102" y1="209" x2="137" y2="207" stroke="rgba(212,168,67,0.5)" stroke-width="1.2" opacity="0.4"/>
+        <line x1="220" y1="195" x2="182" y2="200" stroke="rgba(212,168,67,0.5)" stroke-width="1.2" opacity="0.6"/>
+        <line x1="222" y1="202" x2="184" y2="204" stroke="rgba(212,168,67,0.5)" stroke-width="1.2" opacity="0.5"/>
+        <line x1="218" y1="209" x2="183" y2="207" stroke="rgba(212,168,67,0.5)" stroke-width="1.2" opacity="0.4"/>
 
-        <!-- ЛАПКИ — маленькие, с коготками -->
-        <!-- Лапка левая -->
-        <ellipse cx="105" cy="305" rx="22" ry="14" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
-        <path d="M88 299 Q84 292 90 289" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M95 296 Q93 288 99 286" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M103 295 Q103 287 109 285" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M111 296 Q113 288 118 287" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- ЛАПКИ передние — обнимающие фонарик -->
+        <ellipse cx="130" cy="300" rx="18" ry="12" fill="url(#bodyGrad)" filter="url(#furSoft)" transform="rotate(-15,130,300)"/>
+        <ellipse cx="190" cy="300" rx="18" ry="12" fill="url(#bodyGrad)" filter="url(#furSoft)" transform="rotate(15,190,300)"/>
 
-        <!-- Лапка правая -->
-        <ellipse cx="215" cy="305" rx="22" ry="14" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
-        <path d="M202 296 Q200 288 206 287" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M210 295 Q210 287 216 285" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M218 296 Q220 288 225 287" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M226 299 Q230 292 234 291" stroke="#2d1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
-
-        <!-- ХВОСТИК -->
-        <path d="M240 310 Q270 295 265 275 Q258 265 248 278 Q242 288 252 298 Q256 304 248 308" fill="url(#bodyGrad)" filter="url(#furBlur)"/>
-
-        <!-- МАЛЕНЬКИЙ ФОНАРИК в лапке — символ Домового-хранителя -->
-        <ellipse cx="160" cy="315" rx="18" ry="22" fill="rgba(200,134,10,0.15)" stroke="rgba(212,168,67,0.3)" stroke-width="1"/>
-        <ellipse cx="160" cy="315" rx="10" ry="12" fill="rgba(245,200,66,0.25)"/>
-        <ellipse cx="160" cy="315" rx="5" ry="6" fill="rgba(255,220,100,0.5)">
-          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        <!-- ФОНАРИК — тёплый свет -->
+        <rect x="148" y="290" width="24" height="30" rx="4" fill="rgba(200,134,10,0.2)" stroke="rgba(212,168,67,0.4)" stroke-width="1"/>
+        <rect x="152" y="294" width="16" height="22" rx="2" fill="rgba(245,200,66,0.15)"/>
+        <ellipse cx="160" cy="305" rx="6" ry="8" fill="rgba(255,220,100,0.5)">
+          <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/>
         </ellipse>
-        <!-- Ручка фонарика -->
-        <path d="M150 308 Q142 300 145 295" stroke="rgba(212,168,67,0.5)" stroke-width="1.5" fill="none"/>
-        <path d="M170 308 Q178 300 175 295" stroke="rgba(212,168,67,0.5)" stroke-width="1.5" fill="none"/>
-        <line x1="145" y1="295" x2="175" y2="295" stroke="rgba(212,168,67,0.5)" stroke-width="1.5"/>
+        <!-- Ручка -->
+        <path d="M155 290 Q160 282 165 290" stroke="rgba(212,168,67,0.5)" stroke-width="1.5" fill="none"/>
 
-        <!-- СВЕЧЕНИЕ ГЛАЗ -->
-        <ellipse cx="140" cy="190" rx="20" ry="18" fill="none" stroke="rgba(245,200,66,0.12)" stroke-width="4" filter="url(#glow)"/>
-        <ellipse cx="180" cy="190" rx="20" ry="18" fill="none" stroke="rgba(245,200,66,0.12)" stroke-width="4" filter="url(#glow)"/>
-
-        <!-- Руна на груди -->
-        <text x="160" y="268" text-anchor="middle" font-size="18" fill="rgba(212,168,67,0.25)" font-family="serif">ᚠ</text>
+        <!-- Руна на груди — еле заметная -->
+        <text x="160" y="268" text-anchor="middle" font-size="16" fill="rgba(212,168,67,0.15)" font-family="serif">ᚠ</text>
 
       </svg>
     </div>
@@ -687,17 +673,21 @@ footer { background:#080604; padding:56px 60px; border-top:1px solid rgba(212,16
   <div class="story-bg-rune">ᚠ</div>
   <div class="story-wrap reveal">
     <div class="section-label">История создания</div>
-    <h2 class="section-title" style="margin-bottom:48px;">Один человек.<br>Одна идея.</h2>
-    <div class="story-avatar">👨</div>
+    <h2 class="section-title" style="margin-bottom:48px;">Как рождается<br>Домовой.</h2>
+    <div class="story-avatar">🏠</div>
     <div class="story-name">Валерий — основатель</div>
-    <p class="story-p">Я живу в Португалии. У меня есть ограничения по здоровью — <em>я наполовину инвалид, наполовину здоровый человек.</em> И я не собираюсь сдаваться.</p>
+    <p class="story-p">Всё началось с простой идеи — <em>сделать свой дом умным.</em> Камеры, датчики, автоматизация. Но быстро стало ясно: умный дом — это не забота. Это кнопки.</p>
     <div class="story-line"></div>
-    <p class="story-p">Я начал превращать свой дом в умное пространство — не потому что так модно, а потому что мне это <em>по-настоящему нужно.</em></p>
+    <p class="story-p">Тогда родилась другая мысль: <em>а что если дом мог бы по-настоящему заботиться?</em> Не просто реагировать на команды, а думать, замечать, предугадывать. Как старый добрый Домовой.</p>
     <div class="story-line"></div>
-    <p class="story-p">Потом пришла другая мысль: <em>а что если дом мог бы по-настоящему думать?</em> Не просто реагировать на команды, а заботиться. Как раньше заботился Домовой.</p>
+    <p class="story-p">Я начал снимать процесс на Facebook. Каждый шаг. Каждую ошибку. Нанял разработчика — <em>он взял деньги и исчез.</em> Классика.</p>
     <div class="story-line"></div>
-    <p class="story-p" style="color:var(--accent);">Я изучал всё что существует в мире на эту тему. Нашёл очень мало. Подумал — кто как не я?</p>
-    <div style="margin-top:44px;"><a href="https://www.instagram.com/konvalery/" target="_blank" class="btn-outline">Следить за проектом →</a></div>
+    <p class="story-p">Тогда я решил делать сам. Начал с Cursor, потом Bolt, потом нашёл <em>Claude</em> — и всё изменилось. Сейчас со мной работают пятеро живых помощников и искусственный интеллект.</p>
+    <div class="story-line"></div>
+    <p class="story-p">Китайские системы умного дома глючат на каждом шагу. Мы <em>переделываем всё заново</em> — с нуля, по-своему, без компромиссов.</p>
+    <div class="story-line"></div>
+    <p class="story-p" style="color:var(--accent);">Дорогу осилит идущий. А Домовой уже живёт в нашем доме.</p>
+    <div style="margin-top:44px;"><a href="https://www.facebook.com/smartcare.house" target="_blank" class="btn-outline">Следить за проектом →</a></div>
   </div>
 </section>
 
