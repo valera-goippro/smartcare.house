@@ -866,8 +866,18 @@ window.addEventListener('scroll', () => {
 });
 
 // Reveal
-const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),80); }), {threshold:0.1});
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) { setTimeout(()=>e.target.classList.add('visible'),80); obs.unobserve(e.target); } }), {threshold:0.05, rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Fallback for browsers/cases where IntersectionObserver misses elements
+function checkRevealFallback() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', checkRevealFallback, {passive:true});
+setTimeout(checkRevealFallback, 1700);
 
 // Lang
 function setLang(e, lang) { document.querySelectorAll('.nav-lang button').forEach(b=>b.classList.remove('active')); e.target.classList.add('active'); }
