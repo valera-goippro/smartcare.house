@@ -1506,7 +1506,7 @@ footer{
       Ничего лишнего. Только важное.
     </p>
     <div class="wl-form">
-      <input type="email" class="wl-input" placeholder="ваш@email.com" id="wl-email">
+      <input type="email" class="wl-input" placeholder="ваш@email.com" id="wl-email" onkeydown="if(event.key==='Enter')handleWaitlist()">
       <button class="wl-btn" onclick="handleWaitlist()">Позвать</button>
     </div>
     <div class="wl-note">Никакого спама. Только я.</div>
@@ -1577,6 +1577,7 @@ footer{
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
   import { getAuth, signInWithRedirect, GoogleAuthProvider, FacebookAuthProvider, signOut, onAuthStateChanged, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+  import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
   const cfg = {
     apiKey: "AIzaSyAPeeDmx_gxK9Jgg4_m_GRzlkGLQsGvaWY",
     authDomain: "smartcarehouse-65349914-9b3c5.firebaseapp.com",
@@ -1585,7 +1586,9 @@ footer{
     messagingSenderId: "281247114960",
     appId: "1:281247114960:web:f507e6ee1fb82a5415e0d5"
   };
-  const auth = getAuth(initializeApp(cfg));
+  const app = initializeApp(cfg);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
   getRedirectResult(auth).catch(console.error);
   onAuthStateChanged(auth, user => {
     const btn = document.getElementById('auth-btn');
@@ -1601,6 +1604,33 @@ footer{
   });
   window.signInGoogle = () => signInWithRedirect(auth, new GoogleAuthProvider());
   window.signInFacebook = () => signInWithRedirect(auth, new FacebookAuthProvider());
+
+  window.handleWaitlist = async () => {
+    const input = document.getElementById('wl-email');
+    const btn = document.querySelector('.wl-btn');
+    const note = document.querySelector('.wl-note');
+    const email = (input.value || '').trim().toLowerCase();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      input.style.borderColor = '#c0392b';
+      setTimeout(() => { input.style.borderColor = ''; }, 1500);
+      return;
+    }
+    btn.disabled = true; btn.textContent = '...';
+    try {
+      const snap = await getDocs(query(collection(db,'waitlist'), where('email','==',email)));
+      if (!snap.empty) {
+        note.textContent = 'Ты уже в списке. Я помню тебя.';
+        note.style.color = 'var(--ember2)'; btn.textContent = '✓'; return;
+      }
+      await addDoc(collection(db,'waitlist'), { email, ts: serverTimestamp() });
+      input.value = ''; btn.textContent = '✓'; btn.style.background = '#2a3a1e';
+      note.textContent = 'Я тебя запомнил. Напишу когда буду готов.';
+      note.style.color = 'var(--ember2)';
+    } catch(e) {
+      console.error(e); btn.textContent = 'Позвать'; btn.disabled = false;
+      note.textContent = 'Что-то пошло не так. Попробуй ещё.';
+    }
+  };
 </script>
 
 
