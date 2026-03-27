@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>n<meta http-equiv="pragma" content="no-cache">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ДОМОВОЙ — Я всегда жил в твоём доме</title>
@@ -74,7 +74,7 @@ body{
 /* ═══ LOADER ═══ */
 .loader{
   position:fixed;inset:0;
-  background:#fffdf8;
+  background:var(--pitch);
   z-index:2000;
   display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;
   transition:opacity 1s ease, visibility 1s ease;
@@ -83,7 +83,7 @@ body{
 .loader-eye{
   width:80px;height:80px;
   border-radius:50%;
-  background:radial-gradient(circle at 38% 38%, #adf0b8 0%, #5cc46e 30%, #2d7a3a 65%, #0a2d10 100%);
+  background:radial-gradient(circle at 38% 38%, #ffe066 0%, #f5c842 30%, #c8860a 65%, #3a1a00 100%);
   box-shadow:0 0 60px rgba(200,134,10,0.6), inset 0 0 20px rgba(0,0,0,0.4);
   animation:eye-blink 2.5s ease-in-out infinite;
 }
@@ -103,7 +103,7 @@ body{
 .loader-text{
   font-family:'Cinzel',serif;
   font-size:11px;letter-spacing:8px;
-  color:rgba(160,90,10,0.7);
+  color:rgba(200,134,10,0.5);
   animation:pulse-loader 1.5s ease infinite;
   text-transform:uppercase;
 }
@@ -130,22 +130,21 @@ nav{
   transition:all 0.5s;
 }
 nav.scrolled{
-  background:rgba(255,253,248,0.97);
+  background:rgba(6,4,2,0.95);
   backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(200,115,10,0.12);
-  box-shadow:0 2px 20px rgba(200,115,10,0.1);
+  border-bottom:1px solid rgba(212,168,67,0.08);
   padding:14px 64px;
 }
 .nav-logo{
   font-family:'Cinzel',serif;
   font-size:17px;font-weight:900;
-  letter-spacing:6px;color:var(--ember);
+  letter-spacing:6px;color:var(--gold);
   text-decoration:none;
   display:flex;align-items:center;gap:12px;
 }
 .nav-logo-eye{
   width:28px;height:28px;border-radius:50%;
-  background:radial-gradient(circle at 38% 38%, #adf0b8 0%, #5cc46e 30%, #2d7a3a 65%, #0a2d10 100%);
+  background:radial-gradient(circle at 38% 38%, #ffe066 0%, #f5c842 30%, #c8860a 65%, #3a1a00 100%);
   box-shadow:0 0 12px rgba(200,134,10,0.5);
   flex-shrink:0;
   position:relative;overflow:hidden;
@@ -159,18 +158,18 @@ nav.scrolled{
 }
 .nav-links{display:flex;gap:36px;list-style:none;}
 .nav-links a{
-  color:rgba(80,50,20,0.55);
+  color:rgba(240,230,210,0.4);
   text-decoration:none;font-size:10px;
   letter-spacing:4px;text-transform:uppercase;
   transition:color 0.3s;
   font-weight:500;
 }
-.nav-links a:hover{color:var(--ember);}
+.nav-links a:hover{color:var(--gold);}
 .nav-right{display:flex;align-items:center;gap:14px;}
 .nav-lang{display:flex;gap:4px;}
 .nav-lang button{
   background:none;
-  border:1px solid rgba(58,158,74,0.25);
+  border:1px solid rgba(212,168,67,0.2);
   color:rgba(240,230,210,0.3);
   padding:5px 10px;font-size:9px;
   letter-spacing:2px;cursor:pointer;
@@ -186,7 +185,7 @@ nav.scrolled{
 }
 #auth-btn{
   padding:9px 22px;background:transparent;
-  border:1px solid rgba(58,158,74,0.35);
+  border:1px solid rgba(212,168,67,0.3);
   color:var(--gold);font-family:'Raleway',sans-serif;
   font-size:10px;letter-spacing:3px;text-transform:uppercase;
   cursor:pointer;transition:all 0.3s;
@@ -205,13 +204,13 @@ nav.scrolled{
 .hero-bg-layer1{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 70% at 50% 110%, rgba(90,180,100,0.18) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 80% at 70% 50%, rgba(200,240,200,0.25) 0%, transparent 70%),
-    #edf7ee;
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(200,134,10,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 70% 50%, rgba(42,58,30,0.06) 0%, transparent 70%),
+    #08060402;
 }
 .hero-bg-layer2{
   position:absolute;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%233a9e4a' stroke-width='0.3' opacity='0.4'%3E%3Ccircle cx='60' cy='60' r='50'/%3E%3Ccircle cx='60' cy='60' r='30'/%3E%3Ccircle cx='60' cy='60' r='12'/%3E%3Cline x1='60' y1='10' x2='60' y2='110'/%3E%3Cline x1='10' y1='60' x2='110' y2='60'/%3E%3Cline x1='25' y1='25' x2='95' y2='95'/%3E%3Cline x1='95' y1='25' x2='25' y2='95'/%3E%3C/g%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4a843' stroke-width='0.3' opacity='0.4'%3E%3Ccircle cx='60' cy='60' r='50'/%3E%3Ccircle cx='60' cy='60' r='30'/%3E%3Ccircle cx='60' cy='60' r='12'/%3E%3Cline x1='60' y1='10' x2='60' y2='110'/%3E%3Cline x1='10' y1='60' x2='110' y2='60'/%3E%3Cline x1='25' y1='25' x2='95' y2='95'/%3E%3Cline x1='95' y1='25' x2='25' y2='95'/%3E%3C/g%3E%3C/svg%3E");
   background-size:120px 120px;
   opacity:0.022;
 }
@@ -220,10 +219,10 @@ nav.scrolled{
 .hero-fog{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 100% 40% at 50% 100%, rgba(255,180,50,0.1) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 60% at 20% 50%, rgba(255,240,220,0.4) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 60% at 80% 50%, rgba(255,240,220,0.3) 0%, transparent 70%),
-    radial-gradient(ellipse 100% 50% at 50% 0%, rgba(255,253,248,0.5) 0%, transparent 100%);
+    radial-gradient(ellipse 100% 40% at 50% 100%, rgba(200,134,10,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 20% 50%, rgba(6,4,2,0.7) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 80% 50%, rgba(6,4,2,0.5) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 50% at 50% 0%, rgba(6,4,2,0.8) 0%, transparent 100%);
   pointer-events:none;
 }
 
@@ -231,7 +230,7 @@ nav.scrolled{
 .rune{
   position:absolute;
   font-family:'Cinzel',serif;
-  color:rgba(180,110,20,0.15);
+  color:rgba(212,168,67,0.12);
   font-size:26px;
   animation:rune-rise linear infinite;
   pointer-events:none;user-select:none;
@@ -281,7 +280,7 @@ nav.scrolled{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(15px,1.8vw,20px);
   font-style:italic;
-  color:rgba(100,65,25,0.6);
+  color:rgba(240,230,210,0.45);
   letter-spacing:1px;
   margin-bottom:14px;
 }
@@ -291,7 +290,7 @@ nav.scrolled{
   font-size:clamp(36px,4.8vw,66px);
   font-weight:900;
   line-height:1.02;
-  color:#2d1a08;
+  color:var(--cream);
   margin-bottom:18px;
   letter-spacing:1px;
 }
@@ -306,16 +305,16 @@ nav.scrolled{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(20px,2.4vw,28px);
   font-style:italic;
-  color:rgba(80,45,10,0.85);
+  color:rgba(240,230,210,0.7);
   line-height:1.6;
   margin:30px 0 16px;
-  border-left:3px solid rgba(200,115,10,0.4);
+  border-left:2px solid rgba(232,160,32,0.3);
   padding-left:24px;
 }
 
 .hero-sub{
   font-size:14px;line-height:2;
-  color:rgba(80,50,20,0.55);
+  color:rgba(240,230,210,0.38);
   max-width:480px;
   margin-bottom:48px;
   letter-spacing:0.3px;
@@ -324,7 +323,7 @@ nav.scrolled{
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
 .btn-ember{
   padding:16px 44px;
-  background:linear-gradient(135deg, #f59b2b, #ffc14d);
+  background:linear-gradient(135deg, var(--ember), var(--ember2));
   color:#000;
   font-family:'Raleway',sans-serif;font-size:10px;
   font-weight:700;letter-spacing:5px;text-transform:uppercase;
@@ -366,7 +365,7 @@ nav.scrolled{
 /* Aura rings */
 .aura{
   position:absolute;border-radius:50%;
-  border:1px solid rgba(58,158,74,0.15);
+  border:1px solid rgba(212,168,67,0.1);
   animation:aura-spin linear infinite;
 }
 .aura-1{width:440px;height:440px;animation-duration:28s;}
@@ -378,7 +377,7 @@ nav.scrolled{
 .char-glow{
   position:absolute;
   width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle, rgba(90,196,110,0.22), transparent 70%);
+  background:radial-gradient(circle, rgba(200,134,10,0.18), transparent 70%);
   animation:char-pulse 3.5s ease-in-out infinite;
 }
 @keyframes char-pulse{0%,100%{transform:scale(1);opacity:0.6;}50%{transform:scale(1.2);opacity:1;}}
@@ -431,12 +430,12 @@ nav.scrolled{
   font-family:'Cinzel',serif;
   font-size:clamp(28px,4vw,52px);
   font-weight:600;line-height:1.08;
-  color:#2d1a08;margin-bottom:24px;
+  color:var(--cream);margin-bottom:24px;
 }
 .s-body{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(17px,1.8vw,21px);
-  line-height:1.9;color:rgba(70,40,15,0.75);
+  line-height:1.9;color:rgba(240,230,210,0.6);
 }
 
 /* ═══ REVEAL ANIMATION ═══ */
@@ -472,9 +471,9 @@ nav.scrolled{
 .sr3{width:360px;height:360px;animation-duration:50s;border-color:rgba(212,168,67,0.06);}
 .sigil-core{
   width:160px;height:160px;border-radius:50%;
-  background:radial-gradient(circle at 40% 38%, rgba(90,196,110,0.25), rgba(240,250,241,0.95));
+  background:radial-gradient(circle at 40% 38%, rgba(200,134,10,0.3), rgba(16,12,6,0.95));
   border:1px solid rgba(212,168,67,0.25);
-  box-shadow:0 0 60px rgba(58,158,74,0.2), inset 0 0 40px rgba(90,196,110,0.08);
+  box-shadow:0 0 80px rgba(200,134,10,0.2), inset 0 0 60px rgba(200,134,10,0.08);
   display:flex;align-items:center;justify-content:center;
 }
 
@@ -504,7 +503,7 @@ nav.scrolled{
 .who-text{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(17px,1.6vw,20px);
-  line-height:1.95;color:rgba(70,40,15,0.8);
+  line-height:1.95;color:rgba(240,230,210,0.6);
 }
 .who-text em{color:var(--gold);font-style:normal;}
 .who-text p{margin-bottom:20px;}
@@ -520,8 +519,7 @@ nav.scrolled{
   background:rgba(212,168,67,0.06);
 }
 .power-card{
-  background:#fff8f0;
-  border:1px solid rgba(200,115,10,0.1);
+  background:var(--panel);
   padding:52px 40px;
   position:relative;overflow:hidden;
   transition:all 0.45s cubic-bezier(0.16,1,0.3,1);
@@ -532,7 +530,7 @@ nav.scrolled{
   background:linear-gradient(90deg,transparent,var(--ember2),transparent);
   transform:scaleX(0);transition:transform 0.4s ease;
 }
-.power-card:hover{background:#fff3e0;transform:translateY(-5px);}
+.power-card:hover{background:#1e1408;transform:translateY(-5px);}
 .power-card:hover::before{transform:scaleX(1);}
 .p-num{
   font-family:'Cinzel',serif;font-size:48px;font-weight:900;
@@ -544,12 +542,12 @@ nav.scrolled{
 .p-icon{font-size:36px;margin-bottom:20px;display:block;}
 .p-title{
   font-family:'Cinzel',serif;font-size:16px;
-  color:#2d1a08;margin-bottom:14px;
+  color:var(--cream);margin-bottom:14px;
   letter-spacing:0.5px;
 }
 .p-desc{
   font-size:13.5px;line-height:1.9;
-  color:rgba(80,50,20,0.65);
+  color:rgba(240,230,210,0.42);
 }
 
 /* ═══ SECTION: HOW ═══ */
@@ -560,8 +558,7 @@ nav.scrolled{
   background:rgba(212,168,67,0.05);
 }
 .step{
-  background:#fff8f0;
-  border:1px solid rgba(200,115,10,0.1);
+  background:var(--panel);
   padding:60px 38px;text-align:center;
   border:1px solid rgba(212,168,67,0.05);
   transition:border-color 0.3s;
@@ -573,29 +570,29 @@ nav.scrolled{
   font-family:'Cinzel',serif;font-size:30px;font-weight:900;
   color:#000;margin:0 auto 30px;
 }
-.sn1{background:linear-gradient(135deg,#f59b2b,#ffc14d);box-shadow:0 0 40px rgba(200,134,10,0.3);}
-.sn2{background:linear-gradient(135deg,#3a9e4a,#5cc46e);box-shadow:0 0 40px rgba(58,158,74,0.35);}
-.sn3{background:linear-gradient(135deg,#5cc46e,#adf0b8);box-shadow:0 0 40px rgba(92,196,110,0.35);}
-.step-title{font-family:'Cinzel',serif;font-size:16px;color:#2d1a08;margin-bottom:14px;}
-.step-desc{font-size:13.5px;line-height:1.9;color:rgba(80,50,20,0.65);}
+.sn1{background:linear-gradient(135deg,var(--ember),var(--ember2));box-shadow:0 0 40px rgba(200,134,10,0.3);}
+.sn2{background:linear-gradient(135deg,var(--ember2),var(--ember3));box-shadow:0 0 40px rgba(232,160,32,0.3);}
+.sn3{background:linear-gradient(135deg,var(--ember3),#f0d870);box-shadow:0 0 40px rgba(245,200,66,0.3);}
+.step-title{font-family:'Cinzel',serif;font-size:16px;color:var(--cream);margin-bottom:14px;}
+.step-desc{font-size:13.5px;line-height:1.9;color:rgba(240,230,210,0.42);}
 
 /* Privacy block */
 .privacy-block{
   max-width:1100px;margin:0 auto;
   padding:48px 56px;
-  background:#fff3e0;
-  border:1px solid rgba(58,158,74,0.1);
+  background:var(--panel);
+  border:1px solid rgba(212,168,67,0.08);
   border-left:3px solid var(--ember2);
   display:grid;grid-template-columns:1fr 1fr;
   gap:64px;align-items:center;
 }
 .priv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .priv-item{
-  padding:24px;border:1px solid rgba(58,158,74,0.1);
+  padding:24px;border:1px solid rgba(212,168,67,0.08);
   text-align:center;
 }
 .priv-item.no{background:rgba(200,50,50,0.04);border-color:rgba(200,50,50,0.1);}
-.priv-item.yes{background:rgba(58,158,74,0.1);border-color:rgba(58,158,74,0.25);}
+.priv-item.yes{background:rgba(42,74,46,0.07);border-color:rgba(42,74,46,0.18);}
 .priv-item div:first-child{font-size:28px;margin-bottom:8px;}
 .priv-item div:last-child{font-family:'Cinzel',serif;font-size:10px;color:rgba(240,230,210,0.4);letter-spacing:1px;}
 
@@ -633,7 +630,7 @@ nav.scrolled{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(19px,2.3vw,26px);
   line-height:1.9;
-  color:rgba(60,35,10,0.85);
+  color:rgba(240,230,210,0.78);
   margin-bottom:32px;
 }
 .mono-p em{color:var(--gold);font-style:normal;}
@@ -644,7 +641,7 @@ nav.scrolled{
 }
 .mono-avatar{
   width:80px;height:80px;border-radius:50%;
-  background:linear-gradient(135deg,#f59b2b,#ffc14d);
+  background:linear-gradient(135deg,var(--ember),var(--ember2));
   display:flex;align-items:center;justify-content:center;
   font-size:32px;margin-bottom:32px;
   box-shadow:0 0 48px rgba(200,134,10,0.3);
@@ -665,8 +662,8 @@ nav.scrolled{
   background:linear-gradient(to bottom,var(--ember2),transparent);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.prin-title{font-family:'Cinzel',serif;font-size:20px;color:#2d1a08;margin-bottom:10px;}
-.prin-text{font-size:14px;line-height:1.9;color:rgba(80,50,20,0.65);max-width:580px;}
+.prin-title{font-family:'Cinzel',serif;font-size:20px;color:var(--cream);margin-bottom:10px;}
+.prin-text{font-size:14px;line-height:1.9;color:rgba(240,230,210,0.42);max-width:580px;}
 
 /* ═══ SECTION: CHRONICLE ═══ */
 #chronicle{background:var(--pitch);}
@@ -679,8 +676,8 @@ nav.scrolled{
   gap:20px;max-width:1180px;margin:0 auto;
 }
 .chron-card{
-  background:#fff8f0;
-  border:1px solid rgba(58,158,74,0.08);
+  background:var(--panel);
+  border:1px solid rgba(212,168,67,0.06);
   overflow:hidden;transition:all 0.35s;cursor:pointer;
 }
 .chron-card:hover{
@@ -699,8 +696,8 @@ nav.scrolled{
 }
 .chron-body{padding:26px;}
 .chron-date{font-size:9px;letter-spacing:4px;color:var(--ember2);margin-bottom:10px;}
-.chron-title{font-family:'Cinzel',serif;font-size:14px;color:#2d1a08;margin-bottom:10px;line-height:1.45;}
-.chron-text{font-size:13px;line-height:1.75;color:rgba(80,50,20,0.6);}
+.chron-title{font-family:'Cinzel',serif;font-size:14px;color:var(--cream);margin-bottom:10px;line-height:1.45;}
+.chron-text{font-size:13px;line-height:1.75;color:rgba(240,230,210,0.4);}
 
 /* ═══ SECTION: WAITLIST ═══ */
 #waitlist{
@@ -719,30 +716,30 @@ nav.scrolled{
   max-width:460px;margin-left:auto;margin-right:auto;
 }
 .wl-input{
-  flex:1;background:rgba(255,253,248,0.95);
-  border:1px solid rgba(200,115,10,0.25);
+  flex:1;background:rgba(25,18,8,0.8);
+  border:1px solid rgba(212,168,67,0.18);
   border-right:none;padding:16px 24px;
-  color:#2d1a08;font-family:'Raleway',sans-serif;
+  color:var(--cream);font-family:'Raleway',sans-serif;
   font-size:14px;outline:none;transition:border-color 0.3s;
 }
 .wl-input:focus{border-color:var(--ember2);}
-.wl-input::placeholder{color:rgba(120,80,30,0.4);}
+.wl-input::placeholder{color:rgba(240,230,210,0.25);}
 .wl-btn{
   padding:16px 30px;
-  background:linear-gradient(135deg,#f59b2b,#ffc14d);
+  background:linear-gradient(135deg,var(--ember),var(--ember2));
   color:#000;font-family:'Raleway',sans-serif;
   font-size:9px;font-weight:700;letter-spacing:4px;
   text-transform:uppercase;border:none;cursor:pointer;
   white-space:nowrap;transition:all 0.3s;
 }
 .wl-btn:hover{box-shadow:0 0 40px rgba(200,134,10,0.5);}
-.wl-note{font-size:10px;color:rgba(100,65,20,0.45);margin-top:14px;letter-spacing:1px;}
+.wl-note{font-size:10px;color:rgba(240,230,210,0.22);margin-top:14px;letter-spacing:1px;}
 
 /* ═══ FOOTER ═══ */
 footer{
-  background:#fff3e0;
+  background:#040302;
   padding:60px 64px;
-  border-top:1px solid rgba(58,158,74,0.1);
+  border-top:1px solid rgba(212,168,67,0.06);
 }
 .footer-inner{
   max-width:1180px;margin:0 auto;
@@ -770,7 +767,7 @@ footer{
 .footer-tagline{
   font-family:'Cormorant Garamond',serif;
   font-size:15px;font-style:italic;
-  color:rgba(100,65,20,0.6);line-height:1.7;
+  color:rgba(240,230,210,0.3);line-height:1.7;
 }
 .footer-col-title{
   font-family:'Cinzel',serif;font-size:9px;
@@ -780,14 +777,14 @@ footer{
 .footer-links{list-style:none;}
 .footer-links li{margin-bottom:11px;}
 .footer-links a{
-  color:rgba(100,65,20,0.6);
+  color:rgba(240,230,210,0.32);
   text-decoration:none;font-size:13px;transition:color 0.3s;
 }
-.footer-links a:hover{color:#2d1a08;}
+.footer-links a:hover{color:var(--cream);}
 .footer-social{display:flex;gap:10px;margin-top:6px;}
 .soc-btn{
   width:44px;height:44px;
-  border:1px solid rgba(58,158,74,0.2);
+  border:1px solid rgba(212,168,67,0.14);
   display:flex;align-items:center;justify-content:center;
   text-decoration:none;
   color:rgba(240,230,210,0.38);font-size:17px;
@@ -804,7 +801,7 @@ footer{
   display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:16px;
 }
-.footer-copy{font-size:10px;color:rgba(100,65,20,0.45);letter-spacing:1px;}
+.footer-copy{font-size:10px;color:rgba(240,230,210,0.18);letter-spacing:1px;}
 .footer-domain{font-family:'Cinzel',serif;font-size:10px;color:rgba(212,168,67,0.25);letter-spacing:3px;}
 
 /* ═══ AUTH MODAL ═══ */
@@ -814,7 +811,7 @@ footer{
   align-items:center;justify-content:center;
 }
 .auth-box{
-  background:#fff8f0;
+  background:var(--panel);
   border:1px solid rgba(212,168,67,0.15);
   padding:56px;max-width:400px;width:90%;
   position:relative;box-shadow:0 0 100px rgba(200,134,10,0.1);
@@ -826,7 +823,7 @@ footer{
 }
 .auth-head{text-align:center;margin-bottom:38px;}
 .auth-icon{font-size:48px;margin-bottom:14px;display:block;}
-.auth-title{font-family:'Cinzel',serif;font-size:20px;color:#2d1a08;margin-bottom:6px;}
+.auth-title{font-family:'Cinzel',serif;font-size:20px;color:var(--cream);margin-bottom:6px;}
 .auth-sub{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:rgba(240,230,210,0.4);}
 .auth-google{
   width:100%;padding:14px;background:white;color:#333;
@@ -861,6 +858,72 @@ footer{
   .section{padding:80px 28px;}
   footer{padding:48px 28px;}
 }
+
+/* ── NATURE THEME OVERRIDES ── */
+body { color: #1a3d22; }
+nav.scrolled { background: rgba(240,251,241,0.97) !important; box-shadow: 0 2px 20px rgba(45,122,58,0.1); }
+.nav-links a { color: rgba(30,70,35,0.6) !important; }
+.nav-logo { color: #2d7a3a !important; }
+.hero-title { color: #1a3d22 !important; }
+.hero-voice { color: rgba(30,80,40,0.65) !important; }
+.hero-declare { color: rgba(20,60,30,0.9) !important; border-left-color: rgba(45,122,58,0.4) !important; }
+.hero-sub { color: rgba(40,80,45,0.65) !important; }
+.hero-bg-layer1 { background: radial-gradient(ellipse 80% 70% at 50% 110%, rgba(90,180,100,0.18) 0%, transparent 65%), radial-gradient(ellipse 50% 80% at 70% 50%, rgba(200,240,200,0.25) 0%, transparent 70%), #edf7ee !important; }
+.hero-fog { background: none !important; }
+.hero-ornament { opacity: 0.03 !important; }
+.s-title { color: #1a3d22 !important; }
+.s-label, .section-label { color: #2d7a3a !important; }
+.s-body, .section-body { color: rgba(30,70,35,0.75) !important; }
+.power-card { background: #ffffff !important; border: 1px solid rgba(58,158,74,0.15) !important; }
+.power-card:hover { background: #f0f9f1 !important; }
+.p-title { color: #1a3d22 !important; }
+.p-desc { color: rgba(40,80,45,0.7) !important; }
+.p-num { color: rgba(45,122,58,0.15) !important; }
+.power-card:hover .p-num { color: rgba(45,122,58,0.3) !important; }
+.step { background: #ffffff !important; border-color: rgba(58,158,74,0.12) !important; }
+.step-title { color: #1a3d22 !important; }
+.step-desc { color: rgba(40,80,45,0.7) !important; }
+.btn-amber, .btn-ember { background: linear-gradient(135deg, #f59b2b, #ffc14d) !important; color: #fff !important; box-shadow: 0 0 30px rgba(245,155,43,0.3) !important; }
+.btn-ghost, .btn-outline { border-color: rgba(45,122,58,0.35) !important; color: #1a3d22 !important; }
+.privacy-block { background: #f0f9f1 !important; border-left-color: #3a9e4a !important; }
+.priv-item.yes { background: rgba(58,158,74,0.1) !important; border-color: rgba(58,158,74,0.25) !important; }
+.who-quote { color: #2d7a3a !important; border-left-color: #3a9e4a !important; }
+.who-text { color: rgba(30,70,35,0.82) !important; }
+.who-text em { color: #2d7a3a !important; }
+.mono-p { color: rgba(20,60,30,0.88) !important; }
+.mono-p em { color: #2d7a3a !important; }
+.prin-title { color: #1a3d22 !important; }
+.prin-text { color: rgba(40,80,45,0.7) !important; }
+.prin-num { background: linear-gradient(to bottom, #3a9e4a, transparent) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+.chron-title { color: #1a3d22 !important; }
+.chron-text { color: rgba(40,80,45,0.65) !important; }
+.chron-card { background: #ffffff !important; border-color: rgba(58,158,74,0.1) !important; }
+.wl-input { background: rgba(255,255,255,0.95) !important; border-color: rgba(45,122,58,0.25) !important; color: #1a3d22 !important; }
+.wl-input::placeholder { color: rgba(60,110,65,0.4) !important; }
+.wl-note { color: rgba(40,90,45,0.5) !important; }
+.wl-btn { background: linear-gradient(135deg, #f59b2b, #ffc14d) !important; color: #fff !important; }
+footer { background: #e8f5ea !important; border-top-color: rgba(58,158,74,0.12) !important; }
+.footer-logo { color: #2d7a3a !important; }
+.footer-col-title { color: #2d7a3a !important; }
+.footer-tagline { color: rgba(30,70,35,0.55) !important; }
+.footer-links a { color: rgba(30,70,35,0.55) !important; }
+.footer-links a:hover { color: #1a3d22 !important; }
+.footer-copy { color: rgba(30,70,35,0.4) !important; }
+.footer-domain { color: rgba(45,122,58,0.4) !important; }
+.loader { background: #edf7ee !important; }
+.loader-eye { background: radial-gradient(circle at 38% 38%, #adf0b8 0%, #5cc46e 30%, #2d7a3a 65%, #0a2d10 100%) !important; }
+.nav-lang button.active, .nav-lang button:hover { border-color: #3a9e4a !important; color: #2d7a3a !important; background: rgba(58,158,74,0.08) !important; }
+#auth-btn { border-color: rgba(45,122,58,0.35) !important; color: #2d7a3a !important; }
+.auth-box { background: #f4fbf5 !important; }
+.auth-title { color: #1a3d22 !important; }
+.sn1 { background: linear-gradient(135deg,#f59b2b,#ffc14d) !important; }
+.sn2 { background: linear-gradient(135deg,#3a9e4a,#5cc46e) !important; }
+.sn3 { background: linear-gradient(135deg,#5cc46e,#adf0b8) !important; }
+.char-glow { background: radial-gradient(circle, rgba(90,196,110,0.22), transparent 70%) !important; }
+.aura { border-color: rgba(58,158,74,0.12) !important; }
+.sigil-core { background: radial-gradient(circle at 40% 38%, rgba(90,196,110,0.2), rgba(240,251,241,0.95)) !important; box-shadow: 0 0 60px rgba(58,158,74,0.18), inset 0 0 40px rgba(90,196,110,0.07) !important; }
+.ornament-divider::before,.ornament-divider::after { background: linear-gradient(to right,transparent,rgba(58,158,74,0.28),transparent) !important; }
+
 </style>
 </head>
 <body>
@@ -983,63 +1046,45 @@ footer{
       <stop offset="15%" stop-color="#c8f5d0"/>
       <stop offset="40%" stop-color="#5cc46e"/>
       <stop offset="68%" stop-color="#2d7a3a"/>
-      <stop offset="88%" stop-color="#1a4d22"/>
       <stop offset="100%" stop-color="#0d2810"/>
     </radialGradient>
     <radialGradient id="cheekG" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ff9eb5" stop-opacity="0.6"/>
+      <stop offset="0%" stop-color="#ff9eb5" stop-opacity="0.65"/>
       <stop offset="100%" stop-color="#ff9eb5" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="earG" cx="50%" cy="55%" r="55%">
-      <stop offset="0%" stop-color="#d4f5da"/>
-      <stop offset="100%" stop-color="#3a7a48"/>
     </radialGradient>
     <filter id="fluff" x="-5%" y="-5%" width="110%" height="110%">
       <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise" seed="5"/>
       <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5"/>
     </filter>
-    <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
+    <filter id="eyeGlowG" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="soft">
-      <feGaussianBlur stdDeviation="1.5"/>
-    </filter>
+    <filter id="softBlur"><feGaussianBlur stdDeviation="1.5"/></filter>
   </defs>
-
-  <!-- SHADOW -->
-  <ellipse cx="180" cy="408" rx="78" ry="12" fill="rgba(58,122,72,0.1)"/>
-
-  <!-- TAIL -->
-  <path d="M265 298 Q308 272 314 236 Q318 208 298 203 Q280 200 282 222 Q284 242 270 266 Q262 280 266 294"
-        fill="url(#bodyG)" filter="url(#fluff)"/>
-
-  <!-- BODY -->
+  <!-- Shadow -->
+  <ellipse cx="180" cy="408" rx="78" ry="12" fill="rgba(45,122,58,0.1)"/>
+  <!-- Tail -->
+  <path d="M265 298 Q308 272 314 236 Q318 208 298 203 Q280 200 282 222 Q284 242 270 266 Q262 280 266 294" fill="url(#bodyG)" filter="url(#fluff)"/>
+  <!-- Body -->
   <ellipse cx="180" cy="296" rx="106" ry="98" fill="url(#bodyG)" filter="url(#fluff)"/>
-
-  <!-- Body fur wisps -->
   <path d="M76 272 Q62 265 68 275" fill="#3a7a48" opacity="0.4"/>
   <path d="M74 292 Q58 290 66 302" fill="#3a7a48" opacity="0.4"/>
   <path d="M78 312 Q62 316 70 326" fill="#3a7a48" opacity="0.4"/>
   <path d="M280 272 Q294 265 288 275" fill="#3a7a48" opacity="0.4"/>
   <path d="M282 292 Q298 290 290 302" fill="#3a7a48" opacity="0.4"/>
   <path d="M278 312 Q294 316 286 326" fill="#3a7a48" opacity="0.4"/>
-
-  <!-- BELLY -->
+  <!-- Belly -->
   <ellipse cx="180" cy="312" rx="62" ry="56" fill="url(#bellyG)" opacity="0.7"/>
-
-  <!-- FEET -->
+  <!-- Feet -->
   <ellipse cx="138" cy="378" rx="26" ry="17" fill="url(#bodyG)" filter="url(#fluff)"/>
   <ellipse cx="222" cy="378" rx="26" ry="17" fill="url(#bodyG)" filter="url(#fluff)"/>
   <ellipse cx="130" cy="383" rx="6" ry="4.5" fill="#b8e8c0" opacity="0.5"/>
   <ellipse cx="146" cy="383" rx="6" ry="4.5" fill="#b8e8c0" opacity="0.5"/>
   <ellipse cx="214" cy="383" rx="6" ry="4.5" fill="#b8e8c0" opacity="0.5"/>
   <ellipse cx="230" cy="383" rx="6" ry="4.5" fill="#b8e8c0" opacity="0.5"/>
-
-  <!-- HEAD -->
+  <!-- Head -->
   <circle cx="180" cy="188" r="94" fill="url(#bodyG)" filter="url(#fluff)"/>
-
-  <!-- Head fur wisps -->
   <path d="M92 145 Q82 131 90 123 Q98 130 96 142" fill="#3a7a48" opacity="0.45"/>
   <path d="M114 121 Q108 107 117 100 Q126 110 120 120" fill="#4a8a58" opacity="0.4"/>
   <path d="M140 105 Q138 89 148 83 Q154 93 148 105" fill="#3a7a48" opacity="0.4"/>
@@ -1047,119 +1092,61 @@ footer{
   <path d="M190 97 Q194 81 204 79 Q204 91 198 100" fill="#3a7a48" opacity="0.4"/>
   <path d="M216 105 Q222 89 232 87 Q230 101 222 109" fill="#4a8a58" opacity="0.4"/>
   <path d="M238 121 Q246 107 254 105 Q252 119 244 123" fill="#3a7a48" opacity="0.4"/>
-
-  <!-- EARS with leaf shape -->
-  <!-- Left ear -->
-  <path d="M98 153 Q70 88 88 46 Q112 72 122 136" fill="url(#earG)" filter="url(#fluff)"/>
+  <!-- Ears -->
+  <path d="M98 153 Q70 88 88 46 Q112 72 122 136" fill="url(#bodyG)" filter="url(#fluff)"/>
   <path d="M104 150 Q82 96 96 58 Q116 84 118 138" fill="#c8f0cc" opacity="0.5"/>
-  <!-- Ear inner leaf vein -->
-  <path d="M92 130 Q88 100 93 65" stroke="#5aaf6a" stroke-width="1.2" fill="none" opacity="0.5"/>
-  <!-- Ear tuft -->
   <path d="M85 50 Q76 34 82 24 Q90 32 88 46" fill="#2d6a38" opacity="0.7"/>
-  <path d="M90 52 Q82 38 89 30 Q96 38 92 50" fill="#5aaf6a" opacity="0.35"/>
-
-  <!-- Right ear -->
-  <path d="M262 153 Q290 88 272 46 Q248 72 238 136" fill="url(#earG)" filter="url(#fluff)"/>
+  <path d="M262 153 Q290 88 272 46 Q248 72 238 136" fill="url(#bodyG)" filter="url(#fluff)"/>
   <path d="M256 150 Q278 96 264 58 Q244 84 242 138" fill="#c8f0cc" opacity="0.5"/>
-  <path d="M268 130 Q272 100 267 65" stroke="#5aaf6a" stroke-width="1.2" fill="none" opacity="0.5"/>
   <path d="M275 50 Q284 34 278 24 Q270 32 272 46" fill="#2d6a38" opacity="0.7"/>
-  <path d="M270 52 Q278 38 271 30 Q264 38 268 50" fill="#5aaf6a" opacity="0.35"/>
-
-  <!-- FACE muzzle -->
+  <!-- Face -->
   <ellipse cx="180" cy="204" rx="62" ry="54" fill="url(#bellyG)" opacity="0.75"/>
-
-  <!-- ═══ EYES — big bright cheerful ═══ -->
   <!-- Left eye -->
-  <ellipse cx="148" cy="188" rx="22" ry="23" fill="#0d2810" filter="url(#soft)"/>
-  <ellipse cx="148" cy="188" rx="20" ry="21" fill="url(#eyeG)" filter="url(#glow2)"/>
-  <ellipse cx="148" cy="188" rx="24" ry="25" fill="none" stroke="rgba(92,196,110,0.25)" stroke-width="3" filter="url(#glow2)"/>
-  <ellipse cx="148" cy="188" rx="15" ry="16" fill="none" stroke="rgba(45,122,58,0.3)" stroke-width="1"/>
+  <ellipse cx="148" cy="188" rx="22" ry="23" fill="#0d2810" filter="url(#softBlur)"/>
+  <ellipse cx="148" cy="188" rx="20" ry="21" fill="url(#eyeG)" filter="url(#eyeGlowG)"/>
   <ellipse cx="148" cy="189" rx="9" ry="10" fill="#0d2810"/>
-  <ellipse cx="148" cy="190" rx="5.5" ry="6.5" fill="#060f08"/>
-  <!-- Sparkle highlights — cheerful -->
   <circle cx="141" cy="181" r="5.5" fill="rgba(255,255,255,0.96)"/>
   <circle cx="153" cy="194" r="2.5" fill="rgba(255,255,255,0.55)"/>
-  <circle cx="140" cy="191" r="1.5" fill="rgba(255,255,255,0.4)"/>
-  <!-- Extra sparkle star -->
   <circle cx="155" cy="182" r="1.5" fill="rgba(255,255,255,0.7)"/>
-
   <!-- Right eye -->
-  <ellipse cx="212" cy="188" rx="22" ry="23" fill="#0d2810" filter="url(#soft)"/>
-  <ellipse cx="212" cy="188" rx="20" ry="21" fill="url(#eyeG)" filter="url(#glow2)"/>
-  <ellipse cx="212" cy="188" rx="24" ry="25" fill="none" stroke="rgba(92,196,110,0.25)" stroke-width="3" filter="url(#glow2)"/>
-  <ellipse cx="212" cy="188" rx="15" ry="16" fill="none" stroke="rgba(45,122,58,0.3)" stroke-width="1"/>
+  <ellipse cx="212" cy="188" rx="22" ry="23" fill="#0d2810" filter="url(#softBlur)"/>
+  <ellipse cx="212" cy="188" rx="20" ry="21" fill="url(#eyeG)" filter="url(#eyeGlowG)"/>
   <ellipse cx="212" cy="189" rx="9" ry="10" fill="#0d2810"/>
-  <ellipse cx="212" cy="190" rx="5.5" ry="6.5" fill="#060f08"/>
   <circle cx="205" cy="181" r="5.5" fill="rgba(255,255,255,0.96)"/>
   <circle cx="217" cy="194" r="2.5" fill="rgba(255,255,255,0.55)"/>
-  <circle cx="204" cy="191" r="1.5" fill="rgba(255,255,255,0.4)"/>
   <circle cx="219" cy="182" r="1.5" fill="rgba(255,255,255,0.7)"/>
-
-  <!-- Blink animation -->
-  <ellipse cx="148" cy="188" rx="20" ry="21" fill="url(#bodyG)" opacity="0">
-    <animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;0;1;0" dur="7s" repeatCount="indefinite"/>
-    <animate attributeName="ry" values="21;21;21;21;21;21;21;21;21;21;21;2;21" dur="7s" repeatCount="indefinite"/>
-  </ellipse>
-  <ellipse cx="212" cy="188" rx="20" ry="21" fill="url(#bodyG)" opacity="0">
-    <animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;0;1;0" dur="7s" repeatCount="indefinite"/>
-    <animate attributeName="ry" values="21;21;21;21;21;21;21;21;21;21;21;2;21" dur="7s" repeatCount="indefinite"/>
-  </ellipse>
-
-  <!-- ROSY CHEEKS -->
+  <!-- Cheeks -->
   <ellipse cx="116" cy="212" rx="18" ry="11" fill="url(#cheekG)"/>
   <ellipse cx="244" cy="212" rx="18" ry="11" fill="url(#cheekG)"/>
-
-  <!-- NOSE — small button -->
+  <!-- Nose -->
   <ellipse cx="180" cy="220" rx="11" ry="8" fill="#2d6a38"/>
   <ellipse cx="180" cy="218" rx="10" ry="7" fill="#5aaf6a"/>
   <ellipse cx="176" cy="216" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.3)"/>
-
-  <!-- MOUTH — big happy smile -->
-  <path d="M160 231 Q170 244 180 246 Q190 244 200 231"
-        stroke="#2d6a38" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Smile -->
+  <path d="M160 231 Q170 245 180 247 Q190 245 200 231" stroke="#2d6a38" stroke-width="3" fill="none" stroke-linecap="round"/>
   <path d="M160 231 Q156 228 157 224" stroke="#2d6a38" stroke-width="2.2" fill="none" stroke-linecap="round"/>
   <path d="M200 231 Q204 228 203 224" stroke="#2d6a38" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-  <!-- Smile fill -->
-  <path d="M160 231 Q170 244 180 246 Q190 244 200 231 Q195 250 180 252 Q165 250 160 231Z"
-        fill="rgba(45,106,56,0.15)"/>
-
-  <!-- WHISKERS -->
-  <line x1="105" y1="212" x2="152" y2="218" stroke="rgba(58,122,72,0.4)" stroke-width="1.3"/>
-  <line x1="101" y1="221" x2="151" y2="222" stroke="rgba(58,122,72,0.35)" stroke-width="1.3"/>
-  <line x1="107" y1="230" x2="152" y2="226" stroke="rgba(58,122,72,0.25)" stroke-width="1.1"/>
-  <line x1="255" y1="212" x2="208" y2="218" stroke="rgba(58,122,72,0.4)" stroke-width="1.3"/>
-  <line x1="259" y1="221" x2="209" y2="222" stroke="rgba(58,122,72,0.35)" stroke-width="1.3"/>
-  <line x1="253" y1="230" x2="208" y2="226" stroke="rgba(58,122,72,0.25)" stroke-width="1.1"/>
-
-  <!-- ARMS holding a little flower -->
+  <!-- Whiskers -->
+  <line x1="105" y1="212" x2="152" y2="218" stroke="rgba(45,122,58,0.4)" stroke-width="1.3"/>
+  <line x1="101" y1="221" x2="151" y2="222" stroke="rgba(45,122,58,0.35)" stroke-width="1.3"/>
+  <line x1="255" y1="212" x2="208" y2="218" stroke="rgba(45,122,58,0.4)" stroke-width="1.3"/>
+  <line x1="259" y1="221" x2="209" y2="222" stroke="rgba(45,122,58,0.35)" stroke-width="1.3"/>
+  <!-- Arms + flower -->
   <ellipse cx="148" cy="326" rx="20" ry="13" fill="url(#bodyG)" filter="url(#fluff)" transform="rotate(-18,148,326)"/>
   <ellipse cx="212" cy="326" rx="20" ry="13" fill="url(#bodyG)" filter="url(#fluff)" transform="rotate(18,212,326)"/>
-
-  <!-- Flower in paws -->
   <line x1="180" y1="342" x2="180" y2="310" stroke="#3a9e4a" stroke-width="2.5"/>
-  <!-- Leaves -->
   <path d="M180 330 Q168 322 165 312 Q175 316 180 326" fill="#5cc46e" opacity="0.8"/>
   <path d="M180 330 Q192 322 195 312 Q185 316 180 326" fill="#5cc46e" opacity="0.8"/>
-  <!-- Flower petals -->
   <circle cx="180" cy="308" r="7" fill="#ffc14d"/>
   <ellipse cx="180" cy="298" rx="5" ry="7" fill="#ffb347" opacity="0.9"/>
   <ellipse cx="180" cy="318" rx="5" ry="7" fill="#ffb347" opacity="0.9"/>
   <ellipse cx="170" cy="308" rx="7" ry="5" fill="#ffb347" opacity="0.9"/>
   <ellipse cx="190" cy="308" rx="7" ry="5" fill="#ffb347" opacity="0.9"/>
-  <!-- Diagonal petals -->
-  <ellipse cx="173" cy="301" rx="5" ry="7" fill="#ffd166" opacity="0.8" transform="rotate(45,173,301)"/>
-  <ellipse cx="187" cy="301" rx="5" ry="7" fill="#ffd166" opacity="0.8" transform="rotate(-45,187,301)"/>
-  <ellipse cx="173" cy="315" rx="5" ry="7" fill="#ffd166" opacity="0.8" transform="rotate(-45,173,315)"/>
-  <ellipse cx="187" cy="315" rx="5" ry="7" fill="#ffd166" opacity="0.8" transform="rotate(45,187,315)"/>
-  <!-- Flower center -->
-  <circle cx="180" cy="308" r="6" fill="#2d7a3a"/>
-  <circle cx="180" cy="308" r="4" fill="#3a9e4a"/>
+  <circle cx="180" cy="308" r="5" fill="#2d7a3a"/>
   <circle cx="178" cy="306" r="1.5" fill="rgba(255,255,255,0.6)"/>
-
-  <!-- Sparkles around character -->
+  <!-- Sparkles -->
   <circle cx="94" cy="158" r="2.5" fill="rgba(92,196,110,0.8)">
     <animate attributeName="opacity" values="0;1;0" dur="2.8s" repeatCount="indefinite" begin="0.4s"/>
-    <animate attributeName="r" values="1.5;3;1.5" dur="2.8s" repeatCount="indefinite" begin="0.4s"/>
   </circle>
   <circle cx="266" cy="143" r="2" fill="rgba(255,193,77,0.9)">
     <animate attributeName="opacity" values="0;1;0" dur="2.3s" repeatCount="indefinite" begin="1.1s"/>
@@ -1169,12 +1156,6 @@ footer{
   </circle>
   <circle cx="284" cy="200" r="2" fill="rgba(255,193,77,0.8)">
     <animate attributeName="opacity" values="0;1;0" dur="2.6s" repeatCount="indefinite" begin="0.7s"/>
-  </circle>
-  <circle cx="110" cy="270" r="1.5" fill="rgba(92,196,110,0.6)">
-    <animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite" begin="1.8s"/>
-  </circle>
-  <circle cx="254" cy="260" r="1.5" fill="rgba(255,193,77,0.7)">
-    <animate attributeName="opacity" values="0;1;0" dur="2.9s" repeatCount="indefinite" begin="3s"/>
   </circle>
 </svg>
     </div>
@@ -1205,42 +1186,21 @@ footer{
         <div class="sigil-core">
           <!-- mini character -->
           <svg class="mini-char-svg" viewBox="0 0 90 105" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="mBodyG" cx="50%" cy="42%" r="55%">
-      <stop offset="0%" stop-color="#c8f0cc"/>
-      <stop offset="55%" stop-color="#5aaf6a"/>
-      <stop offset="100%" stop-color="#3a7a48"/>
-    </radialGradient>
-    <radialGradient id="mEyeG" cx="38%" cy="36%" r="55%">
-      <stop offset="0%" stop-color="#c8f5d0"/>
-      <stop offset="40%" stop-color="#5cc46e"/>
-      <stop offset="80%" stop-color="#2d7a3a"/>
-      <stop offset="100%" stop-color="#1a4d22"/>
-    </radialGradient>
-  </defs>
-  <circle cx="45" cy="52" r="28" fill="url(#mBodyG)"/>
-  <!-- Ears -->
-  <path d="M24 44 Q10 26 18 14 Q28 22 30 38" fill="url(#mBodyG)"/>
-  <path d="M66 44 Q80 26 72 14 Q62 22 60 38" fill="url(#mBodyG)"/>
-  <!-- Belly -->
-  <ellipse cx="45" cy="56" rx="18" ry="16" fill="rgba(200,245,208,0.8)"/>
-  <!-- Eyes -->
-  <circle cx="35" cy="49" r="6.5" fill="#0d2810"/>
-  <circle cx="35" cy="49" r="5.5" fill="url(#mEyeG)"/>
-  <circle cx="35" cy="49.5" r="3" fill="#060f08"/>
-  <circle cx="32" cy="46" r="2.2" fill="white" opacity="0.95"/>
-  <circle cx="55" cy="49" r="6.5" fill="#0d2810"/>
-  <circle cx="55" cy="49" r="5.5" fill="url(#mEyeG)"/>
-  <circle cx="55" cy="49.5" r="3" fill="#060f08"/>
-  <circle cx="52" cy="46" r="2.2" fill="white" opacity="0.95"/>
-  <!-- Nose -->
-  <ellipse cx="45" cy="58" rx="4.5" ry="3.5" fill="#5aaf6a"/>
-  <!-- Smile -->
-  <path d="M38 65 Q45 72 52 65" stroke="#2d6a38" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-  <!-- Cheeks -->
-  <ellipse cx="24" cy="58" rx="8" ry="5" fill="rgba(255,158,181,0.45)"/>
-  <ellipse cx="66" cy="58" rx="8" ry="5" fill="rgba(255,158,181,0.45)"/>
-</svg>
+            <circle cx="45" cy="52" r="28" fill="#5a3820"/>
+            <path d="M24 44 Q10 26 18 14 Q28 22 30 38" fill="#5a3820"/>
+            <path d="M66 44 Q80 26 72 14 Q62 22 60 38" fill="#5a3820"/>
+            <ellipse cx="45" cy="56" rx="18" ry="16" fill="#c8a070" opacity="0.8"/>
+            <ellipse cx="35" cy="50" rx="7" ry="7.5" fill="#1a0e04"/>
+            <ellipse cx="35" cy="50" rx="6" ry="6.5" fill="url(#eyeAmber)"/>
+            <ellipse cx="35" cy="50.5" rx="3.5" ry="4" fill="#0a0500"/>
+            <circle cx="32" cy="47" r="2" fill="white" opacity="0.9"/>
+            <ellipse cx="55" cy="50" rx="7" ry="7.5" fill="#1a0e04"/>
+            <ellipse cx="55" cy="50" rx="6" ry="6.5" fill="url(#eyeAmber)"/>
+            <ellipse cx="55" cy="50.5" rx="3.5" ry="4" fill="#0a0500"/>
+            <circle cx="52" cy="47" r="2" fill="white" opacity="0.9"/>
+            <ellipse cx="45" cy="60" rx="5" ry="3.5" fill="#c07060" opacity="0.9"/>
+            <path d="M38 68 Q45 74 52 68" stroke="#5a3020" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          </svg>
         </div>
       </div>
     </div>
@@ -1711,7 +1671,7 @@ setTimeout(()=>{
       vy: -(Math.random()*0.12+0.04),
       alpha: Math.random()*0.5+0.1,
       alphaDir: (Math.random()>0.5?1:-1)*0.003,
-      color: Math.random()>0.7 ? 'rgba(90,196,110,' : 'rgba(45,122,58,'
+      color: Math.random()>0.7 ? 'rgba(245,200,66,' : 'rgba(200,134,10,'
     });
   }
 
