@@ -1555,7 +1555,7 @@ footer { background: #e8f5ea !important; border-top-color: rgba(58,158,74,0.12) 
 <!-- FIREBASE -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-  import { getAuth, signInWithRedirect, GoogleAuthProvider, FacebookAuthProvider, signOut, onAuthStateChanged, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+  import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
   const cfg = {
     apiKey: "AIzaSyAPeeDmx_gxK9Jgg4_m_GRzlkGLQsGvaWY",
     authDomain: "smartcarehouse-65349914-9b3c5.firebaseapp.com",
@@ -1565,21 +1565,48 @@ footer { background: #e8f5ea !important; border-top-color: rgba(58,158,74,0.12) 
     appId: "1:281247114960:web:f507e6ee1fb82a5415e0d5"
   };
   const auth = getAuth(initializeApp(cfg));
-  getRedirectResult(auth).catch(console.error);
   onAuthStateChanged(auth, user => {
     const btn = document.getElementById('auth-btn');
     const ui = document.getElementById('user-info');
     if (user) {
       if(btn){btn.textContent='Выйти';btn.onclick=()=>signOut(auth);}
-      if(ui){ui.innerHTML=`<img src="${user.photoURL||''}" style="width:30px;height:30px;border-radius:50%;border:2px solid var(--ember2);">`;ui.style.display='flex';}
-      document.getElementById('auth-modal').style.display='none';
+      if(ui){
+        ui.innerHTML='<img src="'+(user.photoURL||'')+ '" style="width:30px;height:30px;border-radius:50%;border:2px solid var(--ember2);">';
+        ui.style.display='flex';
+      }
+      const modal = document.getElementById('auth-modal');
+      if(modal) modal.style.display='none';
     } else {
       if(btn){btn.textContent='Войти';btn.onclick=()=>document.getElementById('auth-modal').style.display='flex';}
       if(ui) ui.style.display='none';
     }
   });
-  window.signInGoogle = () => signInWithRedirect(auth, new GoogleAuthProvider());
-  window.signInFacebook = () => signInWithRedirect(auth, new FacebookAuthProvider());
+  window.signInGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.addScope('email');
+      provider.addScope('profile');
+      await signInWithPopup(auth, provider);
+      document.getElementById('auth-modal').style.display='none';
+    } catch(e) {
+      console.error('Google sign-in error:', e.code, e.message);
+      if(e.code !== 'auth/popup-closed-by-user') {
+        alert('Ошибка входа: ' + e.message);
+      }
+    }
+  };
+  window.signInFacebook = async () => {
+    try {
+      const provider = new FacebookAuthProvider();
+      await signInWithPopup(auth, provider);
+      document.getElementById('auth-modal').style.display='none';
+    } catch(e) {
+      console.error('Facebook sign-in error:', e.code, e.message);
+      if(e.code !== 'auth/popup-closed-by-user') {
+        alert('Ошибка входа: ' + e.message);
+      }
+    }
+  };
 </script>
 
 
