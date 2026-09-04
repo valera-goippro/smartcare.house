@@ -42,3 +42,6 @@ bash deploy.sh
 ```
 
 Файлы автоматически развернутся на Hostinger через GitHub webhook.
+
+
+<!-- Security scan triggered at 2026-09-04 13:00:40 -->
